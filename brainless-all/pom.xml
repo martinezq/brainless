@@ -5,4 +5,12 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>brainless-all</name>
   <description>Brainless library parent project</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>junit</groupId>
+  		<artifactId>junit</artifactId>
+  		<version>4.11</version>
+  		<scope>test</scope>
+  	</dependency>
+  </dependencies>
 </project>
