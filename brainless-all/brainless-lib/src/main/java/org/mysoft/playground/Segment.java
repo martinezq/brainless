@@ -6,8 +6,6 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
-import org.jbox2d.dynamics.Filter;
-import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.joints.Joint;
@@ -55,7 +53,7 @@ public class Segment {
 		fixtureDef.filter.groupIndex = -1;
 		fixtureDef.friction = 1f;
 		
-		Fixture f = body.createFixture(fixtureDef);
+		body.createFixture(fixtureDef);
 		
 		
 	}

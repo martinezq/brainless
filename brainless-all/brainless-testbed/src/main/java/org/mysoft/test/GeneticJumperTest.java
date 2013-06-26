@@ -53,6 +53,7 @@ public class GeneticJumperTest extends TestbedTest {
 	
 	private void initActor() {
 		//Jumper jumper = new Jumper(getWorld());
+		@SuppressWarnings("unused")
 		Walker1 walker = new Walker1(getWorld());
 	}
 	
