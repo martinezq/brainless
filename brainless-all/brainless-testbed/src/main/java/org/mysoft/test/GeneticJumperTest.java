@@ -8,13 +8,16 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.testbed.framework.TestbedTest;
 import org.mysoft.brainless.body.BodyFactory;
-import org.mysoft.brainless.test.Walker1;
+import org.mysoft.brainless.body.HumanBody;
+import org.mysoft.brainless.brain.Brain;
+import org.mysoft.brainless.brain.HumanBrain;
+import org.mysoft.brainless.character.HumanCharacter;
 
 public class GeneticJumperTest extends TestbedTest {
 
 	@Override
 	public void initTest(boolean argDeserialized) {
-		setTitle("Genetic Jumper Test");
+		setTitle(getTestName());
 		BodyFactory.init(getWorld());
 		
 		initWorld();
@@ -24,7 +27,7 @@ public class GeneticJumperTest extends TestbedTest {
 
 	@Override
 	public String getTestName() {
-		return "Genetic Jumper Test";
+		return "Human Test";
 	}
 	
 	
@@ -52,9 +55,12 @@ public class GeneticJumperTest extends TestbedTest {
 	}
 	
 	private void initActor() {
-		//Jumper jumper = new Jumper(getWorld());
-		@SuppressWarnings("unused")
-		Walker1 walker = new Walker1(getWorld());
+		HumanBody body = HumanBody.create(getWorld());
+		HumanBrain brain = new HumanBrain();
+		HumanCharacter character = new HumanCharacter();
+		character.init(body, brain);
+		character.activate();
+		
 	}
 	
 	

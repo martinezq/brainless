@@ -12,18 +12,17 @@ import org.jbox2d.dynamics.joints.Joint;
 import org.jbox2d.dynamics.joints.RevoluteJoint;
 import org.jbox2d.dynamics.joints.RevoluteJointDef;
 
-public class BodySegment {
+public class Bone extends WorldObject {
 	
 	Body body;
 	float length;
-	World world;
 	
 	Vec2 startPoint;
 	Vec2 endPoint;
 	
 	Joint parentJoint;
 	
-	BodySegment(World world, float x1, float y1, float x2, float y2) {
+	Bone(World world, float x1, float y1, float x2, float y2) {
 		this.world = world;
 		
 		startPoint = new Vec2(x1, y1);
@@ -58,15 +57,15 @@ public class BodySegment {
 		
 	}
 	
-	public void connectAtEnd(BodySegment connectedSegment, float lowerAngle, float upperAngle) {
-		connectAt(connectedSegment, endPoint, lowerAngle, upperAngle);
+	public BoneJoint connectAtEnd(Bone connectedSegment, float lowerAngle, float upperAngle) {
+		return connectAt(connectedSegment, endPoint, lowerAngle, upperAngle);
 	}
 	
-	public void connectAtStart(BodySegment connectedSegment, float lowerAngle, float upperAngle) {
-		connectAt(connectedSegment, startPoint, lowerAngle, upperAngle);
+	public BoneJoint connectAtStart(Bone connectedSegment, float lowerAngle, float upperAngle) {
+		return connectAt(connectedSegment, startPoint, lowerAngle, upperAngle);
 	}
 	
-	private void connectAt(BodySegment connectedSegment, Vec2 anchor, float lowerAngle, float upperAngle) {
+	private BoneJoint connectAt(Bone connectedSegment, Vec2 anchor, float lowerAngle, float upperAngle) {
 		RevoluteJointDef jdef = new RevoluteJointDef();
 
 		jdef.initialize(body, connectedSegment.body, anchor);
@@ -78,9 +77,7 @@ public class BodySegment {
 
 		parentJoint = world.createJoint(jdef);
 		
-		((RevoluteJoint)parentJoint).setMotorSpeed((float)(Math.random()*1f)-0.5f);
-		((RevoluteJoint)parentJoint).setMaxMotorTorque(10000f);
-		((RevoluteJoint)parentJoint).enableMotor(true);
+		return BoneJoint.create((RevoluteJoint) parentJoint);
 		
 	}
 	
