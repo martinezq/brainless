@@ -7,8 +7,8 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.testbed.framework.TestbedTest;
-import org.mysoft.playground.BodyFactory;
-import org.mysoft.playground.Walker1;
+import org.mysoft.brainless.body.BodyFactory;
+import org.mysoft.brainless.test.Walker1;
 
 public class GeneticJumperTest extends TestbedTest {
 

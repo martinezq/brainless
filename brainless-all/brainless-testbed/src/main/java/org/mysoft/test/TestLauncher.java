@@ -28,6 +28,7 @@ public class TestLauncher {
 		testbed.setVisible(true);
 		testbed.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		
 	}
 	
 }

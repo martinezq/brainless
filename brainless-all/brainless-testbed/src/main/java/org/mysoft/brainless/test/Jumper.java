@@ -1,4 +1,4 @@
-package org.mysoft.playground;
+package org.mysoft.brainless.test;
 
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;

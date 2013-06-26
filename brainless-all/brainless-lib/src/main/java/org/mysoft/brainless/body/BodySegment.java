@@ -1,4 +1,4 @@
-package org.mysoft.playground;
+package org.mysoft.brainless.body;
 
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.MathUtils;
@@ -12,7 +12,7 @@ import org.jbox2d.dynamics.joints.Joint;
 import org.jbox2d.dynamics.joints.RevoluteJoint;
 import org.jbox2d.dynamics.joints.RevoluteJointDef;
 
-public class Segment {
+public class BodySegment {
 	
 	Body body;
 	float length;
@@ -23,7 +23,7 @@ public class Segment {
 	
 	Joint parentJoint;
 	
-	Segment(World world, float x1, float y1, float x2, float y2) {
+	BodySegment(World world, float x1, float y1, float x2, float y2) {
 		this.world = world;
 		
 		startPoint = new Vec2(x1, y1);
@@ -58,15 +58,15 @@ public class Segment {
 		
 	}
 	
-	public void connectAtEnd(Segment connectedSegment, float lowerAngle, float upperAngle) {
+	public void connectAtEnd(BodySegment connectedSegment, float lowerAngle, float upperAngle) {
 		connectAt(connectedSegment, endPoint, lowerAngle, upperAngle);
 	}
 	
-	public void connectAtStart(Segment connectedSegment, float lowerAngle, float upperAngle) {
+	public void connectAtStart(BodySegment connectedSegment, float lowerAngle, float upperAngle) {
 		connectAt(connectedSegment, startPoint, lowerAngle, upperAngle);
 	}
 	
-	private void connectAt(Segment connectedSegment, Vec2 anchor, float lowerAngle, float upperAngle) {
+	private void connectAt(BodySegment connectedSegment, Vec2 anchor, float lowerAngle, float upperAngle) {
 		RevoluteJointDef jdef = new RevoluteJointDef();
 
 		jdef.initialize(body, connectedSegment.body, anchor);

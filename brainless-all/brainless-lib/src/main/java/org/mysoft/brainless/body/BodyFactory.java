@@ -1,4 +1,4 @@
-package org.mysoft.playground;
+package org.mysoft.brainless.body;
 
 import org.jbox2d.dynamics.World;
 
@@ -10,8 +10,8 @@ public class BodyFactory {
 		BodyFactory.world = world;
 	}
 	
-	public final static Segment createSegment(float x1, float y1, float x2, float y2) {
-		return new Segment(world, x1, y1, x2, y2);
+	public final static BodySegment createSegment(float x1, float y1, float x2, float y2) {
+		return new BodySegment(world, x1, y1, x2, y2);
 	}
 	
 }
