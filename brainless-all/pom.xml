@@ -13,4 +13,9 @@
   		<scope>test</scope>
   	</dependency>
   </dependencies>
+  <packaging>pom</packaging>
+  <modules>
+  	<module>brainless-lib</module>
+  	<module>brainless-testbed</module>
+  </modules>
 </project>
