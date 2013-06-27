@@ -1,6 +1,6 @@
-package org.mysoft.genetic.chromosome;
+package org.mysoft.brainless.genetic.chromosome;
 
-import org.mysoft.genetic.core.GeneticOperator;
+import org.mysoft.brainless.genetic.core.GeneticOperator;
 
 public class ByteArrayChromosome extends Chromosome {
 

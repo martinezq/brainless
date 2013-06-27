@@ -1,7 +1,7 @@
 package org.mysoft.neural.sample;
 
-import org.mysoft.genetic.chromosome.DoubleArrayChromosome;
-import org.mysoft.genetic.core.Evolvable;
+import org.mysoft.brainless.genetic.chromosome.DoubleArrayChromosome;
+import org.mysoft.brainless.genetic.core.Evolvable;
 
 public class SimpleFunction extends Evolvable<DoubleArrayChromosome> {
 	

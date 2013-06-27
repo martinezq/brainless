@@ -1,4 +1,4 @@
-package org.mysoft.genetic.core;
+package org.mysoft.brainless.genetic.core;
 
 
 public class GeneticEngine<T extends Generation<?>, E extends Evolvable<?>> {
@@ -12,6 +12,7 @@ public class GeneticEngine<T extends Generation<?>, E extends Evolvable<?>> {
 		this.parameters = params;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void start(T... generations) {
 		this.generations = generations; 
 		threads = new Thread[generations.length];
@@ -37,11 +38,12 @@ public class GeneticEngine<T extends Generation<?>, E extends Evolvable<?>> {
 
 	}
 	
+	@SuppressWarnings("unchecked")
 	public E getBest() {
 		E best = null;
 		double fit = Double.MAX_VALUE;
 		for(T generation: generations) {
-			Evolvable generationBest = generation.calculateBest();
+			Evolvable<?> generationBest = generation.calculateBest();
 			double newFit = generationBest.getFit();
 			if(newFit < fit) {
 				best = (E)generationBest;

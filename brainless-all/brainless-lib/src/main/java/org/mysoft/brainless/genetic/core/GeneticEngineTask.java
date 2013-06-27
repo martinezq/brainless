@@ -1,4 +1,4 @@
-package org.mysoft.genetic.core;
+package org.mysoft.brainless.genetic.core;
 
 
 public class GeneticEngineTask<T extends Generation<?>> implements Runnable {

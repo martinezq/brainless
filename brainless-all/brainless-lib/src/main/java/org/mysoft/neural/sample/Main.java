@@ -1,7 +1,7 @@
 package org.mysoft.neural.sample;
 
-import org.mysoft.genetic.core.GeneticEngine;
-import org.mysoft.genetic.core.GeneticParameters;
+import org.mysoft.brainless.genetic.core.GeneticEngine;
+import org.mysoft.brainless.genetic.core.GeneticParameters;
 
 public class Main {
 

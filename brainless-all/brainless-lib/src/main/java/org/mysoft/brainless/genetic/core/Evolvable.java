@@ -1,6 +1,6 @@
-package org.mysoft.genetic.core;
+package org.mysoft.brainless.genetic.core;
 
-import org.mysoft.genetic.chromosome.Chromosome;
+import org.mysoft.brainless.genetic.chromosome.Chromosome;
 
 public abstract class Evolvable<T extends Chromosome> {
 

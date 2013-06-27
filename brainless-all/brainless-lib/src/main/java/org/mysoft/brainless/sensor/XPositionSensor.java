@@ -3,7 +3,7 @@ package org.mysoft.brainless.sensor;
 public class XPositionSensor extends PositionSensor {
 
 	@Override
-	public float getValue() {
+	public double getValue() {
 		return getPsychicalBodyPosition().x;
 	}
 

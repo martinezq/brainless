@@ -1,9 +1,9 @@
-package org.mysoft.genetic.core;
+package org.mysoft.brainless.genetic.core;
 
 import java.util.Arrays;
 import java.util.Comparator;
 
-import org.mysoft.genetic.chromosome.Chromosome;
+import org.mysoft.brainless.genetic.chromosome.Chromosome;
 
 @SuppressWarnings("rawtypes")
 public abstract class Generation<E extends Evolvable> {

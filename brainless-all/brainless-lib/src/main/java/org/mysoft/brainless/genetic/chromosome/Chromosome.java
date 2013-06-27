@@ -1,6 +1,6 @@
-package org.mysoft.genetic.chromosome;
+package org.mysoft.brainless.genetic.chromosome;
 
-import org.mysoft.genetic.core.GeneticParameters;
+import org.mysoft.brainless.genetic.core.GeneticParameters;
 
 public abstract class Chromosome {
 
