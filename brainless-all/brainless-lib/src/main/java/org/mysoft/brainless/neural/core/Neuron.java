@@ -30,9 +30,22 @@ public class Neuron implements NeuronInput {
 		return calculatedValue;
 	}
 
+	public void addInputs(LinkedList<NeuronInput> inputs) {
+		for(NeuronInput input: inputs) {
+			addInput(input);
+		}
+	}
+
+	public void addInputs(NeuronLayer layer) {
+		for(Neuron neuron: layer) {
+			addInput(neuron);
+		}
+	}
+
+	
 	public void addInput(NeuronInput input) {
 		inputs.add(input);
-		weights.put(input,  Math.random());
+		weights.put(input,  2 * Math.random() - 1.0);
 	}
 	
 	public void removeInput(NeuronInput input) {
@@ -54,7 +67,7 @@ public class Neuron implements NeuronInput {
 		double result = 0;
 		
 		for(NeuronInput input: inputs) {
-			result = input.calculatedOutput() * 1;
+			result = input.calculatedOutput() * weights.get(input);
 		}
 		
 		return result;
