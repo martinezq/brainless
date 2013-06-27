@@ -2,6 +2,10 @@ package org.mysoft.brainless.body;
 
 import org.jbox2d.dynamics.World;
 import org.mysoft.brainless.body.util.Angles;
+import org.mysoft.brainless.sensor.AngleSensor;
+import org.mysoft.brainless.sensor.BodySensor;
+import org.mysoft.brainless.sensor.XPositionSensor;
+import org.mysoft.brainless.sensor.YPositionSensor;
 
 public class HumanBody extends ComplexBody {
 
@@ -52,10 +56,14 @@ public class HumanBody extends ComplexBody {
 	BoneJoint rightHandMiddleJoint;
 	BoneJoint rightHandLowerJoint;	
 	
+	BodySensor xPositionSensor;
+	BodySensor yPositionSensor;
+	BodySensor angleSensor;
+	
 	public final static HumanBody create(World world) {
 		HumanBody human = new HumanBody();
 		human.setWorld(world);
-		human.initBones();
+		human.init();
 		return human;
 	}
 
@@ -70,6 +78,15 @@ public class HumanBody extends ComplexBody {
 		};
 		
 		return joints;
+	}
+	
+	@Override
+	public BodySensor[] getBodySensors() {
+		BodySensor[] sensors = new BodySensor[] {
+				angleSensor, xPositionSensor, yPositionSensor 
+		};
+		
+		return sensors;
 	}
 	
 	@Override
@@ -141,6 +158,19 @@ public class HumanBody extends ComplexBody {
 		rightHandUpperJoint = rightHandUpper.connectAtStart(spineUpper, Angles.d2r(Float.NEGATIVE_INFINITY), Angles.d2r(Float.POSITIVE_INFINITY));
 		rightHandMiddleJoint = rightHandMiddle.connectAtStart(rightHandUpper, Angles.d2r(0), Angles.d2r(150));
 		rightHandLowerJoint = rightHandLower.connectAtStart(rightHandMiddle, Angles.d2r(-90), Angles.d2r(90));
+	}
+	
+	@Override
+	protected void initSensors() {
+		xPositionSensor = new XPositionSensor();
+		xPositionSensor.setBody(this);
+		
+		yPositionSensor = new YPositionSensor();
+		yPositionSensor.setBody(this);
+		
+		angleSensor = new AngleSensor();
+		angleSensor.setBody(this);
+		
 	}
 
 }

@@ -23,7 +23,7 @@ public class BoneJoint {
 	}
 	
 	public void removeForce() {
-		revoluteJoint.enableMotor(false);
+		hold(10f);
 	}
 	
 	public void hold(float force) {

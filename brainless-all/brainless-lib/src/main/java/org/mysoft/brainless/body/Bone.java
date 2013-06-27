@@ -81,4 +81,8 @@ public class Bone extends WorldObject {
 		
 	}
 	
+	public Body getPhysicalBody() {
+		return body;
+	}
+	
 }

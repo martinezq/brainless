@@ -1,21 +1,46 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.mysoft.brainless</groupId>
-  <artifactId>brainless-all</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>brainless-all</name>
-  <description>Brainless library parent project</description>
-  <dependencies>
-  	<dependency>
-  		<groupId>junit</groupId>
-  		<artifactId>junit</artifactId>
-  		<version>4.11</version>
-  		<scope>test</scope>
-  	</dependency>
-  </dependencies>
-  <packaging>pom</packaging>
-  <modules>
-  	<module>brainless-lib</module>
-  	<module>brainless-testbed</module>
-  </modules>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.mysoft.brainless</groupId>
+	<artifactId>brainless-all</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>brainless-all</name>
+	<description>Brainless library parent project</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.sourceVersion>1.7</project.build.sourceVersion>
+		<project.build.targetVersion>1.7</project.build.targetVersion>
+		<skipTests>true</skipTests>
+	</properties>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.3.2</version>
+					<configuration>
+						<source>${project.build.sourceVersion}</source>
+						<target>${project.build.targetVersion}</target>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<packaging>pom</packaging>
+	<modules>
+		<module>brainless-lib</module>
+		<module>brainless-testbed</module>
+	</modules>
 </project>

@@ -14,7 +14,7 @@ public class TestLauncher {
 		TestbedModel model = new TestbedModel();
 		
 		model.addCategory("My Super Tests");      
-		model.addTest(new GeneticJumperTest()); 
+		model.addTest(new HumanCharacterTest()); 
 
 		//model.getSettings().addSetting(new TestbedSetting("My Range Setting", SettingType.ENGINE, 10, 0, 20));
 
@@ -24,7 +24,6 @@ public class TestLauncher {
 		
 		testbed.setVisible(true);
 		testbed.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 		
 	}
 	
