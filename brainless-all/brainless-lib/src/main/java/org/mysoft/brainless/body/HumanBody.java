@@ -2,6 +2,7 @@ package org.mysoft.brainless.body;
 
 import org.jbox2d.dynamics.World;
 import org.mysoft.brainless.body.util.Angles;
+import org.mysoft.brainless.body.util.Force;
 import org.mysoft.brainless.sensor.AngleSensor;
 import org.mysoft.brainless.sensor.BodySensor;
 import org.mysoft.brainless.sensor.XPositionSensor;
@@ -100,6 +101,8 @@ public class HumanBody extends ComplexBody {
 		initLeftHand();
 		initRightHand();
 		
+		initMaxForces();
+		
 		masterBone = spineLower;
 	}
 	
@@ -108,12 +111,14 @@ public class HumanBody extends ComplexBody {
 		spineMiddle = BodyFactory.createSegment(0f, 8f, 0f, 10f);
 		spineUpper = BodyFactory.createSegment(0f, 10f, 0f, 12f);
 		neck = BodyFactory.createSegment(0f, 12f, 0f, 12.5f);
-		head = BodyFactory.createSegment(0f, 12.5f, 0f, 15f);
+		head = BodyFactory.createSegment(0f, 12.5f, 0f, 14f);
 		
 		spineMiddleJoint = spineLower.connectAtEnd(spineMiddle, Angles.d2r(-30), Angles.d2r(60));
 		spineUpperJoint = spineMiddle.connectAtEnd(spineUpper, Angles.d2r(-30), Angles.d2r(60));
-		neckJoint = spineUpper.connectAtEnd(neck,  Angles.d2r(-45), Angles.d2r(45));
+		neckJoint = spineUpper.connectAtEnd(neck,  Angles.d2r(45), Angles.d2r(45));
 		headJoint = neck.connectAtEnd(head, Angles.d2r(-45), Angles.d2r(45));
+		
+
 	}
 	
 	private void initLeftLeg() {
@@ -158,6 +163,32 @@ public class HumanBody extends ComplexBody {
 		rightHandUpperJoint = rightHandUpper.connectAtStart(spineUpper, Angles.d2r(Float.NEGATIVE_INFINITY), Angles.d2r(Float.POSITIVE_INFINITY));
 		rightHandMiddleJoint = rightHandMiddle.connectAtStart(rightHandUpper, Angles.d2r(0), Angles.d2r(150));
 		rightHandLowerJoint = rightHandLower.connectAtStart(rightHandMiddle, Angles.d2r(-90), Angles.d2r(90));
+	}
+	
+	private void initMaxForces() {
+		headJoint.setMaxForce(Force.LOW);
+		neckJoint.setMaxForce(Force.LOW);
+		
+		spineMiddleJoint.setMaxForce(Force.HIGH); 
+		spineUpperJoint.setMaxForce(Force.HIGH);
+		
+		leftLegUpperJoint.setMaxForce(Force.HIGH); 
+		leftLegLowerJoint.setMaxForce(Force.HIGH);
+		leftFeetJoint.setMaxForce(Force.HIGH);
+		leftFeet2Joint.setMaxForce(Force.AVG);
+		
+		rightLegUpperJoint.setMaxForce(Force.HIGH);
+		rightLegLowerJoint.setMaxForce(Force.HIGH);
+		rightFeetJoint.setMaxForce(Force.HIGH);
+		rightFeet2Joint.setMaxForce(Force.AVG);
+		
+		leftHandUpperJoint.setMaxForce(Force.AVG);
+		leftHandMiddleJoint.setMaxForce(Force.AVG);
+		leftHandLowerJoint.setMaxForce(Force.LOW);
+		
+		rightHandUpperJoint.setMaxForce(Force.AVG);
+		rightHandMiddleJoint.setMaxForce(Force.AVG);
+		rightHandLowerJoint.setMaxForce(Force.LOW);
 	}
 	
 	@Override
