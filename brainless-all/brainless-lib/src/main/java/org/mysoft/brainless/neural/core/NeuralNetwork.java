@@ -11,6 +11,7 @@ public class NeuralNetwork {
 	protected LinkedList<NeuronLayer> hiddenLayers = new LinkedList<>();
 	
 	public void step() {
+		reset();
 		for(Entry<Neuron,NetworkOutput> entry: outputLayer.entrySet()) {
 			Neuron neuron = entry.getKey();
 			NetworkOutput output = entry.getValue();
@@ -45,6 +46,18 @@ public class NeuralNetwork {
 		Neuron nextNotConnectedNeuron = hiddenLayers.getLast().get(outputCount);
 		
 		outputLayer.put(nextNotConnectedNeuron, output);
+	}
+	
+	protected void reset() {
+		for(NeuronLayer layer: hiddenLayers) {
+			for(Neuron neuron: layer) {
+				neuron.reset();
+			}
+		}
+		
+		for(Neuron neuron: outputLayer.keySet()) {
+			neuron.reset();
+		}
 	}
 	
 }
