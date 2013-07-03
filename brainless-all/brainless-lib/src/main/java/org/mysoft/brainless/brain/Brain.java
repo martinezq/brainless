@@ -12,5 +12,5 @@ public abstract class Brain {
 		this.body = complexBody;
 	}
 	
-	public abstract void update();
+	public abstract void step();
 }

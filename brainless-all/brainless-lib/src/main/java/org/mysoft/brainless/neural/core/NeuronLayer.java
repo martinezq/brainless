@@ -91,8 +91,12 @@ public class NeuronLayer extends LinkedList<Neuron> {
 		for(Neuron neuron: this) {
 			neuron.randomizeWeights();
 		}
-		
 	}
 
+	public void randomizeWeightsUpTo(int count) {
+		for(Neuron neuron: this) {
+			neuron.randomizeWeightsUpTo(count);
+		}
+	}
 	
 }

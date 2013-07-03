@@ -56,6 +56,7 @@ public class Neuron implements NeuronInput {
 	
 	public void addInput(NeuronInput input) {
 		inputs.add(input);
+		inputWeights.add(InputWeight.create(0));
 	}
 	
 	
@@ -92,10 +93,6 @@ public class Neuron implements NeuronInput {
 			return;
 		}
 		
-		if(count != this.inputs.size()) {
-			throw new IllegalArgumentException("Expects " + this.inputs.size() + " weights");
-		}
-		
 		this.inputWeights.clear();
 		
 		for(int ii=0; ii<count; ii++) {
@@ -127,7 +124,10 @@ public class Neuron implements NeuronInput {
 
 	public void randomizeWeights() {
 		int count = inputs.size();
-		
+		randomizeWeightsUpTo(count);
+	}
+	
+	public void randomizeWeightsUpTo(int count) {
 		inputWeights.clear();
 		
 		for(int ii=0; ii<count; ii++) {

@@ -25,4 +25,8 @@ public abstract class Character {
 	public Brain getBrain() {
 		return brain;
 	}
+	
+	public void step() {
+		brain.step();
+	}
 }

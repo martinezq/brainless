@@ -5,7 +5,6 @@ import org.mysoft.brainless.body.ComplexBody;
 import org.mysoft.brainless.brain.Brain;
 import org.mysoft.brainless.neural.core.InputLayer;
 import org.mysoft.brainless.neural.core.NeuralNetwork;
-import org.mysoft.brainless.neural.core.NeuronLayer;
 import org.mysoft.brainless.neural.core.OutputLayer;
 import org.mysoft.brainless.sensor.BodySensor;
 
@@ -58,7 +57,7 @@ public class HumanBrain extends Brain {
 	}
 
 	@Override
-	public void update() {
+	public void step() {
 		network.step();
 	}
 

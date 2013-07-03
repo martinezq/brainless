@@ -24,8 +24,10 @@ public class DefaultSimulation extends Simulation<NeuralNetwork> {
 	
 	@Override
 	public void simulate() {
+		character.activate();
+		
 		for(int i=0; i<1000; i++) {
-			character.getBrain().update();
+			character.getBrain().step();
 			world.step(DEFAULT_STEP, 3, 8);
 		}
 	}
@@ -73,17 +75,9 @@ public class DefaultSimulation extends Simulation<NeuralNetwork> {
 	public HumanCharacter initActor(World world, NeuralNetwork neuralNetwork) {
 		HumanBody body = HumanBody.create(world);
 		HumanBrain brain = HumanBrain.create(neuralNetwork);
-		
-		HumanCharacter character = new HumanCharacter();
-		
-		character.init(body, brain);
-		
-		neuralNetwork.getOutputLayer().clear();
-		
-		character.activate();
+		HumanCharacter character = HumanCharacter.create(body, brain);
 		
 		return character;
-		
 	}
 	
 	public HumanCharacter getCharacter() {

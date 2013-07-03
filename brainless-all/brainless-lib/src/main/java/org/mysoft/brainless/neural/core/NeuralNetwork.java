@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class NeuralNetwork {
 
-	public final static int DEFAULT_HIDDEN_LAYERS = 1;
+	public final static int DEFAULT_HIDDEN_LAYERS = 2;
 	public final static int DEFAULT_NEURONS_IN_HIDDEN_LAYER = 18;
 	
 	protected InputLayer inputLayer = InputLayer.create();
@@ -72,7 +72,7 @@ public class NeuralNetwork {
 	
 	public void randomizeWeights() {
 		for(NeuronLayer layer: hiddenLayers) {
-			layer.randomizeWeights();
+			layer.randomizeWeightsUpTo(DEFAULT_NEURONS_IN_HIDDEN_LAYER);
 		}
 	}
 	
@@ -97,19 +97,19 @@ public class NeuralNetwork {
 		}
 	}
 	
-	public void attachOutputLayer(OutputLayer outputLayer) {
+	public void attachOutputLayer(OutputLayer newOutputLayer) {
 		detachOutputLayer();
 		
 		assertHasHiddenLayers();
 		
 		int neurons = hiddenLayers.getLast().size();
-		int outputs = outputLayer.size();
+		int outputs = newOutputLayer.size();
 		
 		if(neurons != outputs) {
 			throw new IllegalArgumentException("Expected " + neurons + " outputs in layer, got " + outputs);
 		}
 		
-		for(NetworkOutput output: outputLayer) {
+		for(NetworkOutput output: newOutputLayer) {
 			addOutput(output);
 		}
 	}

@@ -2,6 +2,7 @@ package org.mysoft.test;
 
 import org.jbox2d.testbed.framework.TestbedSettings;
 import org.jbox2d.testbed.framework.TestbedTest;
+import org.mysoft.brainless.genetics.chromosome.NeuralNetworkChromosome;
 import org.mysoft.brainless.genetics.core.GeneticEngine;
 import org.mysoft.brainless.genetics.core.GeneticParameters;
 import org.mysoft.brainless.human.HumanCharacter;
@@ -35,15 +36,19 @@ public class HumanCharacterTest extends TestbedTest {
 		GeneticEngine<EvolvableNeuralNetworkGeneration, EvolvableNeuralNetwork> engine = 
 				new GeneticEngine<>(new GeneticParameters());
 		
-		engine.start(new EvolvableNeuralNetworkGeneration(), new EvolvableNeuralNetworkGeneration());
+		engine.start(EvolvableNeuralNetworkGeneration.createArrayOf(2));
 		
-		return engine.getBest().getChromosome().getNeuralNetwork();
+		EvolvableNeuralNetwork best = engine.getBest();
+		
+		System.out.println("Best fit = " + best.getFit());
+		
+		return best.getChromosome().getNeuralNetwork();
 	}
 	
 	@Override
 	public synchronized void step(TestbedSettings settings) {
 		super.step(settings);
-		character.getBrain().update();
+		character.getBrain().step();
 		
 		double pos = character.getBody().getMasterBone().getPhysicalBody().getPosition().y;
 		//System.err.println(pos);
