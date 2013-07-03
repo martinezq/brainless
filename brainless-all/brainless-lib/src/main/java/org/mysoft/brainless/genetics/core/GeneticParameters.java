@@ -1,4 +1,4 @@
-package org.mysoft.brainless.genetic.core;
+package org.mysoft.brainless.genetics.core;
 
 public class GeneticParameters {
 
@@ -6,12 +6,13 @@ public class GeneticParameters {
 		return 0.05;
 	}
 	
+	// min 4
 	public int getGenerationSize() {
-		return 16;
+		return 4;
 	}
 	
 	public int getMaxGenerations() {
-		return 10000;
+		return 1;
 	}
 	
 }

@@ -1,7 +1,7 @@
 package org.mysoft.neural.sample;
 
-import org.mysoft.brainless.genetic.core.Generation;
-import org.mysoft.brainless.genetic.core.GeneticParameters;
+import org.mysoft.brainless.genetics.core.Generation;
+import org.mysoft.brainless.genetics.core.GeneticParameters;
 
 public class EvolvableTextGeneration extends Generation<EvolvableText> {
 

@@ -1,10 +1,10 @@
-package org.mysoft.brainless.genetic.chromosome;
+package org.mysoft.brainless.genetics.chromosome;
 
-import org.mysoft.brainless.genetic.core.GeneticParameters;
+import org.mysoft.brainless.genetics.core.GeneticParameters;
 
 public abstract class Chromosome {
 
-	GeneticParameters parameters;
+	protected GeneticParameters parameters;
 	
 	/**
 	 * Mutation

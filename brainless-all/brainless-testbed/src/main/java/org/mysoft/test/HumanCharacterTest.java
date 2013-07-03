@@ -1,29 +1,28 @@
 package org.mysoft.test;
 
-import org.jbox2d.collision.shapes.PolygonShape;
-import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.BodyDef;
-import org.jbox2d.dynamics.BodyType;
-import org.jbox2d.dynamics.World;
 import org.jbox2d.testbed.framework.TestbedSettings;
 import org.jbox2d.testbed.framework.TestbedTest;
-import org.mysoft.brainless.body.BodyFactory;
-import org.mysoft.brainless.body.HumanBody;
-import org.mysoft.brainless.brain.HumanBrain;
-import org.mysoft.brainless.character.HumanCharacter;
+import org.mysoft.brainless.genetics.core.GeneticEngine;
+import org.mysoft.brainless.genetics.core.GeneticParameters;
+import org.mysoft.brainless.human.HumanCharacter;
+import org.mysoft.brainless.neural.core.EvolvableNeuralNetwork;
+import org.mysoft.brainless.neural.core.EvolvableNeuralNetworkGeneration;
+import org.mysoft.brainless.neural.core.NeuralNetwork;
+import org.mysoft.brainless.sim.DefaultSimulation;
 
 public class HumanCharacterTest extends TestbedTest {
 
 	HumanCharacter character;
+	DefaultSimulation simulation = DefaultSimulation.create();
 
 	@Override
 	public void initTest(boolean argDeserialized) {
 		setTitle(getTestName());
-		BodyFactory.init(getWorld());
 		
-		initWorld();
-		initActor();
+		NeuralNetwork neuralNetwork = learn();
+		
+		simulation.initWorld(getWorld());
+		character = simulation.initActor(getWorld(), neuralNetwork);
 	
 	}
 
@@ -32,46 +31,23 @@ public class HumanCharacterTest extends TestbedTest {
 		return "Human Character Test";
 	}
 	
-	
-	private void initWorld() {
-		final float earthGravity = -9.8f;
-		final Vec2 gravity = new Vec2(0, earthGravity);
-		final boolean allowSleep = false;
+	private NeuralNetwork learn() {
+		GeneticEngine<EvolvableNeuralNetworkGeneration, EvolvableNeuralNetwork> engine = 
+				new GeneticEngine<>(new GeneticParameters());
 		
-		final World world = getWorld();
+		engine.start(new EvolvableNeuralNetworkGeneration(), new EvolvableNeuralNetworkGeneration());
 		
-		world.setGravity(gravity);
-		world.setAllowSleep(allowSleep);
-		
-		PolygonShape groundShape = new PolygonShape();
-		groundShape.setAsEdge(new Vec2(-100,  -1), new Vec2(100, -1));
-		
-		BodyDef groundDefinition = new BodyDef();
-		groundDefinition.type = BodyType.STATIC;
-		groundDefinition.position.set(0, 0);
-		groundDefinition.allowSleep = false;
-		
-		Body groundBody = getWorld().createBody(groundDefinition);
-		groundBody.createFixture(groundShape, 5.0f).setFriction(5f);
-		
-	}
-	
-	private void initActor() {
-		
-		HumanBody body = HumanBody.create(getWorld());
-		HumanBrain brain = new HumanBrain();
-		
-		character = new HumanCharacter();
-		
-		character.init(body, brain);
-		character.activate();
-		
+		return engine.getBest().getChromosome();
 	}
 	
 	@Override
 	public synchronized void step(TestbedSettings settings) {
 		super.step(settings);
 		character.getBrain().update();
+		
+		double pos = character.getBody().getMasterBone().getPhysicalBody().getPosition().y;
+		//System.err.println(pos);
+
 	}
 	
 	

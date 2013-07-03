@@ -1,7 +1,7 @@
 package org.mysoft.neural.sample;
 
-import org.mysoft.brainless.genetic.chromosome.ByteArrayChromosome;
-import org.mysoft.brainless.genetic.core.Evolvable;
+import org.mysoft.brainless.genetics.chromosome.ByteArrayChromosome;
+import org.mysoft.brainless.genetics.core.Evolvable;
 
 public class EvolvableText extends Evolvable<ByteArrayChromosome> {
 

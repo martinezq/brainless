@@ -1,4 +1,4 @@
-package org.mysoft.brainless.genetic.chromosome;
+package org.mysoft.brainless.genetics.chromosome;
 
 public class DoubleArrayChromosome extends Chromosome {
 

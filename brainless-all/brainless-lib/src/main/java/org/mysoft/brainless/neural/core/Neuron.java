@@ -44,8 +44,12 @@ public class Neuron implements NeuronInput {
 
 	
 	public void addInput(NeuronInput input) {
+		addInput(input, 2 * Math.random() - 1.0);
+	}
+	
+	public void addInput(NeuronInput input, double weight) {
 		inputs.add(input);
-		weights.put(input,  2 * Math.random() - 1.0);
+		weights.put(input, weight);
 	}
 	
 	public void removeInput(NeuronInput input) {
@@ -71,6 +75,10 @@ public class Neuron implements NeuronInput {
 		}
 		
 		return result;
+	}
+
+	public Neuron duplicate() {
+		return null;
 	}
 	
 	

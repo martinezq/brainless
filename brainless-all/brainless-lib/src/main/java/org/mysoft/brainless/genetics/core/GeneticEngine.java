@@ -1,4 +1,4 @@
-package org.mysoft.brainless.genetic.core;
+package org.mysoft.brainless.genetics.core;
 
 
 public class GeneticEngine<T extends Generation<?>, E extends Evolvable<?>> {

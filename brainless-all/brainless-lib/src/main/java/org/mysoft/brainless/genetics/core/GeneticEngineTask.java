@@ -1,4 +1,4 @@
-package org.mysoft.brainless.genetic.core;
+package org.mysoft.brainless.genetics.core;
 
 
 public class GeneticEngineTask<T extends Generation<?>> implements Runnable {
@@ -28,7 +28,7 @@ public class GeneticEngineTask<T extends Generation<?>> implements Runnable {
 				best = generation.calculateBest();
 				
 				System.out.println(best);
-			} while (best.getFit() != 0 && count < parameters.getMaxGenerations());
+			} while (best.getFit() > 0 && count < parameters.getMaxGenerations());
 			System.out.println("Computed in " + count + " generations");
 		} catch (Exception e) {
 			e.printStackTrace();

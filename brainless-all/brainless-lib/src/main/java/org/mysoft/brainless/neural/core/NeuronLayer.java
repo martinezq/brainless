@@ -16,6 +16,15 @@ public class NeuronLayer extends LinkedList<Neuron> {
 		createNeurons(size);
 	}
 	
+	public NeuronLayer duplicate() {
+		NeuronLayer newLayer = new NeuronLayer(this.size());
+		for(Neuron neuron: this) {
+			Neuron newNeuron = neuron.duplicate();
+			newLayer.add(newNeuron);
+		}
+		return newLayer;
+	}
+	
 	public void connectTo(NeuronLayer anotherLayer) {
 		for(Neuron neuron: this) {
 			neuron.addInputs(anotherLayer);
