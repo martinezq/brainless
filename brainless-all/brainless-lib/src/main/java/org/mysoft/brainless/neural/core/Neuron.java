@@ -1,9 +1,8 @@
 package org.mysoft.brainless.neural.core;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.mysoft.brainless.neural.util.ActivationFunction;
 
@@ -11,14 +10,22 @@ public class Neuron implements NeuronInput {
 
 	protected final static double BETA = 1;
 	
-	protected final List<NeuronInput> inputs = new LinkedList<>();
-	protected final Map<NeuronInput, Double> weights = new HashMap<>();
+	protected final ArrayList<NeuronInput> inputs = new ArrayList<>();
+	protected final ArrayList<InputWeight> inputWeights = new ArrayList<>();
 	
 	protected double calculatedValue = 0;
 	protected boolean isCalculated = false;
+
+	public static Neuron create() {
+		return new Neuron();
+	}
 	
-	public double activator(double value) {
-		return ActivationFunction.logSigmoid(value, BETA);
+	public void applyWeights(List<InputWeight> weights) {
+		inputWeights.clear();
+		
+		for(InputWeight weight: weights) {
+			inputWeights.add(weight.duplicate());
+		}
 	}
 
 	@Override
@@ -28,6 +35,11 @@ public class Neuron implements NeuronInput {
 		}
 		
 		return calculatedValue;
+	}
+	
+	public void reset() {
+		isCalculated = false;
+		calculatedValue = 0;
 	}
 
 	public void addInputs(LinkedList<NeuronInput> inputs) {
@@ -41,19 +53,13 @@ public class Neuron implements NeuronInput {
 			addInput(neuron);
 		}
 	}
-
 	
 	public void addInput(NeuronInput input) {
-		addInput(input, 2 * Math.random() - 1.0);
+		inputs.add(input);
 	}
 	
-	public void addInput(NeuronInput input, double weight) {
-		inputs.add(input);
-		weights.put(input, weight);
-	}
 	
 	public void removeInput(NeuronInput input) {
-		weights.remove(input);
 		inputs.remove(input);
 	}
 
@@ -62,24 +68,90 @@ public class Neuron implements NeuronInput {
 		isCalculated = true;
 	}
 	
-	public void reset() {
-		isCalculated = false;
-		calculatedValue = 0;
+	protected double activator(double value) {
+		return 2*ActivationFunction.logSigmoid(value, BETA)-1;
 	}
 	
 	private double calculateInputs() {
 		double result = 0;
+		int inputSize = inputs.size();
 		
-		for(NeuronInput input: inputs) {
-			result = input.calculatedOutput() * weights.get(input);
+		for(int i=0; i<inputSize; i++) {
+			NeuronInput input = inputs.get(i);
+			InputWeight weight = inputWeights.get(i);
+			result = input.calculatedOutput() * weight.getValue();
 		}
 		
 		return result;
 	}
 
-	public Neuron duplicate() {
-		return null;
+	public void copyWeightsFrom(Neuron neuronFrom) {
+		int count = neuronFrom.inputWeights.size();
+
+		if(count == 0) {
+			return;
+		}
+		
+		if(count != this.inputs.size()) {
+			throw new IllegalArgumentException("Expects " + this.inputs.size() + " weights");
+		}
+		
+		this.inputWeights.clear();
+		
+		for(int ii=0; ii<count; ii++) {
+			InputWeight weightFrom = neuronFrom.inputWeights.get(ii);
+			this.inputWeights.add(weightFrom.duplicate());
+		}
 	}
+
+	public boolean hasEqualTopology(Neuron otherNeuron) {
+		return this.inputs.size() == otherNeuron.inputs.size();
+	}
+
+	public boolean hasEqualWeights(Neuron otherNeuron) {
+		int count = inputWeights.size();
+		
+		for(int ii=0; ii<count; ii++) {
+			InputWeight weight = this.inputWeights.get(ii);
+			InputWeight otherWeight = otherNeuron.inputWeights.get(ii);
+
+			boolean eq = weight.getValue() == otherWeight.getValue();
+			
+			if(!eq) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+
+	public void randomizeWeights() {
+		int count = inputs.size();
+		
+		inputWeights.clear();
+		
+		for(int ii=0; ii<count; ii++) {
+			inputWeights.add(InputWeight.random());
+		}
+		
+	}
+
+	public void cleanInputsKeepWeights() {
+		inputs.clear();
+	}
+
+	public void setWeight(int position, InputWeight weight) {
+		this.inputWeights.set(position, weight);
+	}
+	
+	public InputWeight getWeight(int position) {
+		return this.inputWeights.get(position);
+	}
+	
+	public int getWeightsCount() {
+		return this.inputWeights.size();
+	}
+
 	
 	
 }

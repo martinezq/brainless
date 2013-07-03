@@ -37,7 +37,7 @@ public class HumanCharacterTest extends TestbedTest {
 		
 		engine.start(new EvolvableNeuralNetworkGeneration(), new EvolvableNeuralNetworkGeneration());
 		
-		return engine.getBest().getChromosome();
+		return engine.getBest().getChromosome().getNeuralNetwork();
 	}
 	
 	@Override

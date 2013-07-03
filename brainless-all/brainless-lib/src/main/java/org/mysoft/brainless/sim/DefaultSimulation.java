@@ -31,9 +31,9 @@ public class DefaultSimulation extends Simulation<NeuralNetwork> {
 	}
 
 	@Override
-	public void init(NeuralNetwork chromosome) {
+	public void init(NeuralNetwork neuralNetwork) {
 		world = createWorld();
-		character = initActor(world, chromosome);
+		character = initActor(world, neuralNetwork);
 	}
 
 	public World createWorld() {
@@ -70,15 +70,15 @@ public class DefaultSimulation extends Simulation<NeuralNetwork> {
 		
 	}
 	
-	public HumanCharacter initActor(World world, NeuralNetwork chromosome) {
+	public HumanCharacter initActor(World world, NeuralNetwork neuralNetwork) {
 		HumanBody body = HumanBody.create(world);
-		HumanBrain brain = HumanBrain.create(chromosome);
+		HumanBrain brain = HumanBrain.create(neuralNetwork);
 		
 		HumanCharacter character = new HumanCharacter();
 		
 		character.init(body, brain);
 		
-		chromosome.getOutputLayer().clear();
+		neuralNetwork.getOutputLayer().clear();
 		
 		character.activate();
 		

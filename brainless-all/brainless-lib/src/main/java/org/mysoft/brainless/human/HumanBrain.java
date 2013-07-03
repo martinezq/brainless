@@ -3,8 +3,10 @@ package org.mysoft.brainless.human;
 import org.mysoft.brainless.body.BoneJoint;
 import org.mysoft.brainless.body.ComplexBody;
 import org.mysoft.brainless.brain.Brain;
+import org.mysoft.brainless.neural.core.InputLayer;
 import org.mysoft.brainless.neural.core.NeuralNetwork;
 import org.mysoft.brainless.neural.core.NeuronLayer;
+import org.mysoft.brainless.neural.core.OutputLayer;
 import org.mysoft.brainless.sensor.BodySensor;
 
 public class HumanBrain extends Brain {
@@ -12,7 +14,7 @@ public class HumanBrain extends Brain {
 	NeuralNetwork network;
 	
 	public static HumanBrain create() {
-		return create(NeuralNetwork.create());
+		return create(NeuralNetwork.createEmpty());
 	}
 	
 	public static HumanBrain create(NeuralNetwork neuralNetwork) {
@@ -31,19 +33,22 @@ public class HumanBrain extends Brain {
 		if(body == null) {
 			throw new IllegalStateException("There is no body attached");
 		}
-		
-		network.clearInputs();
-		network.clearOutputs();
+
+		InputLayer inputLayer = InputLayer.create();
+		OutputLayer outputLayer = OutputLayer.create();
 		
 		for(BodySensor sensor: body.getBodySensors()) {
-			network.addInput(sensor);
+			inputLayer.add(sensor);
 		}
 
 		BoneJoint[] joints =  body.getBodyJoints();
 		
 		for(BoneJoint joint: joints) {
-			network.addOutput(joint);
-		}		
+			outputLayer.add(joint);
+		}
+		
+		network.attachInputLayer(inputLayer);
+		network.attachOutputLayer(outputLayer);
 		
 	}
 

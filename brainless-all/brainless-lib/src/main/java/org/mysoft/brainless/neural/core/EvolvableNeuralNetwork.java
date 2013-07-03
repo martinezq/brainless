@@ -1,14 +1,19 @@
 package org.mysoft.brainless.neural.core;
 
+import org.mysoft.brainless.genetics.chromosome.NeuralNetworkChromosome;
 import org.mysoft.brainless.genetics.core.Evolvable;
 import org.mysoft.brainless.human.HumanCharacter;
 import org.mysoft.brainless.sim.DefaultSimulation;
 
-public class EvolvableNeuralNetwork extends Evolvable<NeuralNetwork> {
+public class EvolvableNeuralNetwork extends Evolvable<NeuralNetworkChromosome> {
 
 	public static EvolvableNeuralNetwork create() {
 		EvolvableNeuralNetwork evolvable = new EvolvableNeuralNetwork();
-		evolvable.chromosome = NeuralNetwork.create();
+		
+		NeuralNetwork neuralNetwork = NeuralNetwork.createDefault();
+		neuralNetwork.randomizeWeights();
+		evolvable.chromosome = NeuralNetworkChromosome.create(neuralNetwork);
+		
 		return evolvable;
 	}
 	
@@ -16,7 +21,7 @@ public class EvolvableNeuralNetwork extends Evolvable<NeuralNetwork> {
 	public double calculateFit() {
 		DefaultSimulation simulation = DefaultSimulation.create();
 
-		simulation.init(chromosome);
+		simulation.init(chromosome.getNeuralNetwork());
 		simulation.simulate();
 		
 		HumanCharacter character = simulation.getCharacter();
