@@ -69,4 +69,11 @@ public class NeuralNetworkChromosome extends Chromosome {
 		return childChromosome;
 	}
 
+	@Override
+	public Chromosome duplicate() {
+		NeuralNetworkChromosome chromosome = NeuralNetworkChromosome.create(neuralNetwork.duplicate());
+		chromosome.setParameters(parameters);
+		return chromosome;
+	}
+
 }

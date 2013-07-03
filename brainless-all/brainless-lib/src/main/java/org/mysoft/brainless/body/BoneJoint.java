@@ -34,6 +34,12 @@ public class BoneJoint implements NetworkOutput {
 		revoluteJoint.enableMotor(true);
 	}
 
+	public void applySpeed(double speed) {
+		revoluteJoint.setMotorSpeed((float) speed);
+		revoluteJoint.setMaxMotorTorque((float) maxForce);
+		revoluteJoint.enableMotor(true);
+	}
+	
 	public void removeForce() {
 		hold(10f);
 	}
@@ -46,7 +52,7 @@ public class BoneJoint implements NetworkOutput {
 
 	@Override
 	public void perform(double value) {
-		applyForce(2 * maxForce * value - maxForce);
+		applySpeed(2 * maxForce * value - maxForce);
 	}
 	
 	public void setMaxForce(double maxForce) {

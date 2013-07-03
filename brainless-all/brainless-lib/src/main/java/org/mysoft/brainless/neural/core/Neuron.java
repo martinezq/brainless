@@ -70,7 +70,7 @@ public class Neuron implements NeuronInput {
 	}
 	
 	protected double activator(double value) {
-		return 2*ActivationFunction.logSigmoid(value, BETA)-1;
+		return ActivationFunction.logSigmoid(value, BETA);
 	}
 	
 	private double calculateInputs() {

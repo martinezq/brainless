@@ -40,4 +40,10 @@ public class DoubleArrayChromosome extends Chromosome {
 		out.setParameters(parameters);
 		return out;
 	}
+
+	@Override
+	public Chromosome duplicate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

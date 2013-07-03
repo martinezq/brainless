@@ -39,7 +39,7 @@ public class NeuralNetworkTest {
 	
 	@Test
 	public void create_and_duplicate() {
-		NeuralNetwork n = NeuralNetwork.createDefault();
+		NeuralNetwork n = NeuralNetwork.create(1,2,3,4);
 		NeuralNetwork d = n.duplicate();
 		
 		Assert.assertTrue("Not equal topology", d.hasEqualTopology(n));

@@ -13,6 +13,8 @@ import org.mysoft.brainless.sim.DefaultSimulation;
 
 public class HumanCharacterTest extends TestbedTest {
 
+	static NeuralNetwork best = null;
+	
 	HumanCharacter character;
 	DefaultSimulation simulation = DefaultSimulation.create();
 
@@ -20,10 +22,12 @@ public class HumanCharacterTest extends TestbedTest {
 	public void initTest(boolean argDeserialized) {
 		setTitle(getTestName());
 		
-		NeuralNetwork neuralNetwork = learn();
+		if(best == null) {
+			best = learn();
+		}
 		
 		simulation.initWorld(getWorld());
-		character = simulation.initActor(getWorld(), neuralNetwork);
+		character = simulation.initActor(getWorld(), best);
 	
 	}
 

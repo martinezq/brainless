@@ -28,17 +28,22 @@ public abstract class Generation<E extends Evolvable> {
 		int len = individuals.length;
 		int halflen = len / 2;
 		
+		Chromosome best = individuals[0].getChromosome();
+		
 		for(int i=0;i<halflen;i+=2) {
+				
 			Chromosome chromosome1 = individuals[i].getChromosome();
 			Chromosome chromosome2 = individuals[i+1].getChromosome();
 			
 			individuals[i].setChromosome(chromosome1.crossover(chromosome2).mutate()); 
 			individuals[i+1].setChromosome(chromosome1.crossover(chromosome2).mutate());
+			
 			individuals[halflen+i].setChromosome(chromosome1.crossover(chromosome2).mutate()); 
 			individuals[halflen+i+1].setChromosome(chromosome1.crossover(chromosome2).mutate());
 
 		}
 		
+		individuals[0].setChromosome(best);
 	}
 
 	@SuppressWarnings("unchecked")

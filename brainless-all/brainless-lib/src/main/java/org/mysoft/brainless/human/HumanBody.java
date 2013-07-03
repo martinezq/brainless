@@ -123,7 +123,7 @@ public class HumanBody extends ComplexBody {
 		spineMiddleJoint = spineLower.connectAtEnd(spineMiddle, Angles.d2r(-30), Angles.d2r(60));
 		spineUpperJoint = spineMiddle.connectAtEnd(spineUpper, Angles.d2r(-30), Angles.d2r(60));
 		neckJoint = spineUpper.connectAtEnd(neck,  Angles.d2r(45), Angles.d2r(45));
-		headJoint = neck.connectAtEnd(head, Angles.d2r(-45), Angles.d2r(45));
+		headJoint = neck.connectAtEnd(head, Angles.d2r(45), Angles.d2r(-45));
 		
 
 	}

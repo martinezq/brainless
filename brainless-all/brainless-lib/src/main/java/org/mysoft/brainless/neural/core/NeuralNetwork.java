@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class NeuralNetwork {
 
-	public final static int DEFAULT_HIDDEN_LAYERS = 2;
+	public final static int DEFAULT_HIDDEN_LAYERS = 3;
 	public final static int DEFAULT_NEURONS_IN_HIDDEN_LAYER = 18;
 	
 	protected InputLayer inputLayer = InputLayer.create();
@@ -24,22 +24,42 @@ public class NeuralNetwork {
 		return n;
 	}
 	
+	public static NeuralNetwork create(int... counts) {
+		NeuralNetwork n = createEmpty();
+		
+		n.createHiddenLayers(counts);
+		n.createHiddenLayersConnections();
+		
+		return n;
+	}
+	
 	public NeuralNetwork duplicate() {
 		NeuralNetwork newNetwork = NeuralNetwork.createEmpty();
 		int hiddenLayersCount = this.hiddenLayers.size();
-		int neuronsInLayer = this.hiddenLayers.getFirst().size();
 		
-		newNetwork.createHiddenLayers(hiddenLayersCount, neuronsInLayer);
+		int[] sizes = new int[hiddenLayersCount];
+		
+		for(int i=0; i<hiddenLayersCount; i++) {
+			sizes[i] = this.hiddenLayers.get(i).size();
+		}
+		
+		newNetwork.createHiddenLayers(sizes);
 		newNetwork.createHiddenLayersConnections();
 		newNetwork.copyWeightsFrom(this);
 		
 		return newNetwork;
 	}
-	
 
 	public void createHiddenLayers(int layers, int neuronsInLayer) {
 		for(int li=0; li<layers; li++) {
 			NeuronLayer layer = NeuronLayer.create(neuronsInLayer);
+			hiddenLayers.add(layer);
+		}
+	}
+	
+	public void createHiddenLayers(int... counts) {
+		for(int i=0; i<counts.length; i++) {
+			NeuronLayer layer = NeuronLayer.create(counts[i]);
 			hiddenLayers.add(layer);
 		}
 	}
@@ -54,6 +74,7 @@ public class NeuralNetwork {
 		for(int i=1; i<hiddenLayers.size(); i++) {
 			NeuronLayer layer = hiddenLayers.get(i);
 			layer.connectTo(prevLayer);
+			prevLayer = layer;
 		}
 	}
 	

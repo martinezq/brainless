@@ -10,7 +10,7 @@ public class EvolvableNeuralNetwork extends Evolvable<NeuralNetworkChromosome> {
 	public static EvolvableNeuralNetwork create() {
 		EvolvableNeuralNetwork evolvable = new EvolvableNeuralNetwork();
 		
-		NeuralNetwork neuralNetwork = NeuralNetwork.createDefault();
+		NeuralNetwork neuralNetwork = NeuralNetwork.create(3, 5, 12, 18);
 		neuralNetwork.randomizeWeights();
 		evolvable.chromosome = NeuralNetworkChromosome.create(neuralNetwork);
 		
@@ -25,12 +25,8 @@ public class EvolvableNeuralNetwork extends Evolvable<NeuralNetworkChromosome> {
 		simulation.simulate();
 		
 		HumanCharacter character = simulation.getCharacter();
-		
-		double endPosition = character.getBody().getMasterBone().getPhysicalBody().getPosition().y;
-		
-		fit = 100 - endPosition;
 	
-		return fit;
+		return character.getSummaryDelta();
 		
 	}
 

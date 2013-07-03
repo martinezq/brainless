@@ -14,6 +14,8 @@ public abstract class Chromosome {
 	
 	public abstract Chromosome crossover(Chromosome other);
 	
+	public abstract Chromosome duplicate();
+	
 	public void setParameters(GeneticParameters parameters) {
 		this.parameters = parameters;
 	}

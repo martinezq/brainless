@@ -42,5 +42,11 @@ public class ByteArrayChromosome extends Chromosome {
 		child.setParameters(parameters);
 		return child;
 	}
+
+	@Override
+	public Chromosome duplicate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
