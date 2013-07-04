@@ -10,7 +10,7 @@ public class EvolvableNeuralNetwork extends Evolvable<NeuralNetworkChromosome> {
 	public static EvolvableNeuralNetwork create() {
 		EvolvableNeuralNetwork evolvable = new EvolvableNeuralNetwork();
 		
-		NeuralNetwork neuralNetwork = NeuralNetwork.create(3, 5, 12, 18);
+		NeuralNetwork neuralNetwork = NeuralNetwork.create(3, 10, 10, 18, 18);
 		neuralNetwork.randomizeWeights();
 		evolvable.chromosome = NeuralNetworkChromosome.create(neuralNetwork);
 		

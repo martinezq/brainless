@@ -32,7 +32,7 @@ public class HumanCharacter extends Character {
 		
 		deltaX += Math.abs(actPositionX - positionX);
 		deltaY += Math.abs(actPositionY - positionY);
-		deltaAngle += Math.abs(actAngle - angle);
+		deltaAngle += 10*Math.abs(actAngle - angle);
 	}
 	
 	public double getSummaryDelta() {

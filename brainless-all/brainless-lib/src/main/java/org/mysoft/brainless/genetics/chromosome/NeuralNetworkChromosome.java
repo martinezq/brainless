@@ -21,13 +21,28 @@ public class NeuralNetworkChromosome extends Chromosome {
 	
 	@Override
 	public Chromosome mutate() {
+		double prob = parameters.getMutationProbability() / 2.0;
+		
 		for(NeuronLayer layer: neuralNetwork.getHiddenLayers()) {
+
 			for(Neuron neuron: layer) {
+			
 				int count = neuron.getWeightsCount();
+				
 				for(int i=0; i<count; i++) {
-					if(Math.random() < parameters.getMutationProbability()) {
+					
+					double rand = Math.random() - 0.5;
+					
+					if(rand < prob && rand > -prob) {
 						double oldValue = neuron.getWeight(i).getValue();
-						double newValue = oldValue * (0.2 * Math.random() - 0.1);
+						double newValue = oldValue;
+						
+						if(Math.random() < 0.5) {
+							newValue += 2.0 * Math.random() - 1.0;
+						} else {
+							newValue = newValue * (4.0 * Math.random() - 2.0);
+						}
+						
 						neuron.setWeight(i, InputWeight.create(newValue));
 					}
 				}

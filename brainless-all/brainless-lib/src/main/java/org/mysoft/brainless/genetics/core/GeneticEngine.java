@@ -47,6 +47,7 @@ public class GeneticEngine<T extends Generation<?>, E extends Evolvable<?>> {
 			double newFit = generationBest.getFit();
 			if(newFit < fit) {
 				best = (E)generationBest;
+				fit = newFit;
 			}
 		}
 		return best;
