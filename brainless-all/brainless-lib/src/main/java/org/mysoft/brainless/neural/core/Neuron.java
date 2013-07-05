@@ -8,7 +8,7 @@ import org.mysoft.brainless.neural.util.ActivationFunction;
 
 public class Neuron implements NeuronInput {
 
-	protected final static double BETA = 1;
+	protected final static double BETA = 5.0;
 	
 	protected final ArrayList<NeuronInput> inputs = new ArrayList<>();
 	protected final ArrayList<InputWeight> inputWeights = new ArrayList<>();
@@ -56,7 +56,9 @@ public class Neuron implements NeuronInput {
 	
 	public void addInput(NeuronInput input) {
 		inputs.add(input);
-		inputWeights.add(InputWeight.create(0));
+		if(inputWeights.size() < inputs.size()) {
+			inputWeights.add(InputWeight.create(0));
+		}
 	}
 	
 	
@@ -150,6 +152,11 @@ public class Neuron implements NeuronInput {
 	
 	public int getWeightsCount() {
 		return this.inputWeights.size();
+	}
+
+	public void addWeight(double value) {
+		this.inputWeights.add(InputWeight.create(value));
+		
 	}
 
 	

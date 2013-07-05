@@ -14,7 +14,7 @@ import org.mysoft.brainless.neural.core.NeuralNetwork;
 public class DefaultSimulation extends Simulation<NeuralNetwork> {
 
 	final static float DEFAULT_STEP = 1.0f / 30.0f;
-	final static float SIMULATION_SECONDS = 4.0f;
+	final static float SIMULATION_SECONDS = 5.0f;
 	
 	World world;
 	HumanCharacter character;
@@ -34,13 +34,8 @@ public class DefaultSimulation extends Simulation<NeuralNetwork> {
 			character.storePosition();
 			world.step(DEFAULT_STEP, 3, 8);
 			character.calculateDeltas();
-			/*
-			if(character.getSummaryDelta() > 500) {
-				character.setSummaryDelta(character.getSummaryDelta() * 100);
-				break;
-			}
-			*/
 		}
+
 	}
 
 	@Override

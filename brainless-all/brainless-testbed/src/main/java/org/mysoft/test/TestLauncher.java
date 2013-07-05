@@ -22,6 +22,7 @@ public class TestLauncher {
 
 		JFrame testbed = new TestbedFrame(model, panel); 
 		
+		
 		testbed.setVisible(true);
 		testbed.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

@@ -22,11 +22,28 @@ public class EvolvableNeuralNetwork extends Evolvable<NeuralNetworkChromosome> {
 		DefaultSimulation simulation = DefaultSimulation.create();
 
 		simulation.init(chromosome.getNeuralNetwork());
-		simulation.simulate();
 		
 		HumanCharacter character = simulation.getCharacter();
-	
-		return character.getSummaryDelta();
+		
+		double startPos = character.getBody().getMasterBone().getPhysicalBody().getPosition().x;
+		
+		simulation.simulate();
+		
+		double endPos = character.getBody().getMasterBone().getPhysicalBody().getPosition().x;
+		
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
+		
+		double delta = startPos - endPos;
+		
+		if(delta < 0) {
+			return Double.MAX_VALUE;
+		} else {
+			return 100.0 / delta;
+		}
 		
 	}
 

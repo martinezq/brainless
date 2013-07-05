@@ -10,6 +10,8 @@ public class BoneJoint implements NetworkOutput {
 	protected RevoluteJoint revoluteJoint;
 	protected double maxForce = Force.MAX;
 	
+	protected double maxSpeed = 1;
+	
 	public final static BoneJoint create(RevoluteJoint revoluteJoint, double maxForce) {
 		BoneJoint joint = new BoneJoint();
 		joint.revoluteJoint = revoluteJoint;
@@ -52,7 +54,7 @@ public class BoneJoint implements NetworkOutput {
 
 	@Override
 	public void perform(double value) {
-		applySpeed(2 * maxForce * value - maxForce);
+		applySpeed(2 * maxSpeed * value - maxSpeed);
 	}
 	
 	public void setMaxForce(double maxForce) {

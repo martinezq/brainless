@@ -28,6 +28,7 @@ public class GeneticEngineTask<T extends Generation<?>> implements Runnable {
 				best = generation.calculateBest();
 				
 				System.out.println("generation " + count + ": " + best);
+				Thread.sleep(10);
 			} while (best.getFit() > 0 && count < parameters.getMaxGenerations());
 			System.out.println("Computed in " + count + " generations");
 		} catch (Exception e) {

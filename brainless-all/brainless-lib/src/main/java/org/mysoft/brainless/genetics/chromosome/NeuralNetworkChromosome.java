@@ -37,10 +37,14 @@ public class NeuralNetworkChromosome extends Chromosome {
 						double oldValue = neuron.getWeight(i).getValue();
 						double newValue = oldValue;
 						
-						if(Math.random() < 0.5) {
-							newValue += 2.0 * Math.random() - 1.0;
+						double rand2 = 2.0 * Math.random() - 1.0;
+						
+						if(rand2 < 0.9 && rand2 > -0.9) {
+							newValue += 0.02 * Math.random() - 0.01;
+						} else if(rand2 < 0.95 && rand > -0.95) {
+							newValue = newValue * (2.0 * Math.random());
 						} else {
-							newValue = newValue * (4.0 * Math.random() - 2.0);
+							newValue = -newValue;
 						}
 						
 						neuron.setWeight(i, InputWeight.create(newValue));

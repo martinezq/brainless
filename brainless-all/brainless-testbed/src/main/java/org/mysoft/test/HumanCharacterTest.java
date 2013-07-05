@@ -2,13 +2,14 @@ package org.mysoft.test;
 
 import org.jbox2d.testbed.framework.TestbedSettings;
 import org.jbox2d.testbed.framework.TestbedTest;
-import org.mysoft.brainless.genetics.chromosome.NeuralNetworkChromosome;
 import org.mysoft.brainless.genetics.core.GeneticEngine;
 import org.mysoft.brainless.genetics.core.GeneticParameters;
 import org.mysoft.brainless.human.HumanCharacter;
 import org.mysoft.brainless.neural.core.EvolvableNeuralNetwork;
 import org.mysoft.brainless.neural.core.EvolvableNeuralNetworkGeneration;
 import org.mysoft.brainless.neural.core.NeuralNetwork;
+import org.mysoft.brainless.neural.util.NeuralNetworkSerialization;
+import org.mysoft.brainless.neural.util.NeuralNetworkSerializer;
 import org.mysoft.brainless.sim.DefaultSimulation;
 
 public class HumanCharacterTest extends TestbedTest {
@@ -46,6 +47,11 @@ public class HumanCharacterTest extends TestbedTest {
 		
 		System.out.println("Best fit = " + best.getFit());
 		
+		long ts = System.currentTimeMillis();
+		String filePath =  "../../../../../best_" + ts + ".nn";
+		
+		NeuralNetworkSerializer.serializeToFile(best.getChromosome().getNeuralNetwork(), filePath);
+		
 		return best.getChromosome().getNeuralNetwork();
 	}
 	
@@ -54,9 +60,9 @@ public class HumanCharacterTest extends TestbedTest {
 		super.step(settings);
 		character.getBrain().step();
 		
-		double pos = character.getBody().getMasterBone().getPhysicalBody().getPosition().y;
-		//System.err.println(pos);
-
+		double pos = character.getBody().getMasterBone().getPhysicalBody().getPosition().x;
+		
+		System.out.println("pos = " + pos);
 	}
 	
 	

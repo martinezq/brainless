@@ -3,9 +3,8 @@ package org.mysoft.brainless.neural.core;
 import java.util.LinkedList;
 
 public class NeuralNetwork {
-
-	public final static int DEFAULT_HIDDEN_LAYERS = 3;
-	public final static int DEFAULT_NEURONS_IN_HIDDEN_LAYER = 18;
+	
+	private final static int MAX_WEIGHTS = 18;
 	
 	protected InputLayer inputLayer = InputLayer.create();
 	protected LinkedList<NeuronLayer> hiddenLayers = new LinkedList<>();
@@ -16,12 +15,7 @@ public class NeuralNetwork {
 	}
 	
 	public static NeuralNetwork createDefault() {
-		NeuralNetwork n = createEmpty();
-		
-		n.createHiddenLayers(DEFAULT_HIDDEN_LAYERS, DEFAULT_NEURONS_IN_HIDDEN_LAYER);
-		n.createHiddenLayersConnections();
-		
-		return n;
+		return create(2,4,8,16);
 	}
 	
 	public static NeuralNetwork create(int... counts) {
@@ -93,7 +87,7 @@ public class NeuralNetwork {
 	
 	public void randomizeWeights() {
 		for(NeuronLayer layer: hiddenLayers) {
-			layer.randomizeWeightsUpTo(DEFAULT_NEURONS_IN_HIDDEN_LAYER);
+			layer.randomizeWeightsUpTo(MAX_WEIGHTS);
 		}
 	}
 	
