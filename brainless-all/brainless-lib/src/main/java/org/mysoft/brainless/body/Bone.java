@@ -22,7 +22,7 @@ public class Bone extends WorldObject {
 	
 	Joint parentJoint;
 	
-	Bone(World world, float x1, float y1, float x2, float y2) {
+	Bone(World world, float x1, float y1, float x2, float y2, float density) {
 		this.world = world;
 		
 		startPoint = new Vec2(x1, y1);
@@ -48,7 +48,7 @@ public class Bone extends WorldObject {
 		
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
-		fixtureDef.density = 20.f;
+		fixtureDef.density = density;
 		fixtureDef.filter.groupIndex = -1;
 		fixtureDef.friction = 1f;
 		

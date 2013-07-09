@@ -6,9 +6,12 @@ import org.mysoft.brainless.body.Bone;
 import org.mysoft.brainless.body.BoneJoint;
 import org.mysoft.brainless.body.ComplexBody;
 import org.mysoft.brainless.body.util.Angles;
+import org.mysoft.brainless.body.util.Density;
 import org.mysoft.brainless.body.util.Force;
 import org.mysoft.brainless.sensor.AngleSensor;
 import org.mysoft.brainless.sensor.BodySensor;
+import org.mysoft.brainless.sensor.BoneXPositionSensor;
+import org.mysoft.brainless.sensor.BoneYPositionSensor;
 import org.mysoft.brainless.sensor.XPositionSensor;
 import org.mysoft.brainless.sensor.YPositionSensor;
 
@@ -67,6 +70,14 @@ public class HumanBody extends ComplexBody {
 	BodySensor yPositionSensor;
 	BodySensor angleSensor;
 	
+	BoneXPositionSensor leftLegXPosition;
+	BoneYPositionSensor leftLegYPosition;
+	BoneXPositionSensor rightLegXPosition;
+	BoneYPositionSensor rightLegYPosition;
+	
+	BoneXPositionSensor headXPosition;
+	BoneYPositionSensor headYPosition;
+	
 	public final static HumanBody create(World world) {
 		HumanBody human = new HumanBody();
 		human.setWorld(world);
@@ -91,7 +102,10 @@ public class HumanBody extends ComplexBody {
 	@Override
 	public BodySensor[] getBodySensors() {
 		BodySensor[] sensors = new BodySensor[] {
-				angleSensor, xPositionSensor, yPositionSensor 
+				angleSensor, xPositionSensor, yPositionSensor,
+				leftLegXPosition, leftLegYPosition,
+				rightLegXPosition, rightLegYPosition,
+				headXPosition, headYPosition
 		};
 		
 		return sensors;
@@ -114,11 +128,11 @@ public class HumanBody extends ComplexBody {
 	}
 	
 	private void initSpineAndHead() {
-		spineLower = bodyFactory.createSegment(0f, 7f, 0f, 8f);
-		spineMiddle = bodyFactory.createSegment(0f, 8f, 0f, 10f);
-		spineUpper = bodyFactory.createSegment(0f, 10f, 0f, 12f);
-		neck = bodyFactory.createSegment(0f, 12f, 0f, 12.5f);
-		head = bodyFactory.createSegment(0f, 12.5f, 0f, 14f);
+		spineLower = bodyFactory.createSegment(0f, 7f, 0f, 8f, Density.HIGH);
+		spineMiddle = bodyFactory.createSegment(0f, 8f, 0f, 10f, Density.HIGH);
+		spineUpper = bodyFactory.createSegment(0f, 10f, 0f, 12f, Density.HIGH);
+		neck = bodyFactory.createSegment(0f, 12f, 0f, 12.5f, Density.LOW);
+		head = bodyFactory.createSegment(0f, 12.5f, 0f, 14f, Density.HIGH);
 		
 		spineMiddleJoint = spineLower.connectAtEnd(spineMiddle, Angles.d2r(-30), Angles.d2r(60));
 		spineUpperJoint = spineMiddle.connectAtEnd(spineUpper, Angles.d2r(-30), Angles.d2r(60));
@@ -129,10 +143,10 @@ public class HumanBody extends ComplexBody {
 	}
 	
 	private void initLeftLeg() {
-		leftLegUpper = bodyFactory.createSegment(0f, 7f, 0f, 4f);
-		leftLegLower = bodyFactory.createSegment(0f, 4f, 0f, 0f);
-		leftFeet = bodyFactory.createSegment(-1f, 0f, 0f, 0f);
-		leftFeet2 = bodyFactory.createSegment(-2f, 0f, -1f, 0f);
+		leftLegUpper = bodyFactory.createSegment(0f, 7f, 0f, 4f, Density.HIGH);
+		leftLegLower = bodyFactory.createSegment(0f, 4f, 0f, 0f, Density.HIGH);
+		leftFeet = bodyFactory.createSegment(-1f, 0f, 0f, 0f, Density.AVG);
+		leftFeet2 = bodyFactory.createSegment(-2f, 0f, -1f, 0f, Density.AVG);
 		
 		leftLegUpperJoint = spineLower.connectAtStart(leftLegUpper, Angles.d2r(-360-135), Angles.d2r(-300));
 		leftLegLowerJoint = leftLegUpper.connectAtEnd(leftLegLower, Angles.d2r(0), Angles.d2r(150));
@@ -141,10 +155,10 @@ public class HumanBody extends ComplexBody {
 	}
 	
 	private void initRightLeg() {
-		rightLegUpper = bodyFactory.createSegment(0f, 7f, 0f, 4f);
-		rightLegLower = bodyFactory.createSegment(0f, 4f, 0f, 0f);
-		rightFeet = bodyFactory.createSegment(-1f, 0f, 0f, 0f);
-		rightFeet2 = bodyFactory.createSegment(-2f, 0f, -1f, 0f);
+		rightLegUpper = bodyFactory.createSegment(0f, 7f, 0f, 4f, Density.HIGH);
+		rightLegLower = bodyFactory.createSegment(0f, 4f, 0f, 0f, Density.HIGH);
+		rightFeet = bodyFactory.createSegment(-1f, 0f, 0f, 0f, Density.AVG);
+		rightFeet2 = bodyFactory.createSegment(-2f, 0f, -1f, 0f, Density.AVG);
 		
 		rightLegUpperJoint = spineLower.connectAtStart(rightLegUpper, Angles.d2r(-360-135), Angles.d2r(-300));
 		rightLegLowerJoint = rightLegUpper.connectAtEnd(rightLegLower, Angles.d2r(0), Angles.d2r(150));
@@ -153,9 +167,9 @@ public class HumanBody extends ComplexBody {
 	}
 	
 	private void initLeftHand() {
-		leftHandUpper = bodyFactory.createSegment(0f, 12f, 0f, 9);
-		leftHandMiddle = bodyFactory.createSegment(0f, 9f, 0f, 6f);
-		leftHandLower = bodyFactory.createSegment(0f, 6f, 0f, 5f);
+		leftHandUpper = bodyFactory.createSegment(0f, 12f, 0f, 9, Density.AVG);
+		leftHandMiddle = bodyFactory.createSegment(0f, 9f, 0f, 6f, Density.AVG);
+		leftHandLower = bodyFactory.createSegment(0f, 6f, 0f, 5f, Density.LOW);
 		
 		leftHandUpperJoint = leftHandUpper.connectAtStart(spineUpper, Angles.d2r(Float.NEGATIVE_INFINITY), Angles.d2r(Float.POSITIVE_INFINITY));
 		leftHandMiddleJoint = leftHandMiddle.connectAtStart(leftHandUpper, Angles.d2r(0), Angles.d2r(150));
@@ -163,9 +177,9 @@ public class HumanBody extends ComplexBody {
 	}
 	
 	private void initRightHand() {
-		rightHandUpper = bodyFactory.createSegment(0f, 12f, 0f, 9);
-		rightHandMiddle = bodyFactory.createSegment(0f, 9f, 0f, 6f);
-		rightHandLower = bodyFactory.createSegment(0f, 6f, 0f, 5f);
+		rightHandUpper = bodyFactory.createSegment(0f, 12f, 0f, 9, Density.AVG);
+		rightHandMiddle = bodyFactory.createSegment(0f, 9f, 0f, 6f, Density.AVG);
+		rightHandLower = bodyFactory.createSegment(0f, 6f, 0f, 5f, Density.LOW);
 		
 		rightHandUpperJoint = rightHandUpper.connectAtStart(spineUpper, Angles.d2r(Float.NEGATIVE_INFINITY), Angles.d2r(Float.POSITIVE_INFINITY));
 		rightHandMiddleJoint = rightHandMiddle.connectAtStart(rightHandUpper, Angles.d2r(0), Angles.d2r(150));
@@ -200,15 +214,23 @@ public class HumanBody extends ComplexBody {
 	
 	@Override
 	protected void initSensors() {
-		xPositionSensor = new XPositionSensor();
-		xPositionSensor.setBody(this);
+		xPositionSensor = XPositionSensor.create(this);
+		yPositionSensor = YPositionSensor.create(this);
+			
+		angleSensor = AngleSensor.create(this);
 		
-		yPositionSensor = new YPositionSensor();
-		yPositionSensor.setBody(this);
-		
-		angleSensor = new AngleSensor();
-		angleSensor.setBody(this);
-		
+		leftLegXPosition = BoneXPositionSensor.create(this, leftFeet);
+		leftLegYPosition = BoneYPositionSensor.create(this, leftFeet);
+
+		rightLegXPosition = BoneXPositionSensor.create(this, rightFeet);
+		rightLegYPosition = BoneYPositionSensor.create(this, rightFeet);
+
+		headXPosition = BoneXPositionSensor.create(this, head);
+		headYPosition = BoneYPositionSensor.create(this, head);
+	}
+	
+	public Bone getHead() {
+		return head;
 	}
 
 }

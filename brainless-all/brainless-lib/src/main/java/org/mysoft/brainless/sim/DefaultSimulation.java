@@ -13,8 +13,8 @@ import org.mysoft.brainless.neural.core.NeuralNetwork;
 
 public class DefaultSimulation extends Simulation<NeuralNetwork> {
 
-	final static float DEFAULT_STEP = 1.0f / 30.0f;
-	final static float SIMULATION_SECONDS = 5.0f;
+	final static float DEFAULT_STEP = 1.0f / 60.0f;
+	final static float SIMULATION_SECONDS = 10.0f;
 	
 	World world;
 	HumanCharacter character;

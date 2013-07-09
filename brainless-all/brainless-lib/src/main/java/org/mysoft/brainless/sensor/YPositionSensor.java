@@ -1,10 +1,18 @@
 package org.mysoft.brainless.sensor;
 
-public class YPositionSensor extends PositionSensor {
+import org.mysoft.brainless.body.ComplexBody;
 
-	@Override
-	public double getValue() {
-		return getPsychicalBodyPosition().y;
+public class YPositionSensor extends BoneYPositionSensor {
+
+	public static YPositionSensor create(ComplexBody body) {
+		YPositionSensor s = new YPositionSensor();
+		s.setBody(body);
+		return s;
 	}
-
+	
+	@Override
+	public void setBody(ComplexBody body) {
+		super.setBody(body);
+		bone = body.getMasterBone();
+	}
 }

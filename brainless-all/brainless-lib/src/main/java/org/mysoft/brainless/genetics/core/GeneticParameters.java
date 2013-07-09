@@ -3,7 +3,7 @@ package org.mysoft.brainless.genetics.core;
 public class GeneticParameters {
 
 	public double getMutationProbability() {
-		return 0.005;
+		return 0.01;
 	}
 	
 	// min 4
@@ -12,7 +12,7 @@ public class GeneticParameters {
 	}
 	
 	public int getMaxGenerations() {
-		return 500;
+		return 50;
 	}
 	
 }

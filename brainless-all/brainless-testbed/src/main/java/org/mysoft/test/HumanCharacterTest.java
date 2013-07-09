@@ -8,7 +8,6 @@ import org.mysoft.brainless.human.HumanCharacter;
 import org.mysoft.brainless.neural.core.EvolvableNeuralNetwork;
 import org.mysoft.brainless.neural.core.EvolvableNeuralNetworkGeneration;
 import org.mysoft.brainless.neural.core.NeuralNetwork;
-import org.mysoft.brainless.neural.util.NeuralNetworkSerialization;
 import org.mysoft.brainless.neural.util.NeuralNetworkSerializer;
 import org.mysoft.brainless.sim.DefaultSimulation;
 
@@ -21,6 +20,7 @@ public class HumanCharacterTest extends TestbedTest {
 
 	@Override
 	public void initTest(boolean argDeserialized) {
+		
 		setTitle(getTestName());
 		
 		if(best == null) {
@@ -60,9 +60,10 @@ public class HumanCharacterTest extends TestbedTest {
 		super.step(settings);
 		character.getBrain().step();
 		
-		double pos = character.getBody().getMasterBone().getPhysicalBody().getPosition().x;
+		double posx = character.getBody().getMasterBone().getPhysicalBody().getPosition().x;
+		double posy = character.getBody().getMasterBone().getPhysicalBody().getPosition().y;
 		
-		System.out.println("pos = " + pos);
+		//System.out.println(posx + ", " + posy);
 	}
 	
 	

@@ -2,6 +2,7 @@ package org.mysoft.brainless.neural.core;
 
 import org.mysoft.brainless.genetics.chromosome.NeuralNetworkChromosome;
 import org.mysoft.brainless.genetics.core.Evolvable;
+import org.mysoft.brainless.human.HumanBody;
 import org.mysoft.brainless.human.HumanCharacter;
 import org.mysoft.brainless.sim.DefaultSimulation;
 
@@ -10,7 +11,7 @@ public class EvolvableNeuralNetwork extends Evolvable<NeuralNetworkChromosome> {
 	public static EvolvableNeuralNetwork create() {
 		EvolvableNeuralNetwork evolvable = new EvolvableNeuralNetwork();
 		
-		NeuralNetwork neuralNetwork = NeuralNetwork.create(3, 10, 10, 18, 18);
+		NeuralNetwork neuralNetwork = NeuralNetwork.create(10, 12, 16, 18);
 		neuralNetwork.randomizeWeights();
 		evolvable.chromosome = NeuralNetworkChromosome.create(neuralNetwork);
 		
@@ -25,11 +26,12 @@ public class EvolvableNeuralNetwork extends Evolvable<NeuralNetworkChromosome> {
 		
 		HumanCharacter character = simulation.getCharacter();
 		
-		double startPos = character.getBody().getMasterBone().getPhysicalBody().getPosition().x;
+		double startPosX = character.getBody().getMasterBone().getPhysicalBody().getPosition().x;
 		
 		simulation.simulate();
 		
-		double endPos = character.getBody().getMasterBone().getPhysicalBody().getPosition().x;
+		double endPosX = character.getBody().getMasterBone().getPhysicalBody().getPosition().x;
+		double endPosY = ((HumanBody)character.getBody()).getHead().getPhysicalBody().getPosition().y;
 		
 		try {
 			Thread.sleep(10);
@@ -37,19 +39,21 @@ public class EvolvableNeuralNetwork extends Evolvable<NeuralNetworkChromosome> {
 			throw new RuntimeException(e);
 		}
 		
-		double delta = startPos - endPos;
+		//double delta = -endPosX;
 		
-		if(delta < 0) {
+		endPosX = -endPosX;
+		
+		if(endPosX < 0 || endPosY < 0) {
 			return Double.MAX_VALUE;
 		} else {
-			return 100.0 / delta;
+			return 1.0 * (100.0 / (1.0 + endPosX)) + 3.0 * (13.0 / (1.0 + endPosY));
 		}
 		
 	}
 
 	@Override
 	public String toString() {
-		return "Individual fit = " + calculateFit();
+		return "Individual fit = " + getFit();
 	}
 	
 }
