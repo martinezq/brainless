@@ -74,6 +74,11 @@ public class HumanBody extends ComplexBody {
 	BoneYPositionSensor leftLegYPosition;
 	BoneXPositionSensor rightLegXPosition;
 	BoneYPositionSensor rightLegYPosition;
+
+	BoneXPositionSensor leftHandXPosition;
+	BoneYPositionSensor leftHandYPosition;
+	BoneXPositionSensor rightHandXPosition;
+	BoneYPositionSensor rightHandYPosition;
 	
 	BoneXPositionSensor headXPosition;
 	BoneYPositionSensor headYPosition;
@@ -105,6 +110,8 @@ public class HumanBody extends ComplexBody {
 				angleSensor, xPositionSensor, yPositionSensor,
 				leftLegXPosition, leftLegYPosition,
 				rightLegXPosition, rightLegYPosition,
+				leftHandXPosition, leftHandYPosition,
+				rightHandXPosition, rightHandYPosition,
 				headXPosition, headYPosition
 		};
 		
@@ -225,6 +232,13 @@ public class HumanBody extends ComplexBody {
 		rightLegXPosition = BoneXPositionSensor.create(this, rightFeet);
 		rightLegYPosition = BoneYPositionSensor.create(this, rightFeet);
 
+		leftHandXPosition = BoneXPositionSensor.create(this, leftHandLower);
+		leftHandYPosition = BoneYPositionSensor.create(this, leftHandLower);
+
+		rightHandXPosition = BoneXPositionSensor.create(this, rightHandLower);
+		rightHandYPosition = BoneYPositionSensor.create(this, rightHandLower);
+
+		
 		headXPosition = BoneXPositionSensor.create(this, head);
 		headYPosition = BoneYPositionSensor.create(this, head);
 	}

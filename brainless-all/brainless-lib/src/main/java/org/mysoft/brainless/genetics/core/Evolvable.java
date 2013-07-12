@@ -15,7 +15,6 @@ public abstract class Evolvable<T extends Chromosome> {
 	
 	public void setChromosome(T chromosome) {
 		this.chromosome = chromosome;
-		this.fit = calculateFit();
 	}
 	
 	public double getFit() {

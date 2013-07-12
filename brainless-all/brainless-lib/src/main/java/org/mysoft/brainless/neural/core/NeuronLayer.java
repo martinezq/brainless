@@ -32,6 +32,12 @@ public class NeuronLayer extends LinkedList<Neuron> {
 		}	
 	}
 	
+	public void connectTo(NeuronInput input) {
+		for(Neuron neuron: this) {
+			neuron.addInput(input);
+		}	
+	}
+	
 	private void createNeurons(int size) {
 		for(int i=0; i<size; i++) {
 			add(new Neuron());

@@ -6,4 +6,8 @@ public class ActivationFunction {
 		return 1 / (1 + Math.pow(Math.E, (-beta * value)));
 	}
 	
+	public final static double sin(double value) {
+		return 0.5 * Math.sin(value) + 0.5;
+		
+	}
 }

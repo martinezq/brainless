@@ -50,6 +50,11 @@ public class GeneticEngine<T extends Generation<?>, E extends Evolvable<?>> {
 				fit = newFit;
 			}
 		}
+
+		if(best == null) {
+			throw new IllegalStateException("Cannot find best individual, because every one is worst possible");
+		}
+		
 		return best;
 	}
 	

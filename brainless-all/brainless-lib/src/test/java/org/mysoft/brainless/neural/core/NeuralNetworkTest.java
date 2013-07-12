@@ -40,6 +40,7 @@ public class NeuralNetworkTest {
 	@Test
 	public void create_and_duplicate() {
 		NeuralNetwork n = NeuralNetwork.create(1,2,3,4);
+		n.addStorageNeurons(3);
 		NeuralNetwork d = n.duplicate();
 		
 		Assert.assertTrue("Not equal topology", d.hasEqualTopology(n));
@@ -95,5 +96,59 @@ public class NeuralNetworkTest {
 		Assert.assertTrue("Not equal weights", n1.hasEqualWeights(n2));		
 		
 	}	
+	
+	@Test
+	public void calculate_outputs() {
+		NeuralNetwork n = NeuralNetwork.create(1,2,2);
+		
+		n.randomizeWeights();
+		
+		n.addStorageNeuron();
+		
+		NeuronInput input1 = new NeuronInput() {
+			
+			@Override
+			public double calculatedOutput() {
+				return 1;
+			}
+		};
+		
+		NeuronInput input2 = new NeuronInput() {
+			
+			@Override
+			public double calculatedOutput() {
+				return 1;
+			}
+		};		
+		
+		NetworkOutput output = new NetworkOutput() {
+			
+			@Override
+			public void perform(double value) {
+				System.out.println(value);
+			}
+		};
+		
+		InputLayer inputLayer1 = InputLayer.create();
+		inputLayer1.add(input1);
+
+		InputLayer inputLayer2 = InputLayer.create();
+		inputLayer2.add(input2);
+
+		
+		OutputLayer outputLayer = OutputLayer.create();
+		outputLayer.add(output);
+		
+		n.attachInputLayer(inputLayer1);
+		n.attachOutputLayer(outputLayer);
+
+		NeuralNetwork d = n.duplicate();
+		
+		d.attachInputLayer(inputLayer2);
+		d.attachOutputLayer(outputLayer);
+		
+		n.step();
+		d.step();
+	}
 	
 }

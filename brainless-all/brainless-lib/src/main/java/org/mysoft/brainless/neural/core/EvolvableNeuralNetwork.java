@@ -11,7 +11,8 @@ public class EvolvableNeuralNetwork extends Evolvable<NeuralNetworkChromosome> {
 	public static EvolvableNeuralNetwork create() {
 		EvolvableNeuralNetwork evolvable = new EvolvableNeuralNetwork();
 		
-		NeuralNetwork neuralNetwork = NeuralNetwork.create(10, 12, 16, 18);
+		NeuralNetwork neuralNetwork = NeuralNetwork.create(16, 18, 20);
+		neuralNetwork.addStorageNeurons(2);
 		neuralNetwork.randomizeWeights();
 		evolvable.chromosome = NeuralNetworkChromosome.create(neuralNetwork);
 		
@@ -24,6 +25,8 @@ public class EvolvableNeuralNetwork extends Evolvable<NeuralNetworkChromosome> {
 
 		simulation.init(chromosome.getNeuralNetwork());
 		
+		chromosome.getNeuralNetwork().getStorageLayer().reset();
+		
 		HumanCharacter character = simulation.getCharacter();
 		
 		double startPosX = character.getBody().getMasterBone().getPhysicalBody().getPosition().x;
@@ -34,19 +37,17 @@ public class EvolvableNeuralNetwork extends Evolvable<NeuralNetworkChromosome> {
 		double endPosY = ((HumanBody)character.getBody()).getHead().getPhysicalBody().getPosition().y;
 		
 		try {
-			Thread.sleep(10);
+			Thread.sleep(50);
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
-		
-		//double delta = -endPosX;
 		
 		endPosX = -endPosX;
 		
 		if(endPosX < 0 || endPosY < 0) {
 			return Double.MAX_VALUE;
 		} else {
-			return 1.0 * (100.0 / (1.0 + endPosX)) + 3.0 * (13.0 / (1.0 + endPosY));
+			return 1.0 * (100.0 / (1.0 + endPosX)) + 10.0 * (13.0 / (1.0 + endPosY));
 		}
 		
 	}

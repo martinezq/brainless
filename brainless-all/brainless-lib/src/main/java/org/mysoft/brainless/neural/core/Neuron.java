@@ -8,7 +8,7 @@ import org.mysoft.brainless.neural.util.ActivationFunction;
 
 public class Neuron implements NeuronInput {
 
-	protected final static double BETA = 5.0;
+	protected final static double BETA = 0.1;
 	
 	protected final ArrayList<NeuronInput> inputs = new ArrayList<>();
 	protected final ArrayList<InputWeight> inputWeights = new ArrayList<>();
@@ -73,6 +73,7 @@ public class Neuron implements NeuronInput {
 	
 	protected double activator(double value) {
 		return ActivationFunction.logSigmoid(value, BETA);
+		//return ActivationFunction.sin(value);
 	}
 	
 	private double calculateInputs() {
@@ -82,7 +83,7 @@ public class Neuron implements NeuronInput {
 		for(int i=0; i<inputSize; i++) {
 			NeuronInput input = inputs.get(i);
 			InputWeight weight = inputWeights.get(i);
-			result = input.calculatedOutput() * weight.getValue();
+			result += input.calculatedOutput() * weight.getValue();
 		}
 		
 		return result;

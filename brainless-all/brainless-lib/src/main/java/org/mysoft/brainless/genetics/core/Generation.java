@@ -23,6 +23,7 @@ public abstract class Generation<E extends Evolvable> {
 
 	@SuppressWarnings("unchecked")
 	public void calculateNext() {
+		calculateFits();
 		sort();
 		
 		int len = individuals.length;
@@ -37,13 +38,20 @@ public abstract class Generation<E extends Evolvable> {
 			
 			individuals[i].setChromosome(chromosome1.crossover(chromosome2).mutate()); 
 			individuals[i+1].setChromosome(chromosome1.crossover(chromosome2).mutate());
-			
+
 			individuals[halflen+i].setChromosome(chromosome1.crossover(chromosome2).mutate()); 
 			individuals[halflen+i+1].setChromosome(chromosome1.crossover(chromosome2).mutate());
 
 		}
 		
-		individuals[0].setChromosome(best);
+		individuals[len - 1].setChromosome(best);
+	}
+
+	private void calculateFits() {
+		for(int i=0; i<individuals.length; i++) {
+			individuals[i].fit = individuals[i].calculateFit();
+		}
+		
 	}
 
 	@SuppressWarnings("unchecked")

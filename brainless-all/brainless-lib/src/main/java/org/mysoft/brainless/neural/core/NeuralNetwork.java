@@ -9,6 +9,7 @@ public class NeuralNetwork {
 	protected InputLayer inputLayer = InputLayer.create();
 	protected LinkedList<NeuronLayer> hiddenLayers = new LinkedList<>();
 	protected OutputLayer outputLayer = OutputLayer.create();
+	protected StorageLayer storageLayer = StorageLayer.create();
 	
 	public static NeuralNetwork createEmpty() {
 		return new NeuralNetwork();
@@ -40,8 +41,15 @@ public class NeuralNetwork {
 		newNetwork.createHiddenLayers(sizes);
 		newNetwork.createHiddenLayersConnections();
 		newNetwork.copyWeightsFrom(this);
+		newNetwork.copyStorageNeurons(this);
 		
 		return newNetwork;
+	}
+
+	private void copyStorageNeurons(NeuralNetwork otherNetwork) {
+		int count = otherNetwork.storageLayer.size();
+		addStorageNeurons(count);
+		
 	}
 
 	public void createHiddenLayers(int layers, int neuronsInLayer) {
@@ -101,6 +109,10 @@ public class NeuralNetwork {
 		NeuronLayer firstHiddenLayer = this.hiddenLayers.getFirst();
 		
 		firstHiddenLayer.connectTo(inputLayer);
+		
+		for(NeuronInput input: this.storageLayer) {
+			firstHiddenLayer.connectTo(input);
+		}
 
 	}
 
@@ -112,20 +124,24 @@ public class NeuralNetwork {
 		}
 	}
 	
-	public void attachOutputLayer(OutputLayer newOutputLayer) {
+	public void attachOutputLayer(OutputLayer outputLayer) {
 		detachOutputLayer();
 		
 		assertHasHiddenLayers();
 		
-		int neurons = hiddenLayers.getLast().size();
-		int outputs = newOutputLayer.size();
+		int neurons = hiddenLayers.getLast().size() - this.storageLayer.size();
+		int outputs = outputLayer.size();
 		
 		if(neurons != outputs) {
 			throw new IllegalArgumentException("Expected " + neurons + " outputs in layer, got " + outputs);
 		}
 		
-		for(NetworkOutput output: newOutputLayer) {
+		for(NetworkOutput output: outputLayer) {
 			addOutput(output);
+		}
+		
+		for(StorageNeuron storage: this.storageLayer) {
+			addOutput(storage);
 		}
 	}
 	
@@ -151,6 +167,11 @@ public class NeuralNetwork {
 			}
 
 		}
+		
+		if(this.storageLayer.size() != otherNetwork.storageLayer.size()) {
+			return false;
+		}
+		
 		return true;
 	}
 	
@@ -189,15 +210,25 @@ public class NeuralNetwork {
 		reset();
 		
 		NeuronLayer lastHiddenLayer = hiddenLayers.getLast();
-		int count = this.outputLayer.size();
+		int outputsCount = this.outputLayer.size();
 		
-		for(int i=0; i<count; i++) {
+		for(int i=0; i<outputsCount; i++) {
 			Neuron neuron = lastHiddenLayer.get(i);
 			NetworkOutput output = this.outputLayer.get(i);
 			
 			double value = neuron.calculatedOutput();
 			output.perform(value);
 		}
+		/*
+		int storagesCount = this.storageLayer.size();
+		
+		for(int j=0; j<storagesCount; j++) {
+			Neuron neuron = lastHiddenLayer.get(outputsCount + j);
+			NetworkOutput output = this.storageLayer.get(j);
+			
+			double value = neuron.calculatedOutput();
+			output.perform(value);
+		}*/
 	}
 	
 	public OutputLayer getOutputLayer() {
@@ -212,13 +243,28 @@ public class NeuralNetwork {
 		return hiddenLayers;
 	}
 	
+	public void addStorageNeuron() {
+		StorageNeuron storageNeuron = StorageNeuron.create();
+		this.storageLayer.add(storageNeuron);
+	}
+	
 	protected boolean hasHiddenLayers() {
 		return hiddenLayers.size() > 0;
 	}
 	
 	protected void assertHasHiddenLayers() {
 		if(!hasHiddenLayers()) {
-			throw new IllegalStateException("Network has not hiddel layers");
+			throw new IllegalStateException("There are no hidden layers");
 		}
+	}
+
+	 void addStorageNeurons(int count) {
+		for(int i=0; i<count; i++) {
+			addStorageNeuron();
+		}
+	}
+	 
+	 public StorageLayer getStorageLayer() {
+		return storageLayer;
 	}
 }
