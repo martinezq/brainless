@@ -11,8 +11,8 @@ public class EvolvableNeuralNetwork extends Evolvable<NeuralNetworkChromosome> {
 	public static EvolvableNeuralNetwork create() {
 		EvolvableNeuralNetwork evolvable = new EvolvableNeuralNetwork();
 		
-		NeuralNetwork neuralNetwork = NeuralNetwork.create(16, 18, 20);
-		neuralNetwork.addStorageNeurons(2);
+		NeuralNetwork neuralNetwork = NeuralNetwork.create(16, 32, 19);
+		neuralNetwork.addStorageNeurons(1);
 		neuralNetwork.randomizeWeights();
 		evolvable.chromosome = NeuralNetworkChromosome.create(neuralNetwork);
 		
@@ -41,7 +41,16 @@ public class EvolvableNeuralNetwork extends Evolvable<NeuralNetworkChromosome> {
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
+
+		endPosX = endPosX;
 		
+		if(endPosX < 0.0) {
+			return Double.MAX_VALUE;
+		} else {
+			return 100.0 / endPosX; //character.getSummaryDelta() + (100.0 / endPosY);
+		}
+		
+		/*
 		endPosX = -endPosX;
 		
 		if(endPosX < 0 || endPosY < 0) {
@@ -49,6 +58,7 @@ public class EvolvableNeuralNetwork extends Evolvable<NeuralNetworkChromosome> {
 		} else {
 			return 1.0 * (100.0 / (1.0 + endPosX)) + 10.0 * (13.0 / (1.0 + endPosY));
 		}
+		*/
 		
 	}
 

@@ -12,7 +12,7 @@ public class GeneticParameters {
 	}
 	
 	public int getMaxGenerations() {
-		return 20;
+		return 100;
 	}
 	
 }

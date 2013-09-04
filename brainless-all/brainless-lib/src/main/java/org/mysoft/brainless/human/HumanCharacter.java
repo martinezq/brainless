@@ -37,9 +37,22 @@ public class HumanCharacter extends Character {
 	}
 	
 	public double getSummaryDelta() {
-		return deltaX + deltaY + deltaAngle;
+		return deltaX + deltaY + 100.0 * deltaAngle;
 	}
 
+	public double getDeltaY() {
+		return deltaY;
+	}
+
+	public double getDeltaX() {
+		return deltaX;
+	}
+
+	
+	public double getDeltaAngle() {
+		return deltaAngle;
+	}
+	
 	public void setSummaryDelta(double value) {
 		deltaX = value;
 	}

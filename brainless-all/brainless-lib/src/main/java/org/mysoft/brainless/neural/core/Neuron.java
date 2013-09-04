@@ -8,7 +8,7 @@ import org.mysoft.brainless.neural.util.ActivationFunction;
 
 public class Neuron implements NeuronInput {
 
-	protected final static double BETA = 0.1;
+	protected final static double BETA = 1.0;
 	
 	protected final ArrayList<NeuronInput> inputs = new ArrayList<>();
 	protected final ArrayList<InputWeight> inputWeights = new ArrayList<>();

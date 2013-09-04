@@ -42,5 +42,6 @@
 	<modules>
 		<module>brainless-lib</module>
 		<module>brainless-testbed</module>
+		<module>brainless-studio</module>
 	</modules>
 </project>

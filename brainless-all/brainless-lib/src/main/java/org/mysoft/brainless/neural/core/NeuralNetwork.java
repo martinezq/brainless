@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class NeuralNetwork {
 	
-	private final static int MAX_WEIGHTS = 32;
+	private final static int MAX_WEIGHTS = 64;
 	
 	protected InputLayer inputLayer = InputLayer.create();
 	protected LinkedList<NeuronLayer> hiddenLayers = new LinkedList<>();

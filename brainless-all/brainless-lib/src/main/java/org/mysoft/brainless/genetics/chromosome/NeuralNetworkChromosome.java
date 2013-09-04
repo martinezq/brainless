@@ -72,8 +72,8 @@ public class NeuralNetworkChromosome extends Chromosome {
 				
 				int weightsCount = newNeuron.getWeightsCount();
 				
-				for(int ii=0; ii<weightsCount; ii++) {
-					if(Math.random() < 0.5) {
+				if(Math.random() < 0.5) {
+					for(int ii=0; ii<weightsCount; ii++) {
 						InputWeight otherWeight = otherNeuron.getWeight(ii);
 						newNeuron.setWeight(ii, otherWeight.duplicate());
 					}
