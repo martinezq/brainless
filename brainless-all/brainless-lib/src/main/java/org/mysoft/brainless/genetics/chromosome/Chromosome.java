@@ -16,6 +16,8 @@ public abstract class Chromosome {
 	
 	public abstract Chromosome duplicate();
 	
+	public abstract Chromosome randomize();
+	
 	public void setParameters(GeneticParameters parameters) {
 		this.parameters = parameters;
 	}

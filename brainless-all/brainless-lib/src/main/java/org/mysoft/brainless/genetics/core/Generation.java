@@ -45,6 +45,7 @@ public abstract class Generation<E extends Evolvable> {
 		}
 		
 		individuals[len - 1].setChromosome(best);
+		individuals[len - 2].setChromosome(best.randomize());
 	}
 
 	private void calculateFits() {

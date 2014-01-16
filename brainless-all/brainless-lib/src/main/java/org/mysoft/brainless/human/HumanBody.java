@@ -9,7 +9,9 @@ import org.mysoft.brainless.body.util.Angles;
 import org.mysoft.brainless.body.util.Density;
 import org.mysoft.brainless.body.util.Force;
 import org.mysoft.brainless.sensor.AngleSensor;
+import org.mysoft.brainless.sensor.AngularVelocitySensor;
 import org.mysoft.brainless.sensor.BodySensor;
+import org.mysoft.brainless.sensor.BoneContactSensor;
 import org.mysoft.brainless.sensor.BoneXPositionSensor;
 import org.mysoft.brainless.sensor.BoneYPositionSensor;
 import org.mysoft.brainless.sensor.XPositionSensor;
@@ -68,7 +70,7 @@ public class HumanBody extends ComplexBody {
 	
 	BodySensor xPositionSensor;
 	BodySensor yPositionSensor;
-	BodySensor angleSensor;
+	
 	
 	BoneXPositionSensor leftLegXPosition;
 	BoneYPositionSensor leftLegYPosition;
@@ -82,6 +84,15 @@ public class HumanBody extends ComplexBody {
 	
 	BoneXPositionSensor headXPosition;
 	BoneYPositionSensor headYPosition;
+	
+	BoneContactSensor leftLegContact;
+	BoneContactSensor rightLegContact;
+	
+	BodySensor spineAngleSensor;
+	BodySensor masterAngleSensor;
+
+	AngularVelocitySensor spineAngularVelocitySensor;
+	AngularVelocitySensor masterAngularVelocitySensor;
 	
 	public final static HumanBody create(World world) {
 		HumanBody human = new HumanBody();
@@ -107,12 +118,15 @@ public class HumanBody extends ComplexBody {
 	@Override
 	public BodySensor[] getBodySensors() {
 		BodySensor[] sensors = new BodySensor[] {
-				angleSensor, xPositionSensor, yPositionSensor,
+				xPositionSensor, yPositionSensor,
 				leftLegXPosition, leftLegYPosition,
 				rightLegXPosition, rightLegYPosition,
 				leftHandXPosition, leftHandYPosition,
 				rightHandXPosition, rightHandYPosition,
-				headXPosition, headYPosition
+				headXPosition, headYPosition, 
+				leftLegContact, rightLegContact,
+				spineAngleSensor, masterAngleSensor,
+				spineAngularVelocitySensor, masterAngularVelocitySensor
 		};
 		
 		return sensors;
@@ -224,8 +238,6 @@ public class HumanBody extends ComplexBody {
 		xPositionSensor = XPositionSensor.create(this);
 		yPositionSensor = YPositionSensor.create(this);
 			
-		angleSensor = AngleSensor.create(this);
-		
 		leftLegXPosition = BoneXPositionSensor.create(this, leftFeet);
 		leftLegYPosition = BoneYPositionSensor.create(this, leftFeet);
 
@@ -241,10 +253,24 @@ public class HumanBody extends ComplexBody {
 		
 		headXPosition = BoneXPositionSensor.create(this, head);
 		headYPosition = BoneYPositionSensor.create(this, head);
+		
+		leftLegContact = BoneContactSensor.create(this, leftFeet);
+		rightLegContact = BoneContactSensor.create(this,  rightFeet);
+		
+		spineAngleSensor = AngleSensor.create(this, spineUpper);
+		spineAngularVelocitySensor = AngularVelocitySensor.create(this, spineUpper);
+		
+		masterAngleSensor = AngleSensor.create(this);
+		masterAngularVelocitySensor = AngularVelocitySensor.create(this);
 	}
 	
 	public Bone getHead() {
 		return head;
+	}
+	
+	@Override
+	public Bone getMasterBone() {
+		return getHead();
 	}
 
 }

@@ -8,11 +8,11 @@ public class GeneticParameters {
 	
 	// min 4
 	public int getGenerationSize() {
-		return 64;
+		return 256;
 	}
 	
 	public int getMaxGenerations() {
-		return 100;
+		return 64;
 	}
 	
 }

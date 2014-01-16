@@ -1,5 +1,7 @@
 package org.mysoft.brainless.genetics.chromosome;
 
+import java.util.Random;
+
 import org.mysoft.brainless.neural.core.InputWeight;
 import org.mysoft.brainless.neural.core.NeuralNetwork;
 import org.mysoft.brainless.neural.core.Neuron;
@@ -22,6 +24,7 @@ public class NeuralNetworkChromosome extends Chromosome {
 	@Override
 	public Chromosome mutate() {
 		double prob = parameters.getMutationProbability() / 2.0;
+		Random randomizer = new Random();
 		
 		for(NeuronLayer layer: neuralNetwork.getHiddenLayers()) {
 
@@ -37,17 +40,29 @@ public class NeuralNetworkChromosome extends Chromosome {
 						double oldValue = neuron.getWeight(i).getValue();
 						double newValue = oldValue;
 						
-						double rand2 = 2.0 * Math.random() - 1.0;
+						boolean doRandomize = randomizer.nextBoolean();
 						
-						if(rand2 < 0.9 && rand2 > -0.9) {
-							newValue += 0.02 * Math.random() - 0.01;
-						} else if(rand2 < 0.95 && rand > -0.95) {
-							newValue = newValue * (2.0 * Math.random());
+						if(doRandomize) {
+							neuron.setWeight(i, InputWeight.random());
 						} else {
-							newValue = -newValue;
+							boolean doAdd = randomizer.nextBoolean();
+							boolean doMult = randomizer.nextBoolean();
+							boolean doRev = randomizer.nextBoolean();
+							
+							if(doMult) {
+								newValue = newValue * (Math.random() + 0.5);
+							} 
+							
+							if(doAdd) {
+								newValue += 0.2 * Math.random() - 0.1;
+							} 
+							
+							if(!doAdd && !doMult && doRev) {
+								newValue = -newValue;
+							}
+							
+							neuron.setWeight(i, InputWeight.create(newValue));
 						}
-						
-						neuron.setWeight(i, InputWeight.create(newValue));
 					}
 				}
 			}
@@ -61,10 +76,13 @@ public class NeuralNetworkChromosome extends Chromosome {
 		
 		NeuralNetwork newNetwork = otherNetwork.duplicate();
 		
+		Random randomizer = new Random();
 		
 		for(int li=0; li<newNetwork.getHiddenLayers().size(); li++) {
 			NeuronLayer newLayer = newNetwork.getHiddenLayers().get(li);
 			NeuronLayer otherLayer = otherNetwork.getHiddenLayers().get(li);
+			
+			boolean fromOther = randomizer.nextBoolean();
 			
 			for(int ni=0; ni<newLayer.size(); ni++) {
 				Neuron newNeuron = newLayer.get(ni);
@@ -72,7 +90,7 @@ public class NeuralNetworkChromosome extends Chromosome {
 				
 				int weightsCount = newNeuron.getWeightsCount();
 				
-				if(Math.random() < 0.5) {
+				if(fromOther) {
 					for(int ii=0; ii<weightsCount; ii++) {
 						InputWeight otherWeight = otherNeuron.getWeight(ii);
 						newNeuron.setWeight(ii, otherWeight.duplicate());
@@ -91,6 +109,16 @@ public class NeuralNetworkChromosome extends Chromosome {
 	@Override
 	public Chromosome duplicate() {
 		NeuralNetworkChromosome chromosome = NeuralNetworkChromosome.create(neuralNetwork.duplicate());
+		chromosome.setParameters(parameters);
+		return chromosome;
+	}
+	
+	@Override
+	public Chromosome randomize() {
+		NeuralNetwork nn = neuralNetwork.duplicate();
+		nn.randomizeWeights();
+		
+		NeuralNetworkChromosome chromosome = NeuralNetworkChromosome.create(nn);
 		chromosome.setParameters(parameters);
 		return chromosome;
 	}

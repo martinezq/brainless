@@ -46,4 +46,10 @@ public class DoubleArrayChromosome extends Chromosome {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public Chromosome randomize() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

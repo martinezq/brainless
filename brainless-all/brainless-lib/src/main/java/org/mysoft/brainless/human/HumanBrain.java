@@ -2,6 +2,7 @@ package org.mysoft.brainless.human;
 
 import org.mysoft.brainless.body.BoneJoint;
 import org.mysoft.brainless.body.ComplexBody;
+import org.mysoft.brainless.body.util.Force;
 import org.mysoft.brainless.brain.Brain;
 import org.mysoft.brainless.neural.core.InputLayer;
 import org.mysoft.brainless.neural.core.NeuralNetwork;
@@ -13,7 +14,7 @@ public class HumanBrain extends Brain {
 	NeuralNetwork network;
 	
 	public static HumanBrain create() {
-		return create(NeuralNetwork.createEmpty());
+		return create(NeuralNetwork.createDefault());
 	}
 	
 	public static HumanBrain create(NeuralNetwork neuralNetwork) {
@@ -63,7 +64,7 @@ public class HumanBrain extends Brain {
 
 	public void freeze() {
 		for (BoneJoint joint : body.getBodyJoints()) {
-			joint.hold(50000f);
+			joint.hold(Force.AVG);
 		}
 
 	}

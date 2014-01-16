@@ -19,7 +19,12 @@ public class InputWeight {
 	}
 
 	public static InputWeight random() {
-		double value = 2.0 * Math.random() - 1.0;
+		double value = 0;
+		if(Math.random() < 0.05) {
+			value = 20.0 * Math.random() - 10.0;
+		} else {
+			value = 2.0 * Math.random() - 1.0;
+		}
 		return create(value);
 	}
 	

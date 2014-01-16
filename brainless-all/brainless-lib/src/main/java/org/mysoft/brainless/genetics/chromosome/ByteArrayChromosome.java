@@ -49,4 +49,10 @@ public class ByteArrayChromosome extends Chromosome {
 		return null;
 	}
 	
+	@Override
+	public Chromosome randomize() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
