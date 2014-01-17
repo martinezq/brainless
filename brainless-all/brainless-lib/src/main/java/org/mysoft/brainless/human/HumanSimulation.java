@@ -1,4 +1,4 @@
-package org.mysoft.brainless.sim;
+package org.mysoft.brainless.human;
 
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
@@ -6,21 +6,19 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.World;
-import org.mysoft.brainless.human.HumanBody;
-import org.mysoft.brainless.human.HumanBrain;
-import org.mysoft.brainless.human.HumanCharacter;
 import org.mysoft.brainless.neural.core.NeuralNetwork;
+import org.mysoft.brainless.sim.Simulation;
 
-public class DefaultSimulation extends Simulation<NeuralNetwork> {
+public class HumanSimulation extends Simulation<NeuralNetwork> {
 
 	final static float DEFAULT_STEP = 1.0f / 31.0f;
-	final static float SIMULATION_SECONDS = 5.0f;
+	final static float SIMULATION_SECONDS = 3.0f;
 	
 	World world;
 	HumanCharacter character;
 	
-	public final static DefaultSimulation create() {
-		return new DefaultSimulation();
+	public final static HumanSimulation create() {
+		return new HumanSimulation();
 	}
 	
 	@Override

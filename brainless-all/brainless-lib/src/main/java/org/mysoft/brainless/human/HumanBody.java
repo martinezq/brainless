@@ -1,5 +1,11 @@
 package org.mysoft.brainless.human;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
+import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 import org.mysoft.brainless.body.BodyFactory;
 import org.mysoft.brainless.body.Bone;
@@ -102,6 +108,19 @@ public class HumanBody extends ComplexBody {
 		return human;
 	}
 
+	public Bone[] getBones() {
+		Bone[] bones = new Bone[] {
+				spineLower, spineMiddle, spineUpper,
+				neck, head, 
+				leftLegUpper, leftLegLower,	leftFeet, leftFeet2,
+				rightLegUpper, rightLegLower, rightFeet, rightFeet2,
+				leftHandUpper, leftHandMiddle, leftHandLower,
+				rightHandUpper, rightHandMiddle, rightHandLower	
+		};
+		
+		return bones;
+	}
+	
 	@Override
 	public BoneJoint[] getBodyJoints() {
 		BoneJoint[] joints = new BoneJoint[] {
@@ -117,19 +136,25 @@ public class HumanBody extends ComplexBody {
 	
 	@Override
 	public BodySensor[] getBodySensors() {
-		BodySensor[] sensors = new BodySensor[] {
-				xPositionSensor, yPositionSensor,
-				leftLegXPosition, leftLegYPosition,
-				rightLegXPosition, rightLegYPosition,
-				leftHandXPosition, leftHandYPosition,
-				rightHandXPosition, rightHandYPosition,
-				headXPosition, headYPosition, 
-				leftLegContact, rightLegContact,
-				spineAngleSensor, masterAngleSensor,
-				spineAngularVelocitySensor, masterAngularVelocitySensor
-		};
+		Bone[] bones = getBones();
 		
-		return sensors;
+		List<BodySensor> sensors = new LinkedList<BodySensor>();
+		
+		for(Bone bone: bones) {
+			BoneXPositionSensor x = BoneXPositionSensor.create(this, bone);
+			BoneYPositionSensor y = BoneYPositionSensor.create(this, bone);
+			AngleSensor a = AngleSensor.create(this, bone);
+			AngularVelocitySensor v = AngularVelocitySensor.create(this, bone);
+			BoneContactSensor c = BoneContactSensor.create(this, bone);
+			
+			sensors.add(x);
+			sensors.add(y);
+			sensors.add(a);
+			sensors.add(v);
+			sensors.add(c);
+		}
+		
+		return sensors.toArray(new BodySensor[sensors.size()]);
 	}
 	
 	@Override
@@ -173,6 +198,8 @@ public class HumanBody extends ComplexBody {
 		leftLegLowerJoint = leftLegUpper.connectAtEnd(leftLegLower, Angles.d2r(0), Angles.d2r(150));
 		leftFeetJoint = leftLegLower.connectAtEnd(leftFeet, Angles.d2r(135), Angles.d2r(210));
 		leftFeet2Joint = leftFeet.connectAtStart(leftFeet2, Angles.d2r(-60), Angles.d2r(60));
+		
+		leftLegUpperJoint.applySpeed(10f);
 	}
 	
 	private void initRightLeg() {
@@ -185,6 +212,8 @@ public class HumanBody extends ComplexBody {
 		rightLegLowerJoint = rightLegUpper.connectAtEnd(rightLegLower, Angles.d2r(0), Angles.d2r(150));
 		rightFeetJoint = rightLegLower.connectAtEnd(rightFeet, Angles.d2r(135), Angles.d2r(210));
 		rightFeet2Joint = rightFeet.connectAtStart(rightFeet2, Angles.d2r(-60), Angles.d2r(60));
+		
+		rightLegUpperJoint.applySpeed(-10f);
 	}
 	
 	private void initLeftHand() {

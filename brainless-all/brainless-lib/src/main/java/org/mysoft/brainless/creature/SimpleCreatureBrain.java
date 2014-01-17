@@ -1,0 +1,72 @@
+package org.mysoft.brainless.creature;
+
+import org.mysoft.brainless.body.BoneJoint;
+import org.mysoft.brainless.body.ComplexBody;
+import org.mysoft.brainless.body.util.Force;
+import org.mysoft.brainless.brain.Brain;
+import org.mysoft.brainless.neural.core.InputLayer;
+import org.mysoft.brainless.neural.core.NeuralNetwork;
+import org.mysoft.brainless.neural.core.OutputLayer;
+import org.mysoft.brainless.sensor.BodySensor;
+
+public class SimpleCreatureBrain extends Brain {
+
+	NeuralNetwork network;
+	
+	public static SimpleCreatureBrain create() {
+		return create(NeuralNetwork.createDefault());
+	}
+	
+	public static SimpleCreatureBrain create(NeuralNetwork neuralNetwork) {
+		SimpleCreatureBrain brain = new SimpleCreatureBrain();
+		brain.network = neuralNetwork;
+		return brain;
+	}
+	
+	@Override
+	public void attachTo(ComplexBody complexBody) {
+		super.attachTo(complexBody);
+		connectBrainToBody();
+	}
+
+	private void connectBrainToBody() {
+		if(body == null) {
+			throw new IllegalStateException("There is no body attached");
+		}
+
+		InputLayer inputLayer = InputLayer.create();
+		OutputLayer outputLayer = OutputLayer.create();
+		
+		for(BodySensor sensor: body.getBodySensors()) {
+			inputLayer.add(sensor);
+		}
+
+		BoneJoint[] joints =  body.getBodyJoints();
+		
+		for(BoneJoint joint: joints) {
+			outputLayer.add(joint);
+		}
+		
+		network.attachInputLayer(inputLayer);
+		network.attachOutputLayer(outputLayer);
+		
+	}
+
+	@Override
+	public void activate() {
+		freeze();
+	}
+
+	@Override
+	public void step() {
+		network.step();
+	}
+
+	public void freeze() {
+		for (BoneJoint joint : body.getBodyJoints()) {
+			joint.hold(Force.AVG);
+		}
+
+	}
+
+}

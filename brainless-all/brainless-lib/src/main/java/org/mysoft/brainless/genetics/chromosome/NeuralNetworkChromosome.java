@@ -43,7 +43,8 @@ public class NeuralNetworkChromosome extends Chromosome {
 						boolean doRandomize = randomizer.nextBoolean();
 						
 						if(doRandomize) {
-							neuron.setWeight(i, InputWeight.random());
+							//neuron.setWeight(i, InputWeight.random());
+							neuron.setWeight(i, InputWeight.create(0));
 						} else {
 							boolean doAdd = randomizer.nextBoolean();
 							boolean doMult = randomizer.nextBoolean();
@@ -82,13 +83,13 @@ public class NeuralNetworkChromosome extends Chromosome {
 			NeuronLayer newLayer = newNetwork.getHiddenLayers().get(li);
 			NeuronLayer otherLayer = otherNetwork.getHiddenLayers().get(li);
 			
-			boolean fromOther = randomizer.nextBoolean();
-			
 			for(int ni=0; ni<newLayer.size(); ni++) {
 				Neuron newNeuron = newLayer.get(ni);
 				Neuron otherNeuron = otherLayer.get(ni);
 				
 				int weightsCount = newNeuron.getWeightsCount();
+				
+				boolean fromOther = randomizer.nextBoolean();
 				
 				if(fromOther) {
 					for(int ii=0; ii<weightsCount; ii++) {

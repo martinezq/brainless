@@ -2,23 +2,22 @@ package org.mysoft.test;
 
 import org.jbox2d.testbed.framework.TestbedSettings;
 import org.jbox2d.testbed.framework.TestbedTest;
+import org.mysoft.brainless.creature.SimpleCreatureCharacter;
+import org.mysoft.brainless.creature.SimpleCreatureEvolvableNeuralNetwork;
+import org.mysoft.brainless.creature.SimpleCreatureEvolvableNeuralNetworkGeneration;
+import org.mysoft.brainless.creature.SimpleCreatureSimulation;
 import org.mysoft.brainless.genetics.core.GeneticEngine;
 import org.mysoft.brainless.genetics.core.GeneticParameters;
-import org.mysoft.brainless.human.HumanCharacter;
-import org.mysoft.brainless.human.HumanEvolvableNeuralNetwork;
-import org.mysoft.brainless.human.HumanEvolvableNeuralNetworkGeneration;
-import org.mysoft.brainless.human.HumanSimulation;
 import org.mysoft.brainless.neural.core.EvolvableNeuralNetwork;
 import org.mysoft.brainless.neural.core.NeuralNetwork;
 import org.mysoft.brainless.neural.util.NeuralNetworkSerializer;
 
-
-public class HumanCharacterTest extends TestbedTest {
+public class SimpleCreatureCharacterTest extends TestbedTest {
 
 	static NeuralNetwork best = null;
 	
-	HumanCharacter character;
-	HumanSimulation simulation = HumanSimulation.create();
+	SimpleCreatureCharacter character;
+	SimpleCreatureSimulation simulation = SimpleCreatureSimulation.create();
 
 	@Override
 	public void initTest(boolean argDeserialized) {
@@ -36,14 +35,14 @@ public class HumanCharacterTest extends TestbedTest {
 
 	@Override
 	public String getTestName() {
-		return "Human Character Test";
+		return "Simple Creature Test";
 	}
 	
 	private NeuralNetwork learn() {
-		GeneticEngine<HumanEvolvableNeuralNetworkGeneration, HumanEvolvableNeuralNetwork> engine = 
+		GeneticEngine<SimpleCreatureEvolvableNeuralNetworkGeneration, SimpleCreatureEvolvableNeuralNetwork> engine = 
 				new GeneticEngine<>(new GeneticParameters());
 		
-		engine.start(HumanEvolvableNeuralNetworkGeneration.createArrayOf(2));
+		engine.start(SimpleCreatureEvolvableNeuralNetworkGeneration.createArrayOf(2));
 		
 		EvolvableNeuralNetwork best = engine.getBest();
 		

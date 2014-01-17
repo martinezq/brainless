@@ -29,8 +29,8 @@ public abstract class Generation<E extends Evolvable> {
 		int len = individuals.length;
 		int halflen = len / 2;
 		
-		Chromosome best = individuals[0].getChromosome();
-		
+		Chromosome bestChromosome = individuals[0].getChromosome();
+	
 		for(int i=0;i<halflen;i+=2) {
 				
 			Chromosome chromosome1 = individuals[i].getChromosome();
@@ -43,22 +43,29 @@ public abstract class Generation<E extends Evolvable> {
 			individuals[halflen+i+1].setChromosome(chromosome1.crossover(chromosome2).mutate());
 
 		}
+						
+		//individuals[len - 1].setChromosome(bestChromosome);
+		//individuals[len - 2].setChromosome(bestChromosome.randomize());
 		
-		individuals[len - 1].setChromosome(best);
-		individuals[len - 2].setChromosome(best.randomize());
+		/*
+		for(int i=0;i<len;i++) {
+			individuals[i].setChromosome(individuals[i].getChromosome().mutate()); 
+		}
+		*/
 	}
 
 	private void calculateFits() {
 		for(int i=0; i<individuals.length; i++) {
 			individuals[i].fit = individuals[i].calculateFit();
 		}
-		
 	}
 
 	@SuppressWarnings("unchecked")
 	public E calculateBest() {
+		calculateFits();
 		sort();
-		return (E)individuals[0];
+		
+		return (E) individuals[0];
 	}
 	
 	public void sort() {
