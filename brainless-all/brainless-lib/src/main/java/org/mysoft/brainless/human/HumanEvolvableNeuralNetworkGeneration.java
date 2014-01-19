@@ -1,9 +1,11 @@
 package org.mysoft.brainless.human;
 
+import org.mysoft.brainless.genetics.chromosome.NeuralNetworkChromosome;
 import org.mysoft.brainless.genetics.core.Generation;
 import org.mysoft.brainless.genetics.core.GeneticParameters;
 
-public class HumanEvolvableNeuralNetworkGeneration extends Generation<HumanEvolvableNeuralNetwork> {
+@Deprecated
+public class HumanEvolvableNeuralNetworkGeneration extends Generation<NeuralNetworkChromosome> {
 
 	public static HumanEvolvableNeuralNetworkGeneration[] createArrayOf(int count) {
 		HumanEvolvableNeuralNetworkGeneration[] result = new HumanEvolvableNeuralNetworkGeneration[count];
@@ -20,12 +22,9 @@ public class HumanEvolvableNeuralNetworkGeneration extends Generation<HumanEvolv
 	}
 
 	@Override
-	protected HumanEvolvableNeuralNetwork instantiate(GeneticParameters parameters) {
-		HumanEvolvableNeuralNetwork enn = HumanEvolvableNeuralNetwork.create();
-		enn.setParameters(parameters);
-		return enn;
+	protected NeuralNetworkChromosome instantiate(GeneticParameters<NeuralNetworkChromosome> parameters) {
+		return null;
 	}
-
 
 
 }

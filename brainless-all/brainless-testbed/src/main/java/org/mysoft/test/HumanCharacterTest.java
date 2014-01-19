@@ -8,7 +8,6 @@ import org.mysoft.brainless.human.HumanCharacter;
 import org.mysoft.brainless.human.HumanEvolvableNeuralNetwork;
 import org.mysoft.brainless.human.HumanEvolvableNeuralNetworkGeneration;
 import org.mysoft.brainless.human.HumanSimulation;
-import org.mysoft.brainless.neural.core.EvolvableNeuralNetwork;
 import org.mysoft.brainless.neural.core.NeuralNetwork;
 import org.mysoft.brainless.neural.util.NeuralNetworkSerializer;
 
@@ -40,6 +39,7 @@ public class HumanCharacterTest extends TestbedTest {
 	}
 	
 	private NeuralNetwork learn() {
+	/*
 		GeneticEngine<HumanEvolvableNeuralNetworkGeneration, HumanEvolvableNeuralNetwork> engine = 
 				new GeneticEngine<>(new GeneticParameters());
 		
@@ -55,6 +55,8 @@ public class HumanCharacterTest extends TestbedTest {
 		NeuralNetworkSerializer.serializeToFile(best.getChromosome().getNeuralNetwork(), filePath);
 		
 		return best.getChromosome().getNeuralNetwork();
+		*/
+		return null;
 	}
 	
 	@Override

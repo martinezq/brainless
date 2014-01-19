@@ -6,13 +6,6 @@ public abstract class Chromosome {
 
 	protected GeneticParameters parameters;
 	
-	/**
-	 * Mutation
-	 * @return Should return itself
-	 */
-	public abstract Chromosome mutate();
-	
-	public abstract Chromosome crossover(Chromosome other);
 	
 	public abstract Chromosome duplicate();
 	
@@ -20,5 +13,9 @@ public abstract class Chromosome {
 	
 	public void setParameters(GeneticParameters parameters) {
 		this.parameters = parameters;
+	}
+	
+	public GeneticParameters getParameters() {
+		return parameters;
 	}
 }

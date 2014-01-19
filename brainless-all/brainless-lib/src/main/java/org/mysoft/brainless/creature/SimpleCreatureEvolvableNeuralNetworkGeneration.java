@@ -1,9 +1,9 @@
 package org.mysoft.brainless.creature;
 
-import org.mysoft.brainless.genetics.core.Generation;
 import org.mysoft.brainless.genetics.core.GeneticParameters;
 
-public class SimpleCreatureEvolvableNeuralNetworkGeneration extends Generation<SimpleCreatureEvolvableNeuralNetwork> {
+@Deprecated
+public class SimpleCreatureEvolvableNeuralNetworkGeneration  {
 
 	public static SimpleCreatureEvolvableNeuralNetworkGeneration[] createArrayOf(int count) {
 		SimpleCreatureEvolvableNeuralNetworkGeneration[] result = new SimpleCreatureEvolvableNeuralNetworkGeneration[count];
@@ -19,10 +19,10 @@ public class SimpleCreatureEvolvableNeuralNetworkGeneration extends Generation<S
 		return new SimpleCreatureEvolvableNeuralNetworkGeneration();
 	}
 
-	@Override
+	//@Override
 	protected SimpleCreatureEvolvableNeuralNetwork instantiate(GeneticParameters parameters) {
 		SimpleCreatureEvolvableNeuralNetwork enn = SimpleCreatureEvolvableNeuralNetwork.create();
-		enn.setParameters(parameters);
+		//enn.setParameters(parameters);
 		return enn;
 	}
 

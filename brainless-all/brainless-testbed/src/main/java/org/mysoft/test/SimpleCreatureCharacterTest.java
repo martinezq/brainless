@@ -8,7 +8,6 @@ import org.mysoft.brainless.creature.SimpleCreatureEvolvableNeuralNetworkGenerat
 import org.mysoft.brainless.creature.SimpleCreatureSimulation;
 import org.mysoft.brainless.genetics.core.GeneticEngine;
 import org.mysoft.brainless.genetics.core.GeneticParameters;
-import org.mysoft.brainless.neural.core.EvolvableNeuralNetwork;
 import org.mysoft.brainless.neural.core.NeuralNetwork;
 import org.mysoft.brainless.neural.util.NeuralNetworkSerializer;
 
@@ -39,6 +38,7 @@ public class SimpleCreatureCharacterTest extends TestbedTest {
 	}
 	
 	private NeuralNetwork learn() {
+		/*
 		GeneticEngine<SimpleCreatureEvolvableNeuralNetworkGeneration, SimpleCreatureEvolvableNeuralNetwork> engine = 
 				new GeneticEngine<>(new GeneticParameters());
 		
@@ -54,6 +54,9 @@ public class SimpleCreatureCharacterTest extends TestbedTest {
 		NeuralNetworkSerializer.serializeToFile(best.getChromosome().getNeuralNetwork(), filePath);
 		
 		return best.getChromosome().getNeuralNetwork();
+		*/
+		
+		return null;
 	}
 	
 	@Override

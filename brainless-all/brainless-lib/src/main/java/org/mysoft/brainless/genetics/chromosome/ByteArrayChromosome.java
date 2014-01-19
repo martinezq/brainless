@@ -19,7 +19,6 @@ public class ByteArrayChromosome extends Chromosome {
 		len = chromosome.length;
 	}
 	
-	@Override
 	public Chromosome mutate() {
 		for(int i = 0; i < len; i++) {
 			try {
@@ -36,7 +35,6 @@ public class ByteArrayChromosome extends Chromosome {
 		return this;
 	}
 
-	@Override
 	public ByteArrayChromosome crossover(Chromosome other) {
 		ByteArrayChromosome child = new ByteArrayChromosome(GeneticOperator.crossover(bytes, ((ByteArrayChromosome)other).bytes));
 		child.setParameters(parameters);

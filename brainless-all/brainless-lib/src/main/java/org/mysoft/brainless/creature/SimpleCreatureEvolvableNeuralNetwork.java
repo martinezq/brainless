@@ -1,10 +1,9 @@
 package org.mysoft.brainless.creature;
 
-import org.mysoft.brainless.genetics.chromosome.NeuralNetworkChromosome;
-import org.mysoft.brainless.neural.core.EvolvableNeuralNetwork;
 import org.mysoft.brainless.neural.core.NeuralNetwork;
 
-public class SimpleCreatureEvolvableNeuralNetwork extends EvolvableNeuralNetwork {
+@Deprecated
+public class SimpleCreatureEvolvableNeuralNetwork  {
 
 	public static SimpleCreatureEvolvableNeuralNetwork create() {
 		SimpleCreatureEvolvableNeuralNetwork evolvable = new SimpleCreatureEvolvableNeuralNetwork();
@@ -15,12 +14,12 @@ public class SimpleCreatureEvolvableNeuralNetwork extends EvolvableNeuralNetwork
 		NeuralNetwork neuralNetwork = NeuralNetwork.create(24, 16, outputs + storage);
 		neuralNetwork.addStorageNeurons(storage);
 		neuralNetwork.randomizeWeights();
-		evolvable.setChromosome(NeuralNetworkChromosome.create(neuralNetwork));
+		//evolvable.setChromosome(NeuralNetworkChromosome.create(neuralNetwork));
 		
 		return evolvable;
 	}
 	
-	@Override
+/*	
 	public double calculateFit() {
 		SimpleCreatureSimulation simulation = SimpleCreatureSimulation.create();
 
@@ -39,13 +38,7 @@ public class SimpleCreatureEvolvableNeuralNetwork extends EvolvableNeuralNetwork
 		
 		double deltaX = simulation.getCharacter().getDeltaX() + 1.0;
 		double deltaY = simulation.getCharacter().getDeltaY() + 1.0;
-/*		
-		try {
-			Thread.sleep(50);
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
-		}
-*/
+
 
 		if(endPosX <= 0) {
 			return Double.MAX_VALUE;
@@ -54,5 +47,5 @@ public class SimpleCreatureEvolvableNeuralNetwork extends EvolvableNeuralNetwork
 		return 1.0 / Math.pow(2, Math.abs(endPosX));
 		
 	}
-	
+	*/
 }

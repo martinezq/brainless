@@ -17,7 +17,7 @@ public class DoubleArrayChromosome extends Chromosome {
 		this.size = values.length;
 	}
 	
-	@Override
+
 	public Chromosome mutate() {
 		for(int i=0; i<size; i++) {
 			if(Math.random() < parameters.getMutationProbability()) {
@@ -27,7 +27,7 @@ public class DoubleArrayChromosome extends Chromosome {
 		return this;
 	}
 
-	@Override
+	
 	public Chromosome crossover(Chromosome other) {
 		DoubleArrayChromosome out = new DoubleArrayChromosome(size);
 		for(int i=0; i<size; i++) {

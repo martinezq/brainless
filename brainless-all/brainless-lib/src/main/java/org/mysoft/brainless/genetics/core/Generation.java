@@ -1,92 +1,118 @@
 package org.mysoft.brainless.genetics.core;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import org.mysoft.brainless.genetics.chromosome.Chromosome;
 
-@SuppressWarnings("rawtypes")
-public abstract class Generation<E extends Evolvable> {
+public abstract class Generation<T extends Chromosome> {
 
-	GeneticParameters parameters;
+	GeneticParameters<T> parameters;
 	
-	private Evolvable[] individuals;
+	private List<T> individuals = new ArrayList<T>();
+	private List<ChromosomeFit<T>> fits = new ArrayList<>();
 	
-	protected abstract E instantiate(GeneticParameters parameters);
+	private boolean calculatedFits = false;
+	
+	protected abstract T instantiate(GeneticParameters<T> parameters);
 	
 	public void init() {
-		this.individuals = new Evolvable[parameters.getGenerationSize()];
-		for(int i=0;i<individuals.length;i++)
-			individuals[i] = instantiate(parameters);
+		for(int i=0;i<individuals.size();i++) {
+			T chromosome = instantiate(parameters);
+			individuals.set(i, chromosome);
+		}
 	}
-	
 
-	@SuppressWarnings("unchecked")
 	public void calculateNext() {
 		calculateFits();
 		sort();
 		
-		int len = individuals.length;
+		int len = individuals.size();
 		int halflen = len / 2;
 		
-		Chromosome bestChromosome = individuals[0].getChromosome();
+		T bestChromosome = individuals.get(0);
 	
 		for(int i=0;i<halflen;i+=2) {
 				
-			Chromosome chromosome1 = individuals[i].getChromosome();
-			Chromosome chromosome2 = individuals[i+1].getChromosome();
+			T chromosome1 = individuals.get(i);
+			T chromosome2 = individuals.get(i+1);
 			
-			individuals[i].setChromosome(chromosome1.crossover(chromosome2).mutate()); 
-			individuals[i+1].setChromosome(chromosome1.crossover(chromosome2).mutate());
+			T child1 = parameters.getCrossoverOperator().crossover(chromosome1, chromosome2);
+			T child2 = parameters.getCrossoverOperator().crossover(chromosome1, chromosome2);
+			T child3 = parameters.getCrossoverOperator().crossover(chromosome1, chromosome2);
+			T child4 = parameters.getCrossoverOperator().crossover(chromosome1, chromosome2);
 
-			individuals[halflen+i].setChromosome(chromosome1.crossover(chromosome2).mutate()); 
-			individuals[halflen+i+1].setChromosome(chromosome1.crossover(chromosome2).mutate());
+			child1 = parameters.getMutationOperator().mutate(child1);
+			child2 = parameters.getMutationOperator().mutate(child2);
+			child3 = parameters.getMutationOperator().mutate(child3);
+			child4 = parameters.getMutationOperator().mutate(child4);
+			
+			individuals.set(i, child1); 
+			individuals.set(i+1, child2); 
+			individuals.set(halflen+i, child3); 
+			individuals.set(halflen+i+1, child4);
 
+		}
+		
+		if(parameters.isKeepBest()) {
+			individuals.set(individuals.size() - 1, bestChromosome);
 		}
 						
-		//individuals[len - 1].setChromosome(bestChromosome);
-		//individuals[len - 2].setChromosome(bestChromosome.randomize());
-		
-		/*
-		for(int i=0;i<len;i++) {
-			individuals[i].setChromosome(individuals[i].getChromosome().mutate()); 
-		}
-		*/
+		calculatedFits = false;
 	}
 
 	private void calculateFits() {
-		for(int i=0; i<individuals.length; i++) {
-			individuals[i].fit = individuals[i].calculateFit();
+		if(calculatedFits) {
+			return;
 		}
-	}
-
-	@SuppressWarnings("unchecked")
-	public E calculateBest() {
-		calculateFits();
+		
+		for(int i=0; i<individuals.size(); i++) {
+			T chromosome = individuals.get(i);
+			Double fit = parameters.getFitCalculator().calculate(chromosome);
+			fits.add(i, new ChromosomeFit<T>(chromosome, fit));
+		}
+		
 		sort();
 		
-		return (E) individuals[0];
+		calculatedFits = true;
+	}
+
+	public T calculateBest() {
+		calculateFits();
+		return fits.get(0).getChromosome();
+	}
+	
+	public double calculateBestFit() {
+		calculateFits();
+		return fits.get(0).getFit();
 	}
 	
 	public void sort() {
+		if(!calculatedFits) {
+			throw new IllegalStateException("Calculate fits first");
+		}
 		
-		Arrays.sort(individuals, new Comparator<Evolvable>() {
-
-			@Override
-			public int compare(Evolvable o1, Evolvable o2) {
-				return Double.compare(o1.getFit(), o2.getFit());
-			}
-		});
+		individuals.clear();
+		
+		for(ChromosomeFit<T> fit: fits) {
+			individuals.add(fit.getChromosome());
+		}
+		
+		Collections.sort(fits);
 	}
 
-	public void setParameters(GeneticParameters parameters) {
+	public void setParameters(GeneticParameters<T> parameters) {
 		this.parameters = parameters;
 	}
 	
 	@Override
 	public String toString() {
 		String s = "";
-		for(Evolvable i: individuals) {
+		for(T i: individuals) {
 			s += "[" + i.toString() + "], ";
 		}
 		return s;
