@@ -35,6 +35,8 @@ public abstract class Generation<T extends Chromosome> {
 		int halflen = len / 2;
 		
 		T bestChromosome = individuals.get(0);
+		
+		double prob = parameters.getMutationProbability() / 2.0;
 	
 		for(int i=0;i<halflen;i+=2) {
 				
@@ -46,10 +48,10 @@ public abstract class Generation<T extends Chromosome> {
 			T child3 = parameters.getCrossoverOperator().crossover(chromosome1, chromosome2);
 			T child4 = parameters.getCrossoverOperator().crossover(chromosome1, chromosome2);
 
-			child1 = parameters.getMutationOperator().mutate(child1);
-			child2 = parameters.getMutationOperator().mutate(child2);
-			child3 = parameters.getMutationOperator().mutate(child3);
-			child4 = parameters.getMutationOperator().mutate(child4);
+			child1 = parameters.getMutationOperator().mutate(child1, prob);
+			child2 = parameters.getMutationOperator().mutate(child2, prob);
+			child3 = parameters.getMutationOperator().mutate(child3, prob);
+			child4 = parameters.getMutationOperator().mutate(child4, prob);
 			
 			individuals.set(i, child1); 
 			individuals.set(i+1, child2); 

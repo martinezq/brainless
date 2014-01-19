@@ -17,14 +17,14 @@ public class NeuralNetworkChromosome extends Chromosome {
 	}
 	
 	@Override
-	public Chromosome duplicate() {
+	public NeuralNetworkChromosome duplicate() {
 		NeuralNetworkChromosome chromosome = NeuralNetworkChromosome.create(neuralNetwork.duplicate());
 		chromosome.setParameters(parameters);
 		return chromosome;
 	}
 	
 	@Override
-	public Chromosome randomize() {
+	public NeuralNetworkChromosome randomize() {
 		NeuralNetwork nn = neuralNetwork.duplicate();
 		nn.randomizeWeights();
 		

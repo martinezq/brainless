@@ -12,8 +12,8 @@ import org.mysoft.brainless.neural.core.NeuronLayer;
 public class DefaultNeuralNetworkMutationOperator implements IMutationOperator<NeuralNetworkChromosome> {
 
 	@Override
-	public NeuralNetworkChromosome mutate(NeuralNetworkChromosome chromosome) {
-		double prob = chromosome.getParameters().getMutationProbability() / 2.0;
+	public NeuralNetworkChromosome mutate(NeuralNetworkChromosome chromosome, double probability) {
+		chromosome = chromosome.duplicate();
 		NeuralNetwork neuralNetwork = chromosome.getNeuralNetwork();
 		Random randomizer = new Random();
 		
@@ -23,11 +23,12 @@ public class DefaultNeuralNetworkMutationOperator implements IMutationOperator<N
 			
 				int count = neuron.getWeightsCount();
 				
+				double rand = Math.random();
+				boolean change = rand < probability;
+				
 				for(int i=0; i<count; i++) {
 					
-					double rand = Math.random() - 0.5;
-					
-					if(rand < prob && rand > -prob) {
+					if(change) {
 						double oldValue = neuron.getWeight(i).getValue();
 						double newValue = oldValue;
 						
