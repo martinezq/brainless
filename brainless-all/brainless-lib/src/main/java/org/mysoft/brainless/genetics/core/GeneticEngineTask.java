@@ -33,7 +33,7 @@ public class GeneticEngineTask<T extends Chromosome> implements Runnable {
 				best = generation.calculateBest();
 				bestFit = generation.calculateBestFit();
 				
-				System.out.println("generation " + count + ": " + best);
+				System.out.println("generation " + count + " best: " + bestFit + ", size " + generation.getSize());
 				Thread.sleep(10);
 			} while (bestFit > 0 && count < parameters.getMaxGenerations());
 			System.out.println("Computed in " + count + " generations");

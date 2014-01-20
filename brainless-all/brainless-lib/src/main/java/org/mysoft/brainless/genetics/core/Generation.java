@@ -1,10 +1,7 @@
 package org.mysoft.brainless.genetics.core;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.mysoft.brainless.genetics.chromosome.Chromosome;
@@ -21,9 +18,9 @@ public abstract class Generation<T extends Chromosome> {
 	protected abstract T instantiate(GeneticParameters<T> parameters);
 	
 	public void init() {
-		for(int i=0;i<individuals.size();i++) {
+		for(int i=0;i<parameters.getGenerationSize();i++) {
 			T chromosome = instantiate(parameters);
-			individuals.set(i, chromosome);
+			individuals.add(chromosome);
 		}
 	}
 
@@ -72,6 +69,8 @@ public abstract class Generation<T extends Chromosome> {
 			return;
 		}
 		
+		fits.clear();
+		
 		for(int i=0; i<individuals.size(); i++) {
 			T chromosome = individuals.get(i);
 			Double fit = parameters.getFitCalculator().calculate(chromosome);
@@ -93,11 +92,7 @@ public abstract class Generation<T extends Chromosome> {
 		return fits.get(0).getFit();
 	}
 	
-	public void sort() {
-		if(!calculatedFits) {
-			throw new IllegalStateException("Calculate fits first");
-		}
-		
+	private void sort() {
 		individuals.clear();
 		
 		for(ChromosomeFit<T> fit: fits) {
@@ -119,6 +114,10 @@ public abstract class Generation<T extends Chromosome> {
 		}
 		return s;
 		
+	}
+
+	public int getSize() {
+		return individuals.size();
 	};
 	
 }

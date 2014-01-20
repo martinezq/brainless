@@ -14,8 +14,8 @@ public class TestLauncher {
 		TestbedModel model = new TestbedModel();
 		
 		model.addCategory("My Super Tests");      
-		model.addTest(new SimpleCreatureCharacterTest());
-		//model.addTest(new HumanCharacterTest()); 
+		//model.addTest(new SimpleCreatureCharacterTest());
+		model.addTest(new HumanCharacterTest()); 
 		
 
 		//model.getSettings().addSetting(new TestbedSetting("My Range Setting", SettingType.ENGINE, 10, 0, 20));

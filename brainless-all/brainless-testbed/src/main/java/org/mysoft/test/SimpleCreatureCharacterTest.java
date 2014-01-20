@@ -3,13 +3,8 @@ package org.mysoft.test;
 import org.jbox2d.testbed.framework.TestbedSettings;
 import org.jbox2d.testbed.framework.TestbedTest;
 import org.mysoft.brainless.creature.SimpleCreatureCharacter;
-import org.mysoft.brainless.creature.SimpleCreatureEvolvableNeuralNetwork;
-import org.mysoft.brainless.creature.SimpleCreatureEvolvableNeuralNetworkGeneration;
 import org.mysoft.brainless.creature.SimpleCreatureSimulation;
-import org.mysoft.brainless.genetics.core.GeneticEngine;
-import org.mysoft.brainless.genetics.core.GeneticParameters;
 import org.mysoft.brainless.neural.core.NeuralNetwork;
-import org.mysoft.brainless.neural.util.NeuralNetworkSerializer;
 
 public class SimpleCreatureCharacterTest extends TestbedTest {
 

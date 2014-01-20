@@ -2,11 +2,14 @@ package org.mysoft.test;
 
 import org.jbox2d.testbed.framework.TestbedSettings;
 import org.jbox2d.testbed.framework.TestbedTest;
+import org.mysoft.brainless.genetics.chromosome.NeuralNetworkChromosome;
 import org.mysoft.brainless.genetics.core.GeneticEngine;
 import org.mysoft.brainless.genetics.core.GeneticParameters;
+import org.mysoft.brainless.genetics.neural.DefaultNeuralNetworkCrossoverOperator;
+import org.mysoft.brainless.genetics.neural.DefaultNeuralNetworkMutationOperator;
 import org.mysoft.brainless.human.HumanCharacter;
-import org.mysoft.brainless.human.HumanEvolvableNeuralNetwork;
-import org.mysoft.brainless.human.HumanEvolvableNeuralNetworkGeneration;
+import org.mysoft.brainless.human.HumanNeuralNetworkGeneration;
+import org.mysoft.brainless.human.HumanFitCalculator;
 import org.mysoft.brainless.human.HumanSimulation;
 import org.mysoft.brainless.neural.core.NeuralNetwork;
 import org.mysoft.brainless.neural.util.NeuralNetworkSerializer;
@@ -39,24 +42,29 @@ public class HumanCharacterTest extends TestbedTest {
 	}
 	
 	private NeuralNetwork learn() {
-	/*
-		GeneticEngine<HumanEvolvableNeuralNetworkGeneration, HumanEvolvableNeuralNetwork> engine = 
-				new GeneticEngine<>(new GeneticParameters());
+	
+		GeneticParameters<NeuralNetworkChromosome> params = new GeneticParameters<NeuralNetworkChromosome>();
+		params.setGenerationSize(64);
+		params.setMaxGenerations(64);
+		params.setKeepBest(true);
+		params.setCrossoverOperator(new DefaultNeuralNetworkCrossoverOperator());
+		params.setMutationOperator(new DefaultNeuralNetworkMutationOperator());
+		params.setFitCalculator(new HumanFitCalculator());
 		
-		engine.start(HumanEvolvableNeuralNetworkGeneration.createArrayOf(2));
+		GeneticEngine<NeuralNetworkChromosome> engine = new GeneticEngine<>(params);
 		
-		EvolvableNeuralNetwork best = engine.getBest();
+		engine.start(HumanNeuralNetworkGeneration.createArrayOf(2));
 		
-		System.out.println("Best fit = " + best.getFit());
+		NeuralNetworkChromosome best = engine.getBest();
+		
+		//System.out.println("Best fit = " + best.getFit());
 		
 		long ts = System.currentTimeMillis();
 		String filePath =  "../../../../../best_" + ts + ".nn";
 		
-		NeuralNetworkSerializer.serializeToFile(best.getChromosome().getNeuralNetwork(), filePath);
+		NeuralNetworkSerializer.serializeToFile(best.getNeuralNetwork(), filePath);
 		
-		return best.getChromosome().getNeuralNetwork();
-		*/
-		return null;
+		return best.getNeuralNetwork();
 	}
 	
 	@Override
