@@ -8,6 +8,8 @@ public class HumanCharacter extends Character {
 	double deltaY = 0;
 	double deltaAngle = 0;
 	
+	double minY = Double.MAX_VALUE;
+	
 	double positionX = 0;
 	double positionY = 0;
 	double angle = 0;
@@ -22,6 +24,10 @@ public class HumanCharacter extends Character {
 		positionX = body.getMasterBone().getPhysicalBody().getPosition().x;
 		positionY = body.getMasterBone().getPhysicalBody().getPosition().y;
 		angle = body.getMasterBone().getPhysicalBody().getAngle();
+		
+		if(positionY < minY) {
+			minY = positionY;
+		}
 		
 	}
 
@@ -55,6 +61,10 @@ public class HumanCharacter extends Character {
 	
 	public void setSummaryDelta(double value) {
 		deltaX = value;
+	}
+	
+	public double getMinY() {
+		return minY;
 	}
 
 }

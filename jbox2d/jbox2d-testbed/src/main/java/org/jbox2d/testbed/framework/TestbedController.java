@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
 public class TestbedController implements Runnable {
   private static final Logger log = LoggerFactory.getLogger(TestbedController.class);
 
-  public static final int DEFAULT_FPS = 60;
+  public static final int DEFAULT_FPS = 30;
 
   private TestbedTest currTest = null;
   private TestbedTest nextTest = null;

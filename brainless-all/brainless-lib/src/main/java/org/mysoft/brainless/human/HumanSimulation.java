@@ -11,8 +11,12 @@ import org.mysoft.brainless.sim.Simulation;
 
 public class HumanSimulation extends Simulation<NeuralNetwork> {
 
-	final static float DEFAULT_STEP = 1.0f / 31.0f;
-	final static float SIMULATION_SECONDS = 3.0f;
+	public final static int HZ = 15;
+	public final static float DEFAULT_STEP = 1.0f / HZ;
+	public final static float SIMULATION_SECONDS = 3.0f;
+	public final static int ITERATIONS = (int)(SIMULATION_SECONDS * 30);
+	public final static int POS_ITERATIONS = 64;
+	public final static int VEL_ITERATIONS = 64;
 	
 	World world;
 	HumanCharacter character;
@@ -25,12 +29,12 @@ public class HumanSimulation extends Simulation<NeuralNetwork> {
 	public void simulate() {
 		character.activate();
 		
-		int iterations = (int)(SIMULATION_SECONDS / DEFAULT_STEP);
+		int iterations = ITERATIONS;
 		
 		for(int i=0; i<iterations; i++) {
 			character.getBrain().step();
 			character.storePosition();
-			world.step(DEFAULT_STEP, 3, 8);
+			world.step(DEFAULT_STEP, VEL_ITERATIONS, POS_ITERATIONS);
 			character.calculateDeltas();
 		}
 
@@ -43,7 +47,7 @@ public class HumanSimulation extends Simulation<NeuralNetwork> {
 	}
 
 	public World createWorld() {
-		final float earthGravity = -9.8f;
+		final float earthGravity = (-9.8f);
 		final Vec2 gravity = new Vec2(0, earthGravity);
 		final boolean allowSleep = false;
 		

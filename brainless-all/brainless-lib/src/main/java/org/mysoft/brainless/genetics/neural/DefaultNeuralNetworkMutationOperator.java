@@ -16,46 +16,48 @@ public class DefaultNeuralNetworkMutationOperator implements IMutationOperator<N
 		chromosome = chromosome.duplicate();
 		NeuralNetwork neuralNetwork = chromosome.getNeuralNetwork();
 		Random randomizer = new Random();
-		
-		for(NeuronLayer layer: neuralNetwork.getHiddenLayers()) {
 
-			for(Neuron neuron: layer) {
-			
+		for (NeuronLayer layer : neuralNetwork.getHiddenLayers()) {
+
+			for (Neuron neuron : layer) {
+
 				int count = neuron.getWeightsCount();
-				
+
 				double rand = Math.random();
 				boolean change = rand < probability;
+
 				
-				for(int i=0; i<count; i++) {
+
+				if (change) {
+					int weightIndex = randomizer.nextInt(count);
 					
-					if(change) {
-						double oldValue = neuron.getWeight(i).getValue();
-						double newValue = oldValue;
-						
-						boolean doRandomize = randomizer.nextBoolean();
-						
-						if(doRandomize) {
-							neuron.setWeight(i, InputWeight.random());
-						} else {
-							boolean doAdd = randomizer.nextBoolean();
-							boolean doMult = randomizer.nextBoolean();
-							boolean doRev = randomizer.nextBoolean();
-							
-							if(doMult) {
-								newValue = newValue * (Math.random() + 0.5);
-							} 
-							
-							if(doAdd) {
-								newValue += 0.2 * Math.random() - 0.1;
-							} 
-							
-							if(!doAdd && !doMult && doRev) {
-								newValue = -newValue;
-							}
-							
-							neuron.setWeight(i, InputWeight.create(newValue));
+					double oldValue = neuron.getWeight(weightIndex).getValue();
+					double newValue = oldValue;
+
+					boolean doReset = randomizer.nextBoolean();
+
+					if (doReset) {
+						neuron.setWeight(weightIndex, InputWeight.create(0));
+					} else {
+						boolean doAdd = randomizer.nextBoolean();
+						boolean doMult = randomizer.nextBoolean();
+						boolean doRev = randomizer.nextBoolean();
+
+						if (doMult) {
+							newValue = newValue * (Math.random() + 0.5);
 						}
+
+						if (doAdd) {
+							newValue += 0.2 * Math.random() - 0.1;
+						}
+
+						if (!doAdd && !doMult && doRev) {
+							newValue = -newValue;
+						}
+
+						neuron.setWeight(weightIndex, InputWeight.create(newValue));
 					}
+
 				}
 			}
 		}

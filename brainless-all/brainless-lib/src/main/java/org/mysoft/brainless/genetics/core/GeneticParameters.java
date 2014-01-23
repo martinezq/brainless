@@ -9,7 +9,7 @@ public class GeneticParameters<T extends Chromosome> {
 
 	private IGeneticFitCalculator<T> fitCalculator;
 
-	private boolean keepBest = false;
+	private boolean bestImmortal = false;
 
 	private double mutationProbability = 0.01;
 	private int generationSize = 16;
@@ -39,14 +39,14 @@ public class GeneticParameters<T extends Chromosome> {
 		this.fitCalculator = fitCalculator;
 	}
 
-	public boolean isKeepBest() {
-		return keepBest;
+	public boolean isBestImmortal() {
+		return bestImmortal;
 	}
-
-	public void setKeepBest(boolean keepBest) {
-		this.keepBest = keepBest;
+	
+	public void setBestImmortal(boolean bestImmortal) {
+		this.bestImmortal = bestImmortal;
 	}
-
+	
 	public double getMutationProbability() {
 		return mutationProbability;
 	}

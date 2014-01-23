@@ -22,7 +22,7 @@ public class GeneticEngineTask<T extends Chromosome> implements Runnable {
 	public void run() {
 		
 		T best;
-		Double bestFit;
+		Double bestFit = Double.MAX_VALUE;
 		
 		try {
 			int count = 0;
@@ -32,7 +32,7 @@ public class GeneticEngineTask<T extends Chromosome> implements Runnable {
 				generation.calculateNext();
 				best = generation.calculateBest();
 				bestFit = generation.calculateBestFit();
-				
+			
 				System.out.println("generation " + count + " best: " + bestFit + ", size " + generation.getSize());
 				Thread.sleep(10);
 			} while (bestFit > 0 && count < parameters.getMaxGenerations());

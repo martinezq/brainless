@@ -199,7 +199,7 @@ public class HumanBody extends ComplexBody {
 		leftFeetJoint = leftLegLower.connectAtEnd(leftFeet, Angles.d2r(135), Angles.d2r(210));
 		leftFeet2Joint = leftFeet.connectAtStart(leftFeet2, Angles.d2r(-60), Angles.d2r(60));
 		
-		leftLegUpperJoint.applySpeed(10f);
+		//leftLegUpperJoint.applySpeed(10f);
 	}
 	
 	private void initRightLeg() {
@@ -213,7 +213,7 @@ public class HumanBody extends ComplexBody {
 		rightFeetJoint = rightLegLower.connectAtEnd(rightFeet, Angles.d2r(135), Angles.d2r(210));
 		rightFeet2Joint = rightFeet.connectAtStart(rightFeet2, Angles.d2r(-60), Angles.d2r(60));
 		
-		rightLegUpperJoint.applySpeed(-10f);
+		//rightLegUpperJoint.applySpeed(-10f);
 	}
 	
 	private void initLeftHand() {

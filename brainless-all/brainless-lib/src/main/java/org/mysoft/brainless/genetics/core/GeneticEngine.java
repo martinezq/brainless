@@ -59,6 +59,8 @@ public class GeneticEngine<T extends Chromosome> {
 			throw new IllegalStateException("Cannot find best individual, because every one is worst possible");
 		}
 		
+		System.out.println("Engine best = " + parameters.getFitCalculator().calculate(best));
+		
 		return best;
 	}
 	

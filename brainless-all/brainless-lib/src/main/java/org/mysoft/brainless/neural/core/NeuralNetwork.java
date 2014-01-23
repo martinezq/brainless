@@ -15,7 +15,6 @@ public class NeuralNetwork {
 		return new NeuralNetwork();
 	}
 	
-	@Deprecated
 	public static NeuralNetwork createDefault() {
 		return create(MAX_WEIGHTS);
 	}

@@ -25,9 +25,9 @@ public class HumanNeuralNetworkGeneration extends Generation<NeuralNetworkChromo
 	@Override
 	protected NeuralNetworkChromosome instantiate(GeneticParameters<NeuralNetworkChromosome> parameters) {
 		int outputs = 18;
-		int storage = 4;
+		int storage = 2;
 		
-		NeuralNetwork neuralNetwork = NeuralNetwork.create(8, 16, outputs + storage);
+		NeuralNetwork neuralNetwork = NeuralNetwork.create(16, 16, outputs + storage);
 		neuralNetwork.addStorageNeurons(storage);
 		neuralNetwork.randomizeWeights();
 

@@ -3,7 +3,7 @@ package org.mysoft.brainless.human;
 import org.mysoft.brainless.genetics.chromosome.NeuralNetworkChromosome;
 import org.mysoft.brainless.genetics.core.IGeneticFitCalculator;
 
-public class HumanFitCalculator implements IGeneticFitCalculator<NeuralNetworkChromosome> {
+public class HumanStandingFitCalculator implements IGeneticFitCalculator<NeuralNetworkChromosome> {
 
 	@Override
 	public double calculate(NeuralNetworkChromosome chromosome) {
@@ -24,15 +24,24 @@ public class HumanFitCalculator implements IGeneticFitCalculator<NeuralNetworkCh
 		
 		double deltaX = simulation.getCharacter().getDeltaX() + 1.0;
 		double deltaY = simulation.getCharacter().getDeltaY() + 1.0;
+		
+		double minY = simulation.getCharacter().getMinY();
 /*		
 		try {
 			Thread.sleep(50);
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
+
 */
 
-		return Math.pow(2, deltaX) + Math.pow(8, deltaY);
+		double fit =  Math.pow(2, deltaX) + Math.pow(8, deltaY);
+		
+		if(minY < 11.0) {
+			return 1000000.0 * fit;
+		} else {
+			return 0;
+		}
 	}
 
 }
