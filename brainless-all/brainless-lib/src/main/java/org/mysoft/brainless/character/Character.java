@@ -29,4 +29,8 @@ public abstract class Character {
 	public void step() {
 		brain.step();
 	}
+	
+	public abstract void beforeStep();
+	
+	public abstract void afterStep();
 }

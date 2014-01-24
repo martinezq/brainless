@@ -18,9 +18,7 @@ public class TestLauncher {
 		//model.addTest(new SimpleCreatureCharacterTest());
 		model.addTest(new HumanCharacterTest()); 
 		
-		model.getSettings().getSetting("Hz").value = HumanSimulation.HZ;
-		model.getSettings().getSetting("Vel Iters").value = HumanSimulation.VEL_ITERATIONS;
-		model.getSettings().getSetting("Pos Iters").value = HumanSimulation.POS_ITERATIONS;
+
 
 		
 		//model.getSettings().addSetting(new TestbedSetting("My Range Setting", SettingType.ENGINE, 10, 0, 20));

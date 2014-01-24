@@ -20,7 +20,17 @@ public class HumanCharacter extends Character {
 		return character;
 	}
 
-	public void storePosition() {
+	@Override
+	public void beforeStep() {
+		 storePosition();
+	}
+	
+	@Override
+	public void afterStep() {
+		calculateDeltas();
+	}
+	
+	private void storePosition() {
 		positionX = body.getMasterBone().getPhysicalBody().getPosition().x;
 		positionY = body.getMasterBone().getPhysicalBody().getPosition().y;
 		angle = body.getMasterBone().getPhysicalBody().getAngle();
@@ -31,7 +41,7 @@ public class HumanCharacter extends Character {
 		
 	}
 
-	public void calculateDeltas() {
+	private void calculateDeltas() {
 		double actPositionX = body.getMasterBone().getPhysicalBody().getPosition().x;
 		double actPositionY = body.getMasterBone().getPhysicalBody().getPosition().y;
 		double actAngle = body.getMasterBone().getPhysicalBody().getAngle();

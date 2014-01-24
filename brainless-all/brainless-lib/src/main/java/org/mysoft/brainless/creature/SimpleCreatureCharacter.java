@@ -12,6 +12,16 @@ public class SimpleCreatureCharacter extends Character {
 	double positionY = 0;
 	double angle = 0;
 	
+	@Override
+	public void beforeStep() {
+		storePosition();
+	}
+
+	@Override
+	public void afterStep() {
+		calculateDeltas();
+	}
+	
 	public static SimpleCreatureCharacter create(SimpleCreatureBody body, SimpleCreatureBrain brain) {
 		SimpleCreatureCharacter character = new SimpleCreatureCharacter();
 		character.init(body, brain);
@@ -56,5 +66,7 @@ public class SimpleCreatureCharacter extends Character {
 	public void setSummaryDelta(double value) {
 		deltaX = value;
 	}
+
+
 
 }

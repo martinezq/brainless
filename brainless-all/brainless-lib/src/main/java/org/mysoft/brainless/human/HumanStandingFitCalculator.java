@@ -7,9 +7,9 @@ public class HumanStandingFitCalculator implements IGeneticFitCalculator<NeuralN
 
 	@Override
 	public double calculate(NeuralNetworkChromosome chromosome) {
-		HumanSimulation simulation = HumanSimulation.create();
+		HumanSimulation simulation = HumanSimulation.create(chromosome.getNeuralNetwork());
 
-		simulation.init(chromosome.getNeuralNetwork());
+		simulation.init();
 		
 		chromosome.getNeuralNetwork().getStorageLayer().reset();
 		

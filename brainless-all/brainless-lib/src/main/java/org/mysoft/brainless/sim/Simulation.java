@@ -1,11 +1,23 @@
 package org.mysoft.brainless.sim;
 
-import org.mysoft.brainless.neural.core.NeuralNetwork;
 
-public abstract class Simulation<T extends NeuralNetwork> {
+public abstract class Simulation {
 	
-	public abstract void init(T neuralNetwork);
+	
+	protected SimulationParameters parameters;
+	
+	public void setParameters(SimulationParameters parameters) {
+		this.parameters = parameters;
+	}
+	
+	public SimulationParameters getParameters() {
+		return parameters;
+	}
+	
+	public abstract void init();
 	
 	public abstract void simulate();
+	
+
 	
 }

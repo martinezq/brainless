@@ -1,5 +1,6 @@
 package org.mysoft.test;
 
+import org.jbox2d.testbed.framework.TestbedModel;
 import org.jbox2d.testbed.framework.TestbedSettings;
 import org.jbox2d.testbed.framework.TestbedTest;
 import org.mysoft.brainless.genetics.chromosome.NeuralNetworkChromosome;
@@ -19,9 +20,9 @@ public class HumanCharacterTest extends TestbedTest {
 	static NeuralNetwork best = null;
 
 	HumanCharacter character;
-	HumanSimulation simulation = HumanSimulation.create();
+	HumanSimulation simulation;
 
-	int iterationsLeft = HumanSimulation.ITERATIONS;
+	int iterationsLeft;
 
 	@Override
 	public void initTest(boolean argDeserialized) {
@@ -32,9 +33,13 @@ public class HumanCharacterTest extends TestbedTest {
 			best = learn();
 		}
 
-		simulation.initWorld(getWorld());
-		character = simulation.initActor(getWorld(), best);
+		simulation = HumanSimulation.create(best);
+		simulation.setWorld(getWorld());
+		simulation.initWorld();
+		character = simulation.initCharacter();
 
+		iterationsLeft = simulation.getParameters().getIterations();
+		
 	}
 
 	@Override
@@ -45,8 +50,8 @@ public class HumanCharacterTest extends TestbedTest {
 	private NeuralNetwork learn() {
 
 		GeneticParameters<NeuralNetworkChromosome> params = new GeneticParameters<NeuralNetworkChromosome>();
-		params.setGenerationSize(128);
-		params.setMaxGenerations(64);
+		params.setGenerationSize(4);
+		params.setMaxGenerations(4);
 		params.setMutationProbability(0.01);
 		params.setBestImmortal(false);
 		params.setCrossoverOperator(new DefaultNeuralNetworkCrossoverOperator());
@@ -87,7 +92,7 @@ public class HumanCharacterTest extends TestbedTest {
 
 	@Override
 	public void reset() {
-		iterationsLeft = HumanSimulation.ITERATIONS;
+		iterationsLeft = simulation.getParameters().getIterations();
 		super.getModel().getSettings().pause = false;
 		super.reset();
 	}

@@ -11,7 +11,7 @@ public class SimpleCreatureCharacterTest extends TestbedTest {
 	static NeuralNetwork best = null;
 	
 	SimpleCreatureCharacter character;
-	SimpleCreatureSimulation simulation = SimpleCreatureSimulation.create();
+	SimpleCreatureSimulation simulation;
 
 	@Override
 	public void initTest(boolean argDeserialized) {
@@ -22,8 +22,10 @@ public class SimpleCreatureCharacterTest extends TestbedTest {
 			best = learn();
 		}
 		
-		simulation.initWorld(getWorld());
-		character = simulation.initActor(getWorld(), best);
+		simulation = SimpleCreatureSimulation.create(best);
+		simulation.setWorld(getWorld());
+		simulation.initWorld();
+		character = simulation.initCharacter();
 	
 	}
 
