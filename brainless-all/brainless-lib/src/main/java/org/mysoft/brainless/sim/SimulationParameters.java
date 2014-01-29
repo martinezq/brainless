@@ -11,6 +11,10 @@ public class SimulationParameters {
 	private int posIterations = 64;
 	private int velIterations = 64;
 	
+	public SimulationParameters() {
+		calculate();
+	}
+	
 	public void setHz(int hz) {
 		this.hz = hz;
 		calculate();

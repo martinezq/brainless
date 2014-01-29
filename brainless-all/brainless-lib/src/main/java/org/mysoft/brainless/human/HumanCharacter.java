@@ -35,7 +35,7 @@ public class HumanCharacter extends Character {
 		positionY = body.getMasterBone().getPhysicalBody().getPosition().y;
 		angle = body.getMasterBone().getPhysicalBody().getAngle();
 		
-		if(positionY < minY) {
+		if(positionY >= 0 && positionY < minY) {
 			minY = positionY;
 		}
 		
