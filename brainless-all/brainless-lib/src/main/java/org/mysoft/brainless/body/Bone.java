@@ -36,7 +36,7 @@ public class Bone extends WorldObject {
 		float angle = -MathUtils.atan2(sub.x, sub.y);
 
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(0.3f, length / 2);
+		shape.setAsBox(0.2f, length / 2);
 
 		BodyDef boneDefinition = new BodyDef();
 		boneDefinition.type = BodyType.DYNAMIC;

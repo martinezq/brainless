@@ -29,4 +29,6 @@ public abstract class CharacterSimulationTestbedModel<T extends CharacterSimulat
 	
 	abstract protected S createSimulation();
 	
+	
+	
 }

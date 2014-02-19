@@ -1,5 +1,7 @@
 package org.mysoft.brainless.genetics.core;
 
+import java.awt.SystemColor;
+
 import org.mysoft.brainless.genetics.chromosome.Chromosome;
 
 
@@ -29,11 +31,12 @@ public class GeneticEngineTask<T extends Chromosome> implements Runnable {
 			generation.init();
 			do {
 				count++;
+				long startTime = System.currentTimeMillis();
 				generation.calculateNext();
 				best = generation.calculateBest();
 				bestFit = generation.calculateBestFit();
-			
-				System.out.println("generation " + count + " best: " + bestFit + ", size " + generation.getSize());
+				long endTime = System.currentTimeMillis();
+				System.out.println("generation " + count + ", best fit = " + bestFit + ", size = " + generation.getSize() + ", avg fit = " + generation.getAverageFit() + ", time = " + (endTime - startTime));
 				Thread.sleep(10);
 			} while (bestFit > 0 && count < parameters.getMaxGenerations());
 			System.out.println("Computed in " + count + " generations");

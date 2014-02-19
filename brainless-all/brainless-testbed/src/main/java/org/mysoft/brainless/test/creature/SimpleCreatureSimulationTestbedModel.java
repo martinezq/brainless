@@ -2,12 +2,13 @@ package org.mysoft.brainless.test.creature;
 
 import org.mysoft.brainless.creature.SimpleCreatureNeuralNetworkGeneration;
 import org.mysoft.brainless.creature.SimpleCreatureSimulation;
-import org.mysoft.brainless.creature.SimpleCreatureStandingFitCalculator;
+import org.mysoft.brainless.creature.SimpleCreatureWalkingFitCalculator;
 import org.mysoft.brainless.genetics.chromosome.NeuralNetworkChromosome;
 import org.mysoft.brainless.genetics.core.GeneticEngine;
 import org.mysoft.brainless.genetics.core.GeneticParameters;
 import org.mysoft.brainless.genetics.neural.DefaultNeuralNetworkCrossoverOperator;
 import org.mysoft.brainless.genetics.neural.DefaultNeuralNetworkMutationOperator;
+import org.mysoft.brainless.genetics.neural.WeightLevelNeuralNetworkCrossoverOperator;
 import org.mysoft.brainless.human.HumanStandingFitCalculator;
 import org.mysoft.brainless.neural.core.NeuralNetwork;
 import org.mysoft.brainless.neural.util.NeuralNetworkSerializer;
@@ -34,18 +35,21 @@ public class SimpleCreatureSimulationTestbedModel extends CharacterSimulationTes
 	private NeuralNetwork learn() {
 
 		GeneticParameters<NeuralNetworkChromosome> params = new GeneticParameters<NeuralNetworkChromosome>();
-		params.setGenerationSize(32);
-		params.setMaxGenerations(32);
-		params.setMutationProbability(0.05);
+		params.setGenerationSize(64);
+		params.setMaxGenerations(64);
+		params.setMutationProbability(0.2);
+		params.setCrossoverDisabled(false);
 		params.setBestImmortal(false);
-		params.setCrossoverOperator(new DefaultNeuralNetworkCrossoverOperator());
+		params.setCrossoverOperator(new WeightLevelNeuralNetworkCrossoverOperator());
 		params.setMutationOperator(new DefaultNeuralNetworkMutationOperator());
-		params.setFitCalculator(new SimpleCreatureStandingFitCalculator());
+		params.setFitCalculator(new SimpleCreatureWalkingFitCalculator());
+		params.setFitCalculationRepeats(2);
 
 		GeneticEngine<NeuralNetworkChromosome> engine = new GeneticEngine<>(params);
 
-		engine.start(SimpleCreatureNeuralNetworkGeneration.createArrayOf(2));
+		engine.start(SimpleCreatureNeuralNetworkGeneration.createArrayOf(1));
 
+		//NeuralNetworkChromosome best = (new SimpleCreatureNeuralNetworkGeneration()).instantiate(params); 
 		NeuralNetworkChromosome best = engine.getBest();
 
 		// System.out.println("Best fit = " + best.getFit());

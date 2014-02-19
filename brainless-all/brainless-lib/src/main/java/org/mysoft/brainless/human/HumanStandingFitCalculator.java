@@ -35,13 +35,7 @@ public class HumanStandingFitCalculator implements IGeneticFitCalculator<NeuralN
 
 */
 
-		double fit =  Math.pow(2, deltaX) + Math.pow(8, deltaY);
-		
-		if(minY < 11.0) {
-			return 1000000.0 * fit;
-		} else {
-			return fit;
-		}
+		return 1.0 / (minY + 2.0);
 	}
 
 }

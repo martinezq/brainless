@@ -1,5 +1,6 @@
 package org.mysoft.brainless.sensor;
 
+import org.jbox2d.dynamics.BodyType;
 import org.mysoft.brainless.body.Bone;
 import org.mysoft.brainless.body.ComplexBody;
 
@@ -17,7 +18,15 @@ public class BoneContactSensor extends BodySensor {
 	@Override
 	public double getValue() {
 		if(bone.getPhysicalBody().getContactList() != null) {
-			return 1.0;
+			boolean static1 = bone.getPhysicalBody().getContactList().contact.getFixtureA().getBody().getType() == BodyType.STATIC;
+			boolean static2 = bone.getPhysicalBody().getContactList().contact.getFixtureB().getBody().getType() == BodyType.STATIC;
+			
+			if(static1 || static2) {
+				return 1.0;
+			} else {
+				return -1.0;
+			}
+			
 		} else {
 			return 0.0;
 		}

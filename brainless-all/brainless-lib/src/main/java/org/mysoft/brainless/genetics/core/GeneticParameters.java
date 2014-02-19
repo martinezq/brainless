@@ -10,10 +10,13 @@ public class GeneticParameters<T extends Chromosome> {
 	private IGeneticFitCalculator<T> fitCalculator;
 
 	private boolean bestImmortal = false;
+	private boolean crossoverDisabled = false;
 
 	private double mutationProbability = 0.01;
 	private int generationSize = 16;
 	private int maxGenerations = 16;
+
+	private int fitCalculationRepeats = 1;
 
 	public IMutationOperator<T> getMutationOperator() {
 		return mutationOperator;
@@ -42,11 +45,11 @@ public class GeneticParameters<T extends Chromosome> {
 	public boolean isBestImmortal() {
 		return bestImmortal;
 	}
-	
+
 	public void setBestImmortal(boolean bestImmortal) {
 		this.bestImmortal = bestImmortal;
 	}
-	
+
 	public double getMutationProbability() {
 		return mutationProbability;
 	}
@@ -66,8 +69,24 @@ public class GeneticParameters<T extends Chromosome> {
 	public int getMaxGenerations() {
 		return maxGenerations;
 	}
-	
+
 	public void setMaxGenerations(int maxGenerations) {
 		this.maxGenerations = maxGenerations;
+	}
+
+	public int getFitCalculationRepeats() {
+		return fitCalculationRepeats;
+	}
+	
+	public void setFitCalculationRepeats(int fitCalculationRepeats) {
+		this.fitCalculationRepeats = fitCalculationRepeats;
+	}
+	
+	public boolean isCrossoverDisabled() {
+		return crossoverDisabled;
+	}
+	
+	public void setCrossoverDisabled(boolean crossoverDisabled) {
+		this.crossoverDisabled = crossoverDisabled;
 	}
 }

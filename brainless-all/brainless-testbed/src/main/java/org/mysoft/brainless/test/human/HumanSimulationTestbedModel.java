@@ -6,6 +6,7 @@ import org.mysoft.brainless.genetics.core.GeneticEngine;
 import org.mysoft.brainless.genetics.core.GeneticParameters;
 import org.mysoft.brainless.genetics.neural.DefaultNeuralNetworkCrossoverOperator;
 import org.mysoft.brainless.genetics.neural.DefaultNeuralNetworkMutationOperator;
+import org.mysoft.brainless.genetics.neural.WeightLevelNeuralNetworkCrossoverOperator;
 import org.mysoft.brainless.human.HumanNeuralNetworkGeneration;
 import org.mysoft.brainless.human.HumanSimulation;
 import org.mysoft.brainless.human.HumanStandingFitCalculator;
@@ -36,15 +37,15 @@ public class HumanSimulationTestbedModel extends CharacterSimulationTestbedModel
 		GeneticParameters<NeuralNetworkChromosome> params = new GeneticParameters<NeuralNetworkChromosome>();
 		params.setGenerationSize(16);
 		params.setMaxGenerations(32);
-		params.setMutationProbability(0.01);
+		params.setMutationProbability(0.02);
 		params.setBestImmortal(false);
-		params.setCrossoverOperator(new DefaultNeuralNetworkCrossoverOperator());
+		params.setCrossoverOperator(new WeightLevelNeuralNetworkCrossoverOperator());
 		params.setMutationOperator(new DefaultNeuralNetworkMutationOperator());
 		params.setFitCalculator(new HumanStandingFitCalculator());
 
 		GeneticEngine<NeuralNetworkChromosome> engine = new GeneticEngine<>(params);
 
-		engine.start(HumanNeuralNetworkGeneration.createArrayOf(2));
+		engine.start(HumanNeuralNetworkGeneration.createArrayOf(1));
 
 		NeuralNetworkChromosome best = engine.getBest();
 

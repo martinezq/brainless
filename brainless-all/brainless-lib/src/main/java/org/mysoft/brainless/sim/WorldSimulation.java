@@ -62,7 +62,7 @@ public class WorldSimulation extends Simulation {
 		world.setAllowSleep(allowSleep);
 		
 		PolygonShape groundShape = new PolygonShape();
-		groundShape.setAsEdge(new Vec2(-100,  -1), new Vec2(100, -1));
+		groundShape.setAsEdge(new Vec2(-1000,  -1), new Vec2(1000, -1));
 		
 		BodyDef groundDefinition = new BodyDef();
 		groundDefinition.type = BodyType.STATIC;
@@ -71,7 +71,18 @@ public class WorldSimulation extends Simulation {
 		
 		Body groundBody = world.createBody(groundDefinition);
 		groundBody.createFixture(groundShape, 5.0f).setFriction(5f);
+	/*	
+		PolygonShape groundShape2 = new PolygonShape();
+		groundShape2.setAsBox(1f, 1f);
 		
+		BodyDef groundDefinition2 = new BodyDef();
+		groundDefinition2.type = BodyType.STATIC;
+		groundDefinition2.position.set(30f, 1f);
+		groundDefinition2.allowSleep = false;
+		
+		Body groundBody2 = world.createBody(groundDefinition2);
+		groundBody2.createFixture(groundShape2, 5.0f).setFriction(5f);
+	*/	
 	}
 	
 	public void setWorld(World world) {

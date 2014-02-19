@@ -15,24 +15,26 @@ import org.mysoft.brainless.sensor.AngleSensor;
 import org.mysoft.brainless.sensor.AngularVelocitySensor;
 import org.mysoft.brainless.sensor.BodySensor;
 import org.mysoft.brainless.sensor.BoneContactSensor;
+import org.mysoft.brainless.sensor.BoneXLinearVelocitySensor;
 import org.mysoft.brainless.sensor.BoneXPositionSensor;
+import org.mysoft.brainless.sensor.BoneYLinearVelocitySensor;
 import org.mysoft.brainless.sensor.BoneYPositionSensor;
 
 public class SimpleCreatureBody extends ComplexBody {
 
 	BodyFactory bodyFactory;
 	
-	Bone spineLower;
-	Bone spineMiddle;
-	Bone spineUpper;
-	Bone neck;
+	Bone bone1;
+	Bone bone2;
+	Bone bone3;
+	Bone bone4;
 	Bone head;
 	
 
-	BoneJoint spineMiddleJoint;
-	BoneJoint spineUpperJoint;
-	BoneJoint neckJoint;
-	BoneJoint headJoint;
+	BoneJoint joint1;
+	BoneJoint joint2;
+	BoneJoint joint3;
+	BoneJoint joint4;
 
 	
 	public final static SimpleCreatureBody create(World world) {
@@ -45,8 +47,8 @@ public class SimpleCreatureBody extends ComplexBody {
 
 	public Bone[] getBones() {
 		Bone[] bones = new Bone[] {
-				spineLower, spineMiddle, spineUpper,
-				neck, head	
+				bone1, bone2, bone3,
+				bone4, head	
 		};
 		
 		return bones;
@@ -55,7 +57,7 @@ public class SimpleCreatureBody extends ComplexBody {
 	@Override
 	public BoneJoint[] getBodyJoints() {
 		BoneJoint[] joints = new BoneJoint[] {
-				spineMiddleJoint, spineUpperJoint, neckJoint, headJoint
+				joint1, joint2, joint3, joint4
 		};
 		
 		return joints;
@@ -73,12 +75,16 @@ public class SimpleCreatureBody extends ComplexBody {
 			AngleSensor a = AngleSensor.create(this, bone);
 			AngularVelocitySensor v = AngularVelocitySensor.create(this, bone);
 			BoneContactSensor c = BoneContactSensor.create(this, bone);
+			BoneXLinearVelocitySensor lx = BoneXLinearVelocitySensor.create(this, bone);
+			BoneYLinearVelocitySensor ly = BoneYLinearVelocitySensor.create(this, bone);
 			
-			sensors.add(x);
+			//sensors.add(x);
 			sensors.add(y);
 			sensors.add(a);
 			sensors.add(v);
 			sensors.add(c);
+			sensors.add(lx);
+			sensors.add(ly);
 		}
 		
 		return sensors.toArray(new BodySensor[sensors.size()]);
@@ -91,29 +97,32 @@ public class SimpleCreatureBody extends ComplexBody {
 		
 		initMaxForces();
 		
-		masterBone = spineLower;
+		masterBone = bone1;
 	}
 	
 	private void initSpineAndHead() {
-		spineLower = bodyFactory.createSegment(0f, 0f, 2f, 0f, Density.HIGH);
-		spineMiddle = bodyFactory.createSegment(2f, 0f, 4f, 0f, Density.HIGH);
-		spineUpper = bodyFactory.createSegment(4f, 0f, 6f, 0f, Density.HIGH);
-		neck = bodyFactory.createSegment(6f, 0f, 8f, 0f, Density.LOW);
-		head = bodyFactory.createSegment(8f, 0f, 10f, 0f, Density.HIGH);
+		head = bodyFactory.createSegment(18f, 0f, 16f, 0f, Density.HIGH);
 		
-		spineMiddleJoint = spineLower.connectAtEnd(spineMiddle, Angles.d2r(-120), Angles.d2r(120));
-		spineUpperJoint = spineMiddle.connectAtEnd(spineUpper, Angles.d2r(-120), Angles.d2r(120));
-		neckJoint = spineUpper.connectAtEnd(neck,  Angles.d2r(-120), Angles.d2r(120));
-		headJoint = neck.connectAtEnd(head, Angles.d2r(-120), Angles.d2r(120));		
+		bone1 = bodyFactory.createSegment(16f, 0f, 12f, 0f, Density.HIGH);
+		bone2 = bodyFactory.createSegment(12f, 0f, 8f, 0f, Density.HIGH);
+		
+		bone3 = bodyFactory.createSegment(16f, 0f, 12f, 0f, Density.HIGH);
+		bone4 = bodyFactory.createSegment(12f, 0f, 8f, 0f, Density.HIGH);
+		
+		
+		joint1 = bone1.connectAtStart(head, Angles.d2r(-160), Angles.d2r(160));
+		joint2 = bone3.connectAtStart(head, Angles.d2r(-160), Angles.d2r(160));
+		joint3 = bone2.connectAtStart(bone1,  Angles.d2r(-160), Angles.d2r(160));
+		joint4 = bone4.connectAtStart(bone3, Angles.d2r(-160), Angles.d2r(160));		
 
 	}
 	
 	private void initMaxForces() {
-		headJoint.setMaxForce(Force.MAX);
-		neckJoint.setMaxForce(Force.MAX);
+		joint4.setMaxForce(Force.MAX);
+		joint3.setMaxForce(Force.MAX);
 		
-		spineMiddleJoint.setMaxForce(Force.MAX); 
-		spineUpperJoint.setMaxForce(Force.MAX);
+		joint1.setMaxForce(Force.AVG); 
+		joint2.setMaxForce(Force.AVG);
 		
 	}
 	

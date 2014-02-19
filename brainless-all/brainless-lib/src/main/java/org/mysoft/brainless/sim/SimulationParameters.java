@@ -5,11 +5,11 @@ public class SimulationParameters {
 	public final static int FRAMERATE = 30;
 	
 	private int hz = 15;
-	private int durationSeconds = 5;
+	private int durationSeconds = 10;
 	private int iterations = -1;
 	private float step = -1;
-	private int posIterations = 64;
-	private int velIterations = 64;
+	private int posIterations = 100;
+	private int velIterations = 100;
 	
 	public SimulationParameters() {
 		calculate();

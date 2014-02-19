@@ -2,6 +2,9 @@ package org.mysoft.brainless.neural.core;
 
 public class InputWeight {
 
+	private static final double MIN = -1.0;
+	private static final double MAX = 1.0;
+	
 	private double value;
 	
 	public static InputWeight create(double value) {
@@ -19,13 +22,20 @@ public class InputWeight {
 	}
 
 	public static InputWeight random() {
-		double value = 0;
-		if(Math.random() < 0.01) {
-			value = 20.0 * Math.random() - 10.0;
-		} else {
-			value = 2.0 * Math.random() - 1.0;
-		}
+		double value =  (MAX - MIN) * Math.random() + MIN;
 		return create(value);
+	}
+	
+	public static InputWeight max() {
+		return create(MAX);
+	}
+	
+	public static InputWeight min() {
+		return create(MIN);
+	}
+	
+	public static InputWeight zero() {
+		return create(0.0);
 	}
 
 	public void increase() {
@@ -34,6 +44,17 @@ public class InputWeight {
 
 	public void  decrease() {
 		value = value * 0.9999;
+	}
+
+	public void normalize() {
+		if(value < MIN) {
+			value = MIN;
+		}
+		
+		if(value > MAX) {
+			value = MAX;
+		}
+		
 	}
 	
 }

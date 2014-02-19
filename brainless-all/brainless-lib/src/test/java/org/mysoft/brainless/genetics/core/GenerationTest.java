@@ -52,7 +52,7 @@ public class GenerationTest {
 	private Generation<NeuralNetworkChromosome> prepare() {
 		Generation<NeuralNetworkChromosome> gen = new Generation<NeuralNetworkChromosome>() {
 			@Override
-			protected NeuralNetworkChromosome instantiate(GeneticParameters<NeuralNetworkChromosome> parameters) {
+			public NeuralNetworkChromosome instantiate(GeneticParameters<NeuralNetworkChromosome> parameters) {
 				return NeuralNetworkChromosome.create(NeuralNetwork.createDefault());
 			}
 		};

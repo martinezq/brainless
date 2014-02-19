@@ -10,7 +10,7 @@ public class BoneJoint implements NetworkOutput {
 	protected RevoluteJoint revoluteJoint;
 	protected double maxForce = Force.MAX;
 	
-	protected double maxSpeed = 1;
+	protected double maxSpeed = 3.0;
 	
 	public final static BoneJoint create(RevoluteJoint revoluteJoint, double maxForce) {
 		BoneJoint joint = new BoneJoint();
@@ -30,20 +30,20 @@ public class BoneJoint implements NetworkOutput {
 		return revoluteJoint;
 	}
 
-	public void applyForce(double force) {
-		revoluteJoint.setMotorSpeed((float) Math.signum(force));
-		revoluteJoint.setMaxMotorTorque((float) force);
-		revoluteJoint.enableMotor(true);
-	}
-
 	public void applySpeed(double speed) {
 		revoluteJoint.setMotorSpeed((float) speed);
 		revoluteJoint.setMaxMotorTorque((float) maxForce);
 		revoluteJoint.enableMotor(true);
 	}
 	
-	public void removeForce() {
-		hold(10f);
+	public void applyTorque(double torque) {
+		revoluteJoint.setMaxMotorTorque((float)(maxForce * Math.abs(torque)));
+		revoluteJoint.setMotorSpeed((float)(maxSpeed * torque));
+		revoluteJoint.enableMotor(true);
+	}
+	
+	public void hold() {
+		hold(maxForce);
 	}
 
 	public void hold(double force) {
@@ -54,7 +54,11 @@ public class BoneJoint implements NetworkOutput {
 
 	@Override
 	public void perform(double value) {
-		applySpeed(2 * maxSpeed * value - maxSpeed);
+		if(value == 0.0) {
+			hold();
+		} else {
+			applyTorque(value);
+		}
 	}
 	
 	public void setMaxForce(double maxForce) {

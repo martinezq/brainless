@@ -18,7 +18,9 @@ import org.mysoft.brainless.sensor.AngleSensor;
 import org.mysoft.brainless.sensor.AngularVelocitySensor;
 import org.mysoft.brainless.sensor.BodySensor;
 import org.mysoft.brainless.sensor.BoneContactSensor;
+import org.mysoft.brainless.sensor.BoneXLinearVelocitySensor;
 import org.mysoft.brainless.sensor.BoneXPositionSensor;
+import org.mysoft.brainless.sensor.BoneYLinearVelocitySensor;
 import org.mysoft.brainless.sensor.BoneYPositionSensor;
 import org.mysoft.brainless.sensor.XPositionSensor;
 import org.mysoft.brainless.sensor.YPositionSensor;
@@ -146,12 +148,16 @@ public class HumanBody extends ComplexBody {
 			AngleSensor a = AngleSensor.create(this, bone);
 			AngularVelocitySensor v = AngularVelocitySensor.create(this, bone);
 			BoneContactSensor c = BoneContactSensor.create(this, bone);
+			BoneXLinearVelocitySensor lx = BoneXLinearVelocitySensor.create(this, bone);
+			BoneYLinearVelocitySensor ly = BoneYLinearVelocitySensor.create(this, bone);
 			
 			sensors.add(x);
 			sensors.add(y);
 			sensors.add(a);
 			sensors.add(v);
 			sensors.add(c);
+			sensors.add(lx);
+			sensors.add(ly);
 		}
 		
 		return sensors.toArray(new BodySensor[sensors.size()]);

@@ -10,7 +10,9 @@ public class SimpleCreatureSimulation extends CharacterSimulation<SimpleCreature
 	
 	public final static SimpleCreatureSimulation create(NeuralNetwork nn) {
 		SimpleCreatureSimulation s = new SimpleCreatureSimulation();
-		s.setParameters(new SimulationParameters());
+		SimulationParameters p = new SimulationParameters();
+		p.setDurationSeconds(30);
+		s.setParameters(p);
 		s.neuralNetwork = nn;
 		return s;
 	}
