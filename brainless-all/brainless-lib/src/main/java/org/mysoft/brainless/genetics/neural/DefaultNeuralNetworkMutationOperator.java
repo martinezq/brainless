@@ -17,25 +17,34 @@ public class DefaultNeuralNetworkMutationOperator implements IMutationOperator<N
 		NeuralNetwork neuralNetwork = chromosome.getNeuralNetwork();
 		Random randomizer = new Random();
 
+		int mutatedCount = 0;
+		int totalCount = 0;
+		
 		for (NeuronLayer layer : neuralNetwork.getHiddenLayers()) {
 
 			for (Neuron neuron : layer) {
 
 				int count = neuron.getWeightsCount();
 
-				double rand = Math.random();
-				boolean change = rand < probability;
-
-				if (change) {
-					int weightIndex = randomizer.nextInt(count);
-					InputWeight oldWeight = neuron.getWeight(weightIndex);
-					double f = Math.random() * 0.2 - 0.1;
-					InputWeight newWeight = InputWeight.create(f + oldWeight.getValue());
-					newWeight.normalize();
-					neuron.setWeight(weightIndex, newWeight);
+				for(int weightIndex = 0; weightIndex < count; weightIndex++) {
+					double rand = Math.random();
+					boolean change = Math.abs(rand) < probability;
+					
+					totalCount++;
+					
+					if (change) {
+						InputWeight newWeight = InputWeight.random();
+						neuron.setWeight(weightIndex, newWeight);
+						mutatedCount++;
+					}
 				}
+
 			}
 		}
+		
+		double prc = (double)mutatedCount / (double)totalCount;
+		
+		//System.out.println("mutated genes: " + prc);
 		return chromosome;
 	}
 

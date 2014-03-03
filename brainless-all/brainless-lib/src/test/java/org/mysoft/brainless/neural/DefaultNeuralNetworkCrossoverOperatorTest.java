@@ -3,7 +3,9 @@ package org.mysoft.brainless.neural;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mysoft.brainless.genetics.chromosome.NeuralNetworkChromosome;
+import org.mysoft.brainless.genetics.core.ICrossoverOperator;
 import org.mysoft.brainless.genetics.neural.DefaultNeuralNetworkCrossoverOperator;
+import org.mysoft.brainless.genetics.neural.WeightLevelNeuralNetworkCrossoverOperator;
 import org.mysoft.brainless.neural.core.NeuralNetwork;
 import org.mysoft.brainless.neural.core.Neuron;
 import org.mysoft.brainless.neural.core.NeuronLayer;
@@ -13,10 +15,10 @@ public class DefaultNeuralNetworkCrossoverOperatorTest {
 	@Test
 	public void test() {
 		
-		DefaultNeuralNetworkCrossoverOperator op = new DefaultNeuralNetworkCrossoverOperator();
+		ICrossoverOperator<NeuralNetworkChromosome> op = new DefaultNeuralNetworkCrossoverOperator();
 		
-		NeuralNetwork nn1 = NeuralNetwork.create(4,4);
-		NeuralNetwork nn2 = NeuralNetwork.create(4,4);
+		NeuralNetwork nn1 = NeuralNetwork.create(2);
+		NeuralNetwork nn2 = NeuralNetwork.create(2);
 		
 		nn1.randomizeWeights();
 		nn2.randomizeWeights();

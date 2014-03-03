@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mysoft.brainless.genetics.chromosome.NeuralNetworkChromosome;
 import org.mysoft.brainless.genetics.neural.DefaultNeuralNetworkMutationOperator;
+import org.mysoft.brainless.neural.core.InputWeight;
 import org.mysoft.brainless.neural.core.NeuralNetwork;
 import org.mysoft.brainless.neural.core.Neuron;
 import org.mysoft.brainless.neural.core.NeuronLayer;
@@ -47,19 +48,28 @@ public class DefaultNeuralNetworkMutationOperatorTest {
 				Neuron rln = rl.get(j);
 				Neuron nln = nl.get(j);
 				
-				boolean randomized = !rln.hasEqualWeights(nln);
-
-				total++;
+				int weights = rln.getWeightsCount();
 				
-				if(randomized) {
-					count++;
+				for(int w=0; w<weights; w++) {
+					InputWeight w1 = rln.getWeight(w);
+					InputWeight w2 = nln.getWeight(w);
+					
+					boolean randomized = !w1.equals(w2);
+
+					total++;
+					
+					if(randomized) {
+						count++;
+					}
 				}
+				
+
 			}
 		}
 		
 		double perc = 100.0 * count / total;
 		
-		System.out.println(perc + "% of randomized neurons");
+		System.out.println(perc + "% of randomized weights");
 	}
 
 	

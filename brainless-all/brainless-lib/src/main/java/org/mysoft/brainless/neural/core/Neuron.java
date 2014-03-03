@@ -171,6 +171,14 @@ public class Neuron implements NeuronInput {
 		
 	}
 
+	public void resetWeightsUpTo(int count) {
+		inputWeights.clear();
+		
+		for(int ii=0; ii<count; ii++) {
+			inputWeights.add(InputWeight.create(0.0));
+		}
+	}
+
 	
 	
 }

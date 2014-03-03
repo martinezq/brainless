@@ -24,10 +24,10 @@ public class SimpleCreatureNeuralNetworkGeneration extends Generation<NeuralNetw
 
 	@Override
 	public NeuralNetworkChromosome instantiate(GeneticParameters<NeuralNetworkChromosome> parameters) {
-		int outputs = 4;
-		int storage = 0;
+		int outputs = 6;
+		int storage = 16;
 		
-		NeuralNetwork neuralNetwork = NeuralNetwork.create(8, 16, 16, 8, outputs + storage);
+		NeuralNetwork neuralNetwork = NeuralNetwork.create(32, 32, 32, 32, outputs + storage);
 		neuralNetwork.addStorageNeurons(storage);
 		neuralNetwork.randomizeWeights();
 

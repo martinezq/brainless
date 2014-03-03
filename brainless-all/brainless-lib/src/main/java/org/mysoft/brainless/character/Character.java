@@ -30,6 +30,10 @@ public abstract class Character {
 		brain.step();
 	}
 	
+	public void reset() {
+		brain.reset();
+	}
+	
 	public abstract void beforeStep();
 	
 	public abstract void afterStep();

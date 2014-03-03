@@ -28,6 +28,8 @@ public class SimpleCreatureBody extends ComplexBody {
 	Bone bone2;
 	Bone bone3;
 	Bone bone4;
+	Bone bone5;
+	Bone bone6;
 	Bone head;
 	
 
@@ -35,6 +37,8 @@ public class SimpleCreatureBody extends ComplexBody {
 	BoneJoint joint2;
 	BoneJoint joint3;
 	BoneJoint joint4;
+	BoneJoint joint5;
+	BoneJoint joint6;
 
 	
 	public final static SimpleCreatureBody create(World world) {
@@ -48,7 +52,7 @@ public class SimpleCreatureBody extends ComplexBody {
 	public Bone[] getBones() {
 		Bone[] bones = new Bone[] {
 				bone1, bone2, bone3,
-				bone4, head	
+				bone4, bone5, bone6, head	
 		};
 		
 		return bones;
@@ -57,7 +61,7 @@ public class SimpleCreatureBody extends ComplexBody {
 	@Override
 	public BoneJoint[] getBodyJoints() {
 		BoneJoint[] joints = new BoneJoint[] {
-				joint1, joint2, joint3, joint4
+				joint1, joint2, joint3, joint4, joint5, joint6
 		};
 		
 		return joints;
@@ -101,28 +105,32 @@ public class SimpleCreatureBody extends ComplexBody {
 	}
 	
 	private void initSpineAndHead() {
-		head = bodyFactory.createSegment(18f, 0f, 16f, 0f, Density.HIGH);
+		head = bodyFactory.createSegment(1f, 0f, 2f, 0f, Density.HIGH);
 		
-		bone1 = bodyFactory.createSegment(16f, 0f, 12f, 0f, Density.HIGH);
-		bone2 = bodyFactory.createSegment(12f, 0f, 8f, 0f, Density.HIGH);
+		bone1 = bodyFactory.createSegment(2f, 0f, 4f, 0f, Density.HIGH);
+		bone2 = bodyFactory.createSegment(4f, 0f, 6f, 0f, Density.HIGH);
+		bone3 = bodyFactory.createSegment(6f, 0f, 8f, 0f, Density.HIGH);
+		bone4 = bodyFactory.createSegment(8f, 0f, 10f, 0f, Density.HIGH);
+		bone5 = bodyFactory.createSegment(10f, 0f, 12f, 0f, Density.HIGH);
+		bone6 = bodyFactory.createSegment(12f, 0f, 14f, 0f, Density.HIGH);
 		
-		bone3 = bodyFactory.createSegment(16f, 0f, 12f, 0f, Density.HIGH);
-		bone4 = bodyFactory.createSegment(12f, 0f, 8f, 0f, Density.HIGH);
 		
-		
-		joint1 = bone1.connectAtStart(head, Angles.d2r(-160), Angles.d2r(160));
-		joint2 = bone3.connectAtStart(head, Angles.d2r(-160), Angles.d2r(160));
-		joint3 = bone2.connectAtStart(bone1,  Angles.d2r(-160), Angles.d2r(160));
-		joint4 = bone4.connectAtStart(bone3, Angles.d2r(-160), Angles.d2r(160));		
+		joint1 = bone1.connectAtStart(head, Angles.d2r(-120), Angles.d2r(120));
+		joint2 = bone2.connectAtStart(bone1, Angles.d2r(-120), Angles.d2r(120));
+		joint3 = bone3.connectAtStart(bone2,  Angles.d2r(-120), Angles.d2r(120));
+		joint4 = bone4.connectAtStart(bone3, Angles.d2r(-120), Angles.d2r(120));		
+		joint5 = bone5.connectAtStart(bone4, Angles.d2r(-120), Angles.d2r(120));
+		joint6 = bone6.connectAtStart(bone5, Angles.d2r(-120), Angles.d2r(120));
 
 	}
 	
 	private void initMaxForces() {
-		joint4.setMaxForce(Force.MAX);
-		joint3.setMaxForce(Force.MAX);
-		
-		joint1.setMaxForce(Force.AVG); 
-		joint2.setMaxForce(Force.AVG);
+		joint1.setMaxForce(Force.LOW); 
+		joint2.setMaxForce(Force.HIGH);
+		joint3.setMaxForce(Force.HIGH);
+		joint4.setMaxForce(Force.HIGH);
+		joint5.setMaxForce(Force.HIGH);
+		joint6.setMaxForce(Force.HIGH);
 		
 	}
 	

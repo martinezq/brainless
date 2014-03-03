@@ -51,7 +51,7 @@ public abstract class Generation<T extends Chromosome> {
 
 		int len = individuals.size();
 		int parentSelectionIndexLimit = len / 4;
-		int crossoverLimitIndex = len;
+		int crossoverLimitIndex = len - len / 8;
 
 		T bestChromosome = individuals.get(0);
 
@@ -68,9 +68,9 @@ public abstract class Generation<T extends Chromosome> {
 
 				int parent1Index = randomizer.nextInt(parentSelectionIndexLimit);
 				int parent2Index = randomizer.nextInt(parentSelectionIndexLimit);
-				
-				if(parentSelectionIndexLimit > 1) {
-					while(parent1Index == parent2Index) {
+
+				if (parentSelectionIndexLimit > 1) {
+					while (parent1Index == parent2Index) {
 						parent2Index = randomizer.nextInt(parentSelectionIndexLimit);
 					}
 				}
@@ -87,15 +87,17 @@ public abstract class Generation<T extends Chromosome> {
 
 		individuals.clear();
 
-		double prob = parameters.getMutationProbability() / 2.0;
+		double prob = parameters.getMutationProbability();
 
 		for (T child : newIndividuals) {
-			T mutatedChild = mutation.mutate(child, prob);
+			double individualProb = Math.random() * prob;
+			//System.out.println(individualProb);
+			T mutatedChild = mutation.mutate(child, individualProb);
 			individuals.add(mutatedChild);
 
 		}
-		
-		for(int i=crossoverLimitIndex; i < len; i++) {
+
+		for (int i = crossoverLimitIndex; i < len; i++) {
 			T randomIndividual = (T) bestIndividual.duplicate();
 			randomIndividual.randomize();
 			individuals.add(randomIndividual);
@@ -115,37 +117,19 @@ public abstract class Generation<T extends Chromosome> {
 
 		fits.clear();
 		averageFit = 0.0;
-		
-		Map<T, FitCalculatorWorker> workers = new HashMap<T, FitCalculatorWorker>();
-		List<FitCalculatorWorker> workersToJoin = new LinkedList<FitCalculatorWorker>();
 
 		for (int i = 0; i < individuals.size(); i++) {
 			T chromosome = individuals.get(i);
-			
-			FitCalculatorWorker worker = new FitCalculatorWorker(parameters);
-			
-			workers.put(chromosome, worker);
-			workersToJoin.add(worker);
-			worker.start(chromosome);
-			
-			if(i % 4 == 0 || i == individuals.size() - 1) {
-				for(FitCalculatorWorker workerToJoin: workersToJoin) {
-					try {
-						workerToJoin.join();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
+
+			Double fit = Double.MIN_VALUE;
+			for (int j = 0; j < parameters.getFitCalculationRepeats(); j++) {
+				Double newFit = parameters.getFitCalculator().calculate(chromosome);
+				boolean isDifferent = j > 0 && !newFit.equals(fit);
+				if (isDifferent) {
+					throw new IllegalStateException("Fit calculator is not repeatable! Difference = " + (newFit - fit));
 				}
-				
-				workersToJoin.clear();
-				
+				fit = newFit;
 			}
-		}
-		
-		for (int i = 0; i < individuals.size(); i++) {
-			T chromosome = individuals.get(i);
-			
-			Double fit = workers.get(chromosome).getCalculatedFit();
 
 			fits.add(i, new ChromosomeFit<T>(chromosome, fit));
 			averageFit += fit;
@@ -162,7 +146,7 @@ public abstract class Generation<T extends Chromosome> {
 			bestIndividual = fits.get(0).chromosome;
 		}
 	}
-	
+
 	public T calculateBest() {
 		calculateFits();
 		return bestIndividual;

@@ -49,6 +49,7 @@ public class CharacterSimulationTest<T extends CharacterSimulation<?>> extends T
 
 	@Override
 	public void reset() {
+		character.reset();
 		iterationsLeft = simulation.getParameters().getIterations();
 		super.getModel().getSettings().pause = false;
 		super.reset();

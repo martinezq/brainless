@@ -99,6 +99,12 @@ public class NeuralNetwork {
 		}
 	}
 	
+	public void resetWeights() {
+		for(NeuronLayer layer: hiddenLayers) {
+			layer.resetWeightsUpTo(MAX_WEIGHTS);
+		}
+	}
+	
 	public void attachInputLayer(InputLayer inputLayer) {
 		detachInputLayer();
 		
@@ -267,4 +273,8 @@ public class NeuralNetwork {
 	 public StorageLayer getStorageLayer() {
 		return storageLayer;
 	}
+	 
+	 public void resetStorageLayer() {
+		storageLayer.reset();
+	 }
 }

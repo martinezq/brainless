@@ -68,5 +68,11 @@ public class SimpleCreatureBrain extends Brain {
 		}
 
 	}
+	
+	@Override
+	public void reset() {
+		network.resetStorageLayer();
+
+	}
 
 }

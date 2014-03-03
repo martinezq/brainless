@@ -11,10 +11,9 @@ public class SimpleCreatureWalkingFitCalculator implements IGeneticFitCalculator
 
 		simulation.init();
 		
-		chromosome.getNeuralNetwork().getStorageLayer().reset();
-		
 		SimpleCreatureCharacter character = simulation.getCharacter();
-		
+
+		character.reset();
 		simulation.simulate();
 		
 		double endPosX = character.getBody().getMasterBone().getPhysicalBody().getPosition().x;

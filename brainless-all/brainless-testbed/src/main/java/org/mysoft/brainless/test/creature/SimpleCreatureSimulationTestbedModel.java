@@ -6,10 +6,8 @@ import org.mysoft.brainless.creature.SimpleCreatureWalkingFitCalculator;
 import org.mysoft.brainless.genetics.chromosome.NeuralNetworkChromosome;
 import org.mysoft.brainless.genetics.core.GeneticEngine;
 import org.mysoft.brainless.genetics.core.GeneticParameters;
-import org.mysoft.brainless.genetics.neural.DefaultNeuralNetworkCrossoverOperator;
 import org.mysoft.brainless.genetics.neural.DefaultNeuralNetworkMutationOperator;
 import org.mysoft.brainless.genetics.neural.WeightLevelNeuralNetworkCrossoverOperator;
-import org.mysoft.brainless.human.HumanStandingFitCalculator;
 import org.mysoft.brainless.neural.core.NeuralNetwork;
 import org.mysoft.brainless.neural.util.NeuralNetworkSerializer;
 import org.mysoft.brainless.test.CharacterSimulationTest;
@@ -37,13 +35,13 @@ public class SimpleCreatureSimulationTestbedModel extends CharacterSimulationTes
 		GeneticParameters<NeuralNetworkChromosome> params = new GeneticParameters<NeuralNetworkChromosome>();
 		params.setGenerationSize(64);
 		params.setMaxGenerations(64);
-		params.setMutationProbability(0.2);
+		params.setMutationProbability(0.01);
 		params.setCrossoverDisabled(false);
 		params.setBestImmortal(false);
 		params.setCrossoverOperator(new WeightLevelNeuralNetworkCrossoverOperator());
 		params.setMutationOperator(new DefaultNeuralNetworkMutationOperator());
 		params.setFitCalculator(new SimpleCreatureWalkingFitCalculator());
-		params.setFitCalculationRepeats(2);
+		params.setFitCalculationRepeats(1);
 
 		GeneticEngine<NeuralNetworkChromosome> engine = new GeneticEngine<>(params);
 

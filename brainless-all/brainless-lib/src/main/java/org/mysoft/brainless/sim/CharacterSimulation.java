@@ -14,6 +14,7 @@ public abstract class CharacterSimulation<T extends Character> extends WorldSimu
 	public void init() {
 		super.init();
 		this.character = initCharacter();
+		this.character.reset();
 	}
 	
 	@Override

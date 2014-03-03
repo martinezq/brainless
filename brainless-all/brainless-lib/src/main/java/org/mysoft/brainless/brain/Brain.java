@@ -13,4 +13,6 @@ public abstract class Brain {
 	}
 	
 	public abstract void step();
+	
+	public abstract void reset();
 }

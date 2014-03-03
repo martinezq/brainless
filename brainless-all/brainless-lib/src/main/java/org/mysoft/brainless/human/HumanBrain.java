@@ -69,4 +69,10 @@ public class HumanBrain extends Brain {
 
 	}
 
+	@Override
+	public void reset() {
+		network.resetStorageLayer();
+
+	}
+	
 }
