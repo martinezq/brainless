@@ -8,6 +8,7 @@ import org.mysoft.brainless.body.BodyFactory;
 import org.mysoft.brainless.body.Bone;
 import org.mysoft.brainless.body.BoneJoint;
 import org.mysoft.brainless.body.ComplexBody;
+import org.mysoft.brainless.body.IEnergyMonitor;
 import org.mysoft.brainless.body.util.Angles;
 import org.mysoft.brainless.body.util.Density;
 import org.mysoft.brainless.body.util.Force;
@@ -39,7 +40,6 @@ public class SimpleCreatureBody extends ComplexBody {
 	BoneJoint joint4;
 	BoneJoint joint5;
 	BoneJoint joint6;
-
 	
 	public final static SimpleCreatureBody create(World world) {
 		SimpleCreatureBody human = new SimpleCreatureBody();
@@ -121,17 +121,23 @@ public class SimpleCreatureBody extends ComplexBody {
 		joint4 = bone4.connectAtStart(bone3, Angles.d2r(-120), Angles.d2r(120));		
 		joint5 = bone5.connectAtStart(bone4, Angles.d2r(-120), Angles.d2r(120));
 		joint6 = bone6.connectAtStart(bone5, Angles.d2r(-120), Angles.d2r(120));
+		
+		joint1.setEnergyMonitor(this);
+		joint2.setEnergyMonitor(this);
+		joint3.setEnergyMonitor(this);
+		joint4.setEnergyMonitor(this);
+		joint5.setEnergyMonitor(this);
+		joint6.setEnergyMonitor(this);
 
 	}
 	
 	private void initMaxForces() {
 		joint1.setMaxForce(Force.LOW); 
-		joint2.setMaxForce(Force.HIGH);
-		joint3.setMaxForce(Force.HIGH);
-		joint4.setMaxForce(Force.HIGH);
-		joint5.setMaxForce(Force.HIGH);
-		joint6.setMaxForce(Force.HIGH);
-		
+		joint2.setMaxForce(Force.AVG);
+		joint3.setMaxForce(Force.AVG);
+		joint4.setMaxForce(Force.AVG);
+		joint5.setMaxForce(Force.AVG);
+		joint6.setMaxForce(Force.AVG);
 	}
 	
 	@Override

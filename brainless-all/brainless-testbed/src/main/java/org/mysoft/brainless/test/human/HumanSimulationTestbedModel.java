@@ -37,14 +37,15 @@ public class HumanSimulationTestbedModel extends CharacterSimulationTestbedModel
 	private NeuralNetwork learn() {
 
 		GeneticParameters<NeuralNetworkChromosome> params = new GeneticParameters<NeuralNetworkChromosome>();
-		params.setGenerationSize(64);
-		params.setMaxGenerations(32);
-		params.setMutationProbability(0.02);
+		params.setGenerationSize(512);
+		params.setMaxGenerations(64);
+		params.setMutationProbability(0.05);
 		params.setBestImmortal(false);
 		params.setCrossoverOperator(new WeightLevelNeuralNetworkCrossoverOperator());
 		params.setMutationOperator(new DefaultNeuralNetworkMutationOperator());
-		params.setFitCalculator(new HumanWalkingFitCalculator());
+		params.setFitCalculator(new HumanStandingFitCalculator());
 		params.setFitCalculationRepeats(1);
+		params.setMaxGenerationsWithNoProgress(12);
 		
 		GeneticEngine<NeuralNetworkChromosome> engine = new GeneticEngine<>(params);
 

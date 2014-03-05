@@ -25,6 +25,7 @@ public class GeneticEngineTask<T extends Chromosome> implements Runnable {
 		
 		T best;
 		Double bestFit = Double.MAX_VALUE;
+		int generationsWithNoProgress = 0;
 		
 		try {
 			int count = 0;
@@ -34,11 +35,19 @@ public class GeneticEngineTask<T extends Chromosome> implements Runnable {
 				long startTime = System.currentTimeMillis();
 				generation.calculateNext();
 				best = generation.calculateBest();
-				bestFit = generation.calculateBestFit();
+				Double fit = generation.calculateBestFit();
 				long endTime = System.currentTimeMillis();
 				System.out.println("generation " + count + ", best fit = " + bestFit + ", size = " + generation.getSize() + ", avg fit = " + generation.getAverageFit() + ", time = " + (endTime - startTime));
-				Thread.sleep(10);
-			} while (bestFit > 0 && count < parameters.getMaxGenerations());
+				
+				if(bestFit <= fit) {
+					generationsWithNoProgress++;
+				} else {
+					generationsWithNoProgress = 0;
+				}
+				
+				bestFit = fit;
+				
+			} while (bestFit > 0 && count < parameters.getMaxGenerations() && generationsWithNoProgress < parameters.getMaxGenerationsWithNoProgress());
 			System.out.println("Computed in " + count + " generations");
 		} catch (Exception e) {
 			e.printStackTrace();

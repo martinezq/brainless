@@ -249,12 +249,12 @@ public class HumanBody extends ComplexBody {
 		spineMiddleJoint.setMaxForce(Force.MAX); 
 		spineUpperJoint.setMaxForce(Force.MAX);
 		
-		leftLegUpperJoint.setMaxForce(Force.HIGH); 
+		leftLegUpperJoint.setMaxForce(Force.MAX); 
 		leftLegLowerJoint.setMaxForce(Force.MAX);
 		leftFeetJoint.setMaxForce(Force.HIGH);
 		leftFeet2Joint.setMaxForce(Force.AVG);
 		
-		rightLegUpperJoint.setMaxForce(Force.HIGH);
+		rightLegUpperJoint.setMaxForce(Force.MAX);
 		rightLegLowerJoint.setMaxForce(Force.MAX);
 		rightFeetJoint.setMaxForce(Force.HIGH);
 		rightFeet2Joint.setMaxForce(Force.AVG);

@@ -17,8 +17,9 @@ public class SimpleCreatureWalkingFitCalculator implements IGeneticFitCalculator
 		simulation.simulate();
 		
 		double endPosX = character.getBody().getMasterBone().getPhysicalBody().getPosition().x;
-
-		double fit =  1.0 / Math.abs(endPosX);
+		double energyUsed = character.getBody().getEnergyUsed() * 1000.0;
+		
+		double fit =  energyUsed / Math.abs(endPosX);
 		
 		return fit;
 		

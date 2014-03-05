@@ -6,12 +6,15 @@ import org.mysoft.brainless.neural.core.NetworkOutput;
 
 public class BoneJoint implements NetworkOutput {
 
-
 	protected RevoluteJoint revoluteJoint;
 	protected double maxForce = Force.MAX;
-	
+
 	protected double maxSpeed = 3.0;
+
+	protected double energyLeft = 1000.0;
 	
+	protected IEnergyMonitor energyMonitor = null;
+
 	public final static BoneJoint create(RevoluteJoint revoluteJoint, double maxForce) {
 		BoneJoint joint = new BoneJoint();
 		joint.revoluteJoint = revoluteJoint;
@@ -25,7 +28,6 @@ public class BoneJoint implements NetworkOutput {
 		return joint;
 	}
 
-	
 	public RevoluteJoint getRevoluteJoint() {
 		return revoluteJoint;
 	}
@@ -35,13 +37,13 @@ public class BoneJoint implements NetworkOutput {
 		revoluteJoint.setMaxMotorTorque((float) maxForce);
 		revoluteJoint.enableMotor(true);
 	}
-	
+
 	public void applyTorque(double torque) {
-		revoluteJoint.setMaxMotorTorque((float)(maxForce * Math.abs(torque)));
-		revoluteJoint.setMotorSpeed((float)(maxSpeed * torque));
+		revoluteJoint.setMaxMotorTorque((float) (maxForce * Math.abs(torque)));
+		revoluteJoint.setMotorSpeed((float) (maxSpeed * torque));
 		revoluteJoint.enableMotor(true);
 	}
-	
+
 	public void hold() {
 		hold(maxForce);
 	}
@@ -54,14 +56,32 @@ public class BoneJoint implements NetworkOutput {
 
 	@Override
 	public void perform(double value) {
-		if(value == 0.0) {
-			hold();
-		} else {
-			applyTorque(value);
+
+		double energy = Math.abs(revoluteJoint.m_motorImpulse);
+		
+		if(energyMonitor != null) {
+			energyMonitor.energyUsed(energy);
 		}
+
+		if (energyLeft < 0) {
+			hold(0.0);
+		} else {
+
+			if (value == 0.0) {
+				hold();
+			} else {
+				applyTorque(value);
+			}
+		}
+
 	}
-	
+
 	public void setMaxForce(double maxForce) {
 		this.maxForce = maxForce;
 	}
+
+	public void setEnergyMonitor(IEnergyMonitor energyMonitor) {
+		this.energyMonitor = energyMonitor;
+	}
+
 }

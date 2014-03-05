@@ -17,6 +17,8 @@ public class GeneticParameters<T extends Chromosome> {
 	private int maxGenerations = 16;
 
 	private int fitCalculationRepeats = 1;
+	
+	private int maxGenerationsWithNoProgress = Integer.MAX_VALUE;
 
 	public IMutationOperator<T> getMutationOperator() {
 		return mutationOperator;
@@ -88,5 +90,13 @@ public class GeneticParameters<T extends Chromosome> {
 	
 	public void setCrossoverDisabled(boolean crossoverDisabled) {
 		this.crossoverDisabled = crossoverDisabled;
+	}
+	
+	public int getMaxGenerationsWithNoProgress() {
+		return maxGenerationsWithNoProgress;
+	}
+	
+	public void setMaxGenerationsWithNoProgress(int maxGenerationsWithNoProgress) {
+		this.maxGenerationsWithNoProgress = maxGenerationsWithNoProgress;
 	}
 }

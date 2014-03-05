@@ -30,6 +30,7 @@ public class SimpleCreatureNeuralNetworkGeneration extends Generation<NeuralNetw
 		NeuralNetwork neuralNetwork = NeuralNetwork.create(32, 32, 32, 32, outputs + storage);
 		neuralNetwork.addStorageNeurons(storage);
 		neuralNetwork.randomizeWeights();
+		//neuralNetwork.resetWeights();
 
 		return NeuralNetworkChromosome.create(neuralNetwork);
 	}

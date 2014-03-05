@@ -2,9 +2,11 @@ package org.mysoft.brainless.body;
 
 import org.mysoft.brainless.sensor.BodySensor;
 
-public abstract class ComplexBody extends WorldObject {
+public abstract class ComplexBody extends WorldObject implements IEnergyMonitor{
 
 	protected Bone masterBone;
+
+	protected double energyUsed = 0;
 	
 	public void init() {
 		initBones();
@@ -23,5 +25,13 @@ public abstract class ComplexBody extends WorldObject {
 		return masterBone;
 	}
 	
+	@Override
+	public void energyUsed(double energy) {
+		this.energyUsed += energy;
+	}
+	
+	public double getEnergyUsed() {
+		return energyUsed;
+	}
 	
 }

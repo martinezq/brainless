@@ -33,15 +33,16 @@ public class SimpleCreatureSimulationTestbedModel extends CharacterSimulationTes
 	private NeuralNetwork learn() {
 
 		GeneticParameters<NeuralNetworkChromosome> params = new GeneticParameters<NeuralNetworkChromosome>();
-		params.setGenerationSize(64);
+		params.setGenerationSize(512);
 		params.setMaxGenerations(64);
-		params.setMutationProbability(0.01);
+		params.setMutationProbability(0.05);
 		params.setCrossoverDisabled(false);
 		params.setBestImmortal(false);
 		params.setCrossoverOperator(new WeightLevelNeuralNetworkCrossoverOperator());
 		params.setMutationOperator(new DefaultNeuralNetworkMutationOperator());
 		params.setFitCalculator(new SimpleCreatureWalkingFitCalculator());
 		params.setFitCalculationRepeats(1);
+		params.setMaxGenerationsWithNoProgress(16);
 
 		GeneticEngine<NeuralNetworkChromosome> engine = new GeneticEngine<>(params);
 
