@@ -33,8 +33,8 @@ public class SimpleCreatureSimulationTestbedModel extends CharacterSimulationTes
 	private NeuralNetwork learn() {
 
 		GeneticParameters<NeuralNetworkChromosome> params = new GeneticParameters<NeuralNetworkChromosome>();
-		params.setGenerationSize(512);
-		params.setMaxGenerations(64);
+		params.setGenerationSize(32);
+		params.setMaxGenerations(32);
 		params.setMutationProbability(0.05);
 		params.setCrossoverDisabled(false);
 		params.setBestImmortal(false);

@@ -27,16 +27,9 @@ public class HumanStandingFitCalculator implements IGeneticFitCalculator<NeuralN
 		double deltaY = simulation.getCharacter().getDeltaY() + 1.0;
 		
 		double minY = simulation.getCharacter().getMinY();
-/*		
-		try {
-			Thread.sleep(50);
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
-		}
-
-*/
-
-		return 1.0 / (minY + 2.0);
+		double energyUsed = character.getBody().getEnergyUsed() * 1.0;
+		
+		return energyUsed / (minY + 10.0);
 	}
 
 }

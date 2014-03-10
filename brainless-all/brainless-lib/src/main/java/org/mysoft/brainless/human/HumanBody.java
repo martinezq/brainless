@@ -133,6 +133,10 @@ public class HumanBody extends ComplexBody {
 				rightHandUpperJoint, rightHandMiddleJoint, rightHandLowerJoint
 		};
 		
+		for(BoneJoint j: joints) {
+			j.setEnergyMonitor(this);
+		}
+		
 		return joints;
 	}
 	
@@ -151,7 +155,7 @@ public class HumanBody extends ComplexBody {
 			BoneXLinearVelocitySensor lx = BoneXLinearVelocitySensor.create(this, bone);
 			BoneYLinearVelocitySensor ly = BoneYLinearVelocitySensor.create(this, bone);
 			
-			sensors.add(x);
+			//sensors.add(x);
 			sensors.add(y);
 			sensors.add(a);
 			sensors.add(v);
@@ -196,9 +200,9 @@ public class HumanBody extends ComplexBody {
 	
 	private void initLeftLeg() {
 		leftLegUpper = bodyFactory.createSegment(0f, 7f, 0f, 4f, Density.HIGH);
-		leftLegLower = bodyFactory.createSegment(0f, 4f, 0f, 0f, Density.HIGH);
-		leftFeet = bodyFactory.createSegment(-1f, 0f, 0f, 0f, Density.AVG);
-		leftFeet2 = bodyFactory.createSegment(-2f, 0f, -1f, 0f, Density.AVG);
+		leftLegLower = bodyFactory.createSegment(0f, 4f, 1f, 0f, Density.HIGH);
+		leftFeet = bodyFactory.createSegment(0f, 0f, 1f, 0f, Density.AVG);
+		leftFeet2 = bodyFactory.createSegment(-1f, 0f, 0f, 0f, Density.AVG);
 		
 		leftLegUpperJoint = spineLower.connectAtStart(leftLegUpper, Angles.d2r(-360-135), Angles.d2r(-300));
 		leftLegLowerJoint = leftLegUpper.connectAtEnd(leftLegLower, Angles.d2r(0), Angles.d2r(150));
@@ -210,9 +214,9 @@ public class HumanBody extends ComplexBody {
 	
 	private void initRightLeg() {
 		rightLegUpper = bodyFactory.createSegment(0f, 7f, 0f, 4f, Density.HIGH);
-		rightLegLower = bodyFactory.createSegment(0f, 4f, 0f, 0f, Density.HIGH);
-		rightFeet = bodyFactory.createSegment(-1f, 0f, 0f, 0f, Density.AVG);
-		rightFeet2 = bodyFactory.createSegment(-2f, 0f, -1f, 0f, Density.AVG);
+		rightLegLower = bodyFactory.createSegment(0f, 4f, 1f, 0f, Density.HIGH);
+		rightFeet = bodyFactory.createSegment(0f, 0f, 1f, 0f, Density.AVG);
+		rightFeet2 = bodyFactory.createSegment(-1f, 0f, 0f, 0f, Density.AVG);
 		
 		rightLegUpperJoint = spineLower.connectAtStart(rightLegUpper, Angles.d2r(-360-135), Angles.d2r(-300));
 		rightLegLowerJoint = rightLegUpper.connectAtEnd(rightLegLower, Angles.d2r(0), Angles.d2r(150));

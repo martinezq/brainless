@@ -37,7 +37,7 @@ public class HumanSimulationTestbedModel extends CharacterSimulationTestbedModel
 	private NeuralNetwork learn() {
 
 		GeneticParameters<NeuralNetworkChromosome> params = new GeneticParameters<NeuralNetworkChromosome>();
-		params.setGenerationSize(512);
+		params.setGenerationSize(256);
 		params.setMaxGenerations(64);
 		params.setMutationProbability(0.05);
 		params.setBestImmortal(false);

@@ -27,10 +27,10 @@ public class HumanNeuralNetworkGeneration extends Generation<NeuralNetworkChromo
 		int outputs = 18;
 		int storage = 32;
 		
-		NeuralNetwork neuralNetwork = NeuralNetwork.create(32, 32, 32, 32, outputs + storage);
+		NeuralNetwork neuralNetwork = NeuralNetwork.create(64, 64, 64, 64, 64, 64, 64, 64, outputs + storage);
 		neuralNetwork.addStorageNeurons(storage);
-		neuralNetwork.randomizeWeights();
-		//neuralNetwork.resetWeights();
+		//neuralNetwork.randomizeWeights();
+		neuralNetwork.resetWeights();
 
 		return NeuralNetworkChromosome.create(neuralNetwork);
 	}

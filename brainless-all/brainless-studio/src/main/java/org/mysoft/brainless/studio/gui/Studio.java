@@ -1,4 +1,4 @@
-package org.mysoft.brainless.studio;
+package org.mysoft.brainless.studio.gui;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -12,21 +12,18 @@ public class Studio extends Application {
 
 	@Override
 	public void start(Stage stage) {
-		Button bt = new Button("Print HelloWorld");
-		bt.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
-				System.out.println("HelloWorld!");
-			}
-		});
+		
+		SimulationPreview preview = new SimulationPreview();
 
-		StackPane root = new StackPane();
-		Scene scene = new Scene(root, 300, 150);
-		root.getChildren().add(bt);
+		Scene scene = new Scene(preview, 640, 400);
 
-		stage.setTitle("HelloWorld in JavaFX 2.0");
+		stage.setTitle("Brainless studio 0.1");
 		stage.setScene(scene);
 		stage.show();
+		
+		preview.init();
+		
+		preview.start();
 	}
 
 	/**

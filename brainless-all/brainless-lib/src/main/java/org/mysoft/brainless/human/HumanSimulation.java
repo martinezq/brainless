@@ -11,7 +11,7 @@ public class HumanSimulation extends CharacterSimulation<HumanCharacter> {
 	public final static HumanSimulation create(NeuralNetwork nn) {
 		HumanSimulation s = new HumanSimulation();
 		SimulationParameters p = new SimulationParameters();
-		p.setDurationSeconds(6);
+		p.setDurationSeconds(10);
 		s.setParameters(p);
 		s.neuralNetwork = nn;
 		return s;

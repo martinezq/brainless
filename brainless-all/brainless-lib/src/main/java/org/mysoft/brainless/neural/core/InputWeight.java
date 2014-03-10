@@ -23,6 +23,7 @@ public class InputWeight {
 
 	public static InputWeight random() {
 		double value =  (MAX - MIN) * Math.random() + MIN;
+		value = value * Math.random();
 		return create(value);
 	}
 	
